@@ -1,0 +1,797 @@
+Starting Bismark methylation extractor ...
+Running Bismark Mapper in Parallel mode, number of jobs that proccessing at same time: 4 .
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138710.bam
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138711.bam
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138712.bam
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138713.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138710 finished. Duration time 32 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138714.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138711 finished. Duration time 35 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138715.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138713 finished. Duration time 38 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138716.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138712 finished. Duration time 43 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138717.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138714 finished. Duration time 26 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138718.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138715 finished. Duration time 26 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138719.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138716 finished. Duration time 30 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138720.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138717 finished. Duration time 29 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138721.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138719 finished. Duration time 24 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138722.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138718 finished. Duration time 29 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138723.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138721 finished. Duration time 30 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138724.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138720 finished. Duration time 44 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138725.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138722 finished. Duration time 26 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138726.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138723 finished. Duration time 33 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138727.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138724 finished. Duration time 24 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138728.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138725 finished. Duration time 24 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138729.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138728 finished. Duration time 18 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138730.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138727 finished. Duration time 28 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138731.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138729 finished. Duration time 16 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138732.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138731 finished. Duration time 22 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138733.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138730 finished. Duration time 29 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138734.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138732 finished. Duration time 34 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138735.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138734 finished. Duration time 18 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138736.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138733 finished. Duration time 22 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138737.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138735 finished. Duration time 20 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138738.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138736 finished. Duration time 29 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138739.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138737 finished. Duration time 28 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138740.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138738 finished. Duration time 26 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138741.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138740 finished. Duration time 19 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138742.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138741 finished. Duration time 19 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138743.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138739 finished. Duration time 44 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138744.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138742 finished. Duration time 29 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138745.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138743 finished. Duration time 19 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138746.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138744 finished. Duration time 34 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138747.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138745 finished. Duration time 29 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138748.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138746 finished. Duration time 35 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138749.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138747 finished. Duration time 26 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138750.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138748 finished. Duration time 38 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138751.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138749 finished. Duration time 30 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138752.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138750 finished. Duration time 29 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138753.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138752 finished. Duration time 39 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138754.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138751 finished. Duration time 41 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138755.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138753 finished. Duration time 30 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138756.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138754 finished. Duration time 26 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138757.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138755 finished. Duration time 34 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138758.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138756 finished. Duration time 37 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138759.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138757 finished. Duration time 29 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138760.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138758 finished. Duration time 22 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138761.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138759 finished. Duration time 26 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138762.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138760 finished. Duration time 22 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138764.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138761 finished. Duration time 40 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138765.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138762 finished. Duration time 30 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138766.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138764 finished. Duration time 35 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138767.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138766 finished. Duration time 18 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138768.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138765 finished. Duration time 26 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138769.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138767 finished. Duration time 14 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138770.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138769 finished. Duration time 23 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138771.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138768 finished. Duration time 32 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138772.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138770 finished. Duration time 30 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138773.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138771 finished. Duration time 20 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138774.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138773 finished. Duration time 26 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138775.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138772 finished. Duration time 33 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138776.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138774 finished. Duration time 22 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138777.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138775 finished. Duration time 19 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138778.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138776 finished. Duration time 20 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138779.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138777 finished. Duration time 24 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138780.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138778 finished. Duration time 27 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138781.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138779 finished. Duration time 43 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138782.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138781 finished. Duration time 26 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138783.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138780 finished. Duration time 47 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138784.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138782 finished. Duration time 18 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138785.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138783 finished. Duration time 26 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138786.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138784 finished. Duration time 23 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138787.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138785 finished. Duration time 26 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138788.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138787 finished. Duration time 17 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138789.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138786 finished. Duration time 23 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138790.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138788 finished. Duration time 15 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138791.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138790 finished. Duration time 22 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138792.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138789 finished. Duration time 29 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138793.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138791 finished. Duration time 24 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138794.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138794 finished. Duration time 20 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138795.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138793 finished. Duration time 24 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138796.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138792 finished. Duration time 28 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138797.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138795 finished. Duration time 24 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138798.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138797 finished. Duration time 23 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138799.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138796 finished. Duration time 26 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138800.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138798 finished. Duration time 21 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138801.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138800 finished. Duration time 21 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138802.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138799 finished. Duration time 27 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138803.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138801 finished. Duration time 22 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138804.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138802 finished. Duration time 22 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138805.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138803 finished. Duration time 42 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138806.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138805 finished. Duration time 26 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138807.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138804 finished. Duration time 31 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138808.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138807 finished. Duration time 22 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138809.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138806 finished. Duration time 27 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138810.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138808 finished. Duration time 32 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138811.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138809 finished. Duration time 23 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138812.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138810 finished. Duration time 31 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138813.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138811 finished. Duration time 27 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138814.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138813 finished. Duration time 22 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138815.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138812 finished. Duration time 35 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138816.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138814 finished. Duration time 28 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138817.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138815 finished. Duration time 25 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138818.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138816 finished. Duration time 24 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138819.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138817 finished. Duration time 18 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138820.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138819 finished. Duration time 21 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138821.bam
+Bismark meth extractor for SRR1138818 finished. Duration time 23 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138822.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138820 finished. Duration time 33 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138823.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138822 finished. Duration time 26 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138824.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138821 finished. Duration time 27 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138825.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138823 finished. Duration time 32 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138826.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138825 finished. Duration time 19 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138827.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138824 finished. Duration time 24 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138828.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138826 finished. Duration time 19 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138829.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138827 finished. Duration time 19 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138830.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138828 finished. Duration time 20 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138831.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138829 finished. Duration time 18 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138832.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138831 finished. Duration time 21 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138833.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138830 finished. Duration time 32 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138834.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138832 finished. Duration time 32 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138835.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138834 finished. Duration time 23 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138836.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138833 finished. Duration time 30 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138837.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138835 finished. Duration time 23 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138838.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138837 finished. Duration time 28 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138839.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138836 finished. Duration time 30 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138840.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138840 finished. Duration time 16 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138841.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138839 finished. Duration time 20 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138842.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138838 finished. Duration time 43 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138843.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138842 finished. Duration time 19 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138844.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138843 finished. Duration time 16 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138845.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138841 finished. Duration time 35 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138846.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138844 finished. Duration time 26 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138847.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138845 finished. Duration time 24 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138848.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138847 finished. Duration time 21 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138849.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138846 finished. Duration time 36 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138850.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138848 finished. Duration time 22 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138851.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138849 finished. Duration time 22 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138852.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138850 finished. Duration time 29 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138853.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138851 finished. Duration time 29 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138854.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138852 finished. Duration time 22 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138855.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138853 finished. Duration time 18 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138856.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138856 finished. Duration time 21 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138857.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138854 finished. Duration time 46 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138858.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138855 finished. Duration time 40 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138859.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138857 finished. Duration time 18 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138860.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138859 finished. Duration time 22 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138861.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138858 finished. Duration time 29 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138862.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138860 finished. Duration time 29 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138863.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138861 finished. Duration time 24 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138864.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138862 finished. Duration time 26 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138865.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138863 finished. Duration time 23 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138866.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138864 finished. Duration time 24 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138867.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138865 finished. Duration time 23 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138868.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138866 finished. Duration time 26 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138869.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138867 finished. Duration time 25 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138870.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138868 finished. Duration time 30 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138871.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138869 finished. Duration time 24 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138872.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138872 finished. Duration time 6 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138873.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138871 finished. Duration time 23 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138874.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138870 finished. Duration time 37 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138875.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138874 finished. Duration time 22 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138876.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138875 finished. Duration time 22 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138877.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138873 finished. Duration time 54 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138878.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138877 finished. Duration time 29 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138879.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138878 finished. Duration time 21 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138880.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138876 finished. Duration time 43 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138881.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138879 finished. Duration time 25 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138882.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138880 finished. Duration time 24 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138883.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138881 finished. Duration time 29 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138884.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138882 finished. Duration time 22 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138885.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138883 finished. Duration time 25 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138886.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138884 finished. Duration time 20 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138887.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138885 finished. Duration time 22 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138888.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138887 finished. Duration time 26 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138889.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138886 finished. Duration time 38 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138890.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138888 finished. Duration time 36 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138891.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138889 finished. Duration time 29 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138892.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138890 finished. Duration time 25 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138893.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138891 finished. Duration time 26 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138894.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138892 finished. Duration time 21 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138895.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138893 finished. Duration time 24 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138896.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138894 finished. Duration time 24 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138897.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138896 finished. Duration time 29 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138898.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138895 finished. Duration time 35 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138899.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138897 finished. Duration time 23 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138900.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138899 finished. Duration time 24 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138901.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138898 finished. Duration time 35 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138902.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138902 finished. Duration time 17 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138903.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138901 finished. Duration time 29 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138904.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138903 finished. Duration time 18 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138905.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138904 finished. Duration time 21 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138906.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138905 finished. Duration time 26 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138907.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138906 finished. Duration time 25 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138908.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138907 finished. Duration time 32 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138909.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138908 finished. Duration time 38 Minutes.
+Running Bismark meth extractor for /mnt/extStorage/jlab_wd/yadi/result_200_88core/bismark-deduplicate/SRR1138910.bam
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138910 finished. Duration time 28 Minutes.
+Moving Cx-reports to the /mnt/extStorage/jlab_wd/yadi/result_200_88core/cx-reports folder.
+Removing intermediate files... 
+Bismark meth extractor for SRR1138909 finished. Duration time 41 Minutes.
+Bismark meth extractor finished. Duration time 1863 Minutes.
