@@ -4,7 +4,7 @@
 \alias{dMatrices}
 \title{Constructing D-Matrices}
 \usage{
-dMatrices(directory, cytosines, posteriorMaxFilter)
+dMatrices(directory, cytosines, posteriorMaxFilter, genTable)
 }
 \arguments{
 \item{directory}{Path to the data-source directory}
@@ -12,6 +12,8 @@ dMatrices(directory, cytosines, posteriorMaxFilter)
 \item{cytosines}{Type of cytosines (CHG or CG or CHH)}
 
 \item{posteriorMaxFilter}{Filter value, based on posteriorMax ex: >= 0.95 or 0.99}
+
+\item{genTable}{Generation table name, you can find sample file in "extdata" generations.fn}
 }
 \value{
 A matrix of the infile
