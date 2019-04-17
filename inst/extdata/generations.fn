@@ -1,7 +1,7 @@
-filename, generation, leaf, cmt5
-methylome_Col_G0-merged.txt , G0, , 
+samplename, generation,leverage,cmt5
+methylome_Col_G0-merged.txt, G0, , 
 methylome_Col_G11_L2-merged.txt,G11,L2,
-methylome_Col_G11_L8-merged.txt, G11, L8,
+methylome_Col_G11_L8-merged.txt, G11,L8,
 methylome_Col_G1_L2-merged.txt,G1,L2,
 methylome_Col_G1_L8-merged.txt,G1,L8,
 methylome_Col_G2_L2-merged.txt,G2,L2,

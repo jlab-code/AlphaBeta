@@ -9,18 +9,20 @@ dMatrices(directory, cytosines, posteriorMaxFilter, genTable)
 \arguments{
 \item{directory}{Path to the data-source directory}
 
-\item{cytosines}{Type of cytosines (CHG or CG or CHH)}
+\item{cytosines}{Type of cytosines (CHH/CHG/CG)}
 
 \item{posteriorMaxFilter}{Filter value, based on posteriorMax ex: >= 0.95 or 0.99}
 
 \item{genTable}{Generation table name, you can find sample file in "extdata" generations.fn}
 }
 \value{
-A matrix of the infile
+generating divergence matrices file.
 }
 \description{
-This function loads a file as a matrix. It assumes that the first column
-contains the rownames and the subsequent columns are the sample identifiers.
-Any rows with duplicated row names will be dropped with the first one being
-kepted.
+Estimating epimutation rates from high-throughput DNA methylation data
+}
+\examples{
+dMatrices("data-source directory", "CHH", 0.99, "table.fn")
+generation table name should be in this format:
+system.file("extdata","generations.fn", package = "alphabeta")
 }

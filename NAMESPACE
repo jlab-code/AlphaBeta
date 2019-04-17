@@ -2,3 +2,8 @@
 
 export(dMatrices)
 export(load_mat)
+import(dplyr)
+importFrom(data.table,as.data.table)
+importFrom(data.table,fread)
+importFrom(data.table,fwrite)
+importFrom(stringr,str_replace_all)
