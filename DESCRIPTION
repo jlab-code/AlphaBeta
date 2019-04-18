@@ -3,12 +3,12 @@ Type: Package
 Title: What the Package Does (Title Case)
 Version: 0.1.0
 Author: Y.Shahryary
-Maintainer: The package maintainer <yourself@somewhere.net>
+Maintainer: The package maintainer <shahryary@gmail.com>
 Description: More about what it does (maybe more than one line)
     Use four spaces when indenting paragraphs within the Description.
 License: What license is it under?
 Depends:
-    R (>= 3.4.0)
+    R (>= 3.5.0)
 Imports:
     dplyr (>= 0.7),
     data.table (>= 1.10),
@@ -20,3 +20,4 @@ VignetteBuilder: knitr
 RoxygenNote: 6.1.1
 Suggests: knitr,
     rmarkdown
+biocViews: Epigenetics

@@ -6,5 +6,5 @@ startTime <- function(...) {
 }
 stopTime <- function(st) {
   sttime <- proc.time() - st
-  message(" ", round(sttime[3],2), "s")
+  message("Total time: ", round(sttime[3],2), "s")
 }
