@@ -16,32 +16,27 @@
 #' @export
 #' @examples
 #'## Get some toy data
-#' file <- system.file("extdata","generation.fa", package="alphabeta")
-#' dMatrices(file, "CHH", 0.99)
+#' file <- system.file("extdata","generations.fn", package="alphabeta")
+#'
+#' dMatrices(file, "CG", 0.99)
 
 
 dMatrices <- function(genTable, cytosines, posteriorMaxFilter) {
   # checking errors
-  # check if genTable is exist then check file exist one-by-one
 
-  list_cyt <- c("CHH", "CHG", "CG")
-  if (!cytosines %in% list_cyt | length(cytosines) > 1) {
-    stop("Please enter the valid Cytosines. (CHH/CHG/CG)")
-  }
-  # check if posteriorMaxFiltervalue is correct
-  pMFilter <- as.numeric(posteriorMaxFilter)
-  if (pMFilter <= 0 | pMFilter > 1) {
-    stop("posteriorMax value must be < 1 and >= 0. ")
-  }
+  inputCheck(genTable, cytosines, posteriorMaxFilter)
+
   gen_tbl <- fread(genTable)
+
   mt <- startTime("Preparing data-sets...\n")
   pairs <- utils::combn(gen_tbl$samplename, 2)
-  final_ds <- runMatrix(pairs, cytosines, pMFilter, genTable)
+
+  final_ds <- runMatrix(pairs, cytosines, posteriorMaxFilter, genTable)
   cat("Generating d-matrics done.\n")
   cat("Writing to the files:\n")
   colnames(final_ds)<-(c("pair-1", "pair-2", "D-value", "cytosines", "filter"))
   saved_file <-
-    paste0(getwd(), "/", "d-matrices-", cytosines, "-", pMFilter, ".csv")
+    paste0(getwd(), "/", "d-matrices-", cytosines, "-", posteriorMaxFilter, ".csv")
   fwrite(
     final_ds,
     file = saved_file ,
@@ -71,7 +66,7 @@ getNames <- function(genTable, nameDF){
     return(gen_name)
 }
 
-runMatrix <- function(pairs, cytosines, pMFilter, genTable){
+runMatrix <- function(pairs, cytosines, posteriorMaxFilter, genTable){
  flag=TRUE
  pair_len <- length(pairs)/2
  for (i in seq_len(pair_len)){
@@ -91,24 +86,13 @@ runMatrix <- function(pairs, cytosines, pMFilter, genTable){
 
   # filter out based on context & posteriorMax
   file_A <- file_A %>%
-  filter(file_A$context == cytosines & file_A$posteriorMax >= pMFilter )
+  filter(file_A$context == cytosines & file_A$posteriorMax >= posteriorMaxFilter )
   file_B <- file_B %>%
-  filter(file_B$context == cytosines & file_B$posteriorMax >= pMFilter )
-  # replace pattern in Data-set A
-  file_A$status <- str_replace_all(file_A$status,
-                   pattern = "Unmethylated", replacement = "U")
-  file_A$status <- str_replace_all(file_A$status,
-                   pattern = "Intermediate", replacement = "I")
-  file_A$status <- str_replace_all(file_A$status,
-                   pattern = "Methylated", replacement = "M")
-  # replace pattern in Data-set B
-  file_B$status <- str_replace_all(file_B$status,
-                   pattern = "Unmethylated", replacement = "U")
-  file_B$status <- str_replace_all(file_B$status,
-                   pattern = "Intermediate", replacement = "I")
-  file_B$status <- str_replace_all(file_B$status,
-                   pattern = "Methylated", replacement = "M")
-
+  filter(file_B$context == cytosines & file_B$posteriorMax >= posteriorMaxFilter )
+  # check ad replace pattern in Data-set A
+  returnFile <- statusStringCheck(file_A, file_B)
+  file_A <- returnFile[[1]]
+  file_B <- returnFile[[2]]
   cat("Computing divergence matrix...\n")
   file_A$seqnames<-as.character(file_A$seqnames)
   file_B$seqnames<-as.character(file_B$seqnames)
@@ -116,17 +100,17 @@ runMatrix <- function(pairs, cytosines, pMFilter, genTable){
             inner_join(file_A, file_B, by = c("seqnames","start","strand")))
 
   #set status 0=rows is same, 1=M/U 2=I
-  rm(file_A,file_B)
+  rm(file_A,file_B,returnFile)
 
   tmp_db$state <- ifelse(tmp_db$status.x==tmp_db$status.y,0,
                   (ifelse((tmp_db$status.x=="I" | tmp_db$status.y=="I" ),2,1)))
 
   # substract number of Intermediate in data-set
-  number_none_inter<-sum(tmp_db$state==1)   #M --> U OR U --> M
-  number_intermediate<-sum(tmp_db$state==2) #Intermediate
-  Total=NROW(tmp_db$state)                  #Total rows
+  number_none_inter <- sum(tmp_db$state==1)     #M --> U OR U --> M
+  number_intermediate <- sum(tmp_db$state==2)   #Intermediate
+  Total <- NROW(tmp_db$state)                   #Total rows
   # number of (M --> U or U --> M  and 1/2 I ) / total of rows
-  D=(number_none_inter+(number_intermediate*0.5))/Total
+  D <- (number_none_inter+(number_intermediate*0.5))/Total
   # reformat
   floor_dec <- function(x, level=1) round(x - 5*10^(-level-1), level)
   D <-floor_dec(as.numeric(D),6)
@@ -136,11 +120,11 @@ runMatrix <- function(pairs, cytosines, pMFilter, genTable){
        tmp_big$X2<-name_ds[[2]]
        tmp_big$X3<-D
        tmp_big$X4<-cytosines
-       tmp_big$X5<-pMFilter
+       tmp_big$X5<-posteriorMaxFilter
        flag = FALSE
     } else {
     tmp<-NULL
-    tmp<-list(name_ds[[1]],name_ds[[2]],D,cytosines,pMFilter)
+    tmp<-list(name_ds[[1]],name_ds[[2]],D,cytosines,posteriorMaxFilter)
     tmp_big<-rbind(tmp_big,tmp)
     rm(tmp_db)
     }

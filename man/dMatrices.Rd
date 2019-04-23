@@ -23,6 +23,7 @@ Estimating epimutation rates from high-throughput DNA methylation data
 }
 \examples{
 ## Get some toy data
-file <- system.file("extdata","generation.fa", package="alphabeta")
-dMatrices(file, "CHH", 0.99)
+file <- system.file("extdata","generations.fn", package="alphabeta")
+
+dMatrices(file, "CG", 0.99)
 }
