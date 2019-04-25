@@ -16,7 +16,7 @@ Imports:
     data.table (>= 1.10),
     stringr (>= 1.3)
 Encoding: UTF-8
-LazyData: true
+LazyData: false
 LazyLoad: yes
 VignetteBuilder: knitr
 RoxygenNote: 6.1.1

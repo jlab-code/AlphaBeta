@@ -58,12 +58,32 @@ Then you can use the chunk option `fig.cap = "Your figure caption."` in **knitr*
 
 You can write math expressions, e.g. $Y = X\beta + \epsilon$, footnotes^[A footnote here.], and tables, e.g. using `knitr::kable()`.
 
+
+
 ```{r, echo=FALSE, results='asis'}
-file1<-system.file("extdata","generations.fn", package = "alphabeta")
-knitr::kable(head(read.csv(file1), 5))
+fileFn <- system.file("extdata","generations.fn", package = "alphabeta")
+df <- read.csv(fileFn)
+knitr::kable(head(df, 5))
+```
+
+
+
+
+
+
+```{r, echo=FALSE, results='asis'}
+fileCsv <- system.file("extdata","d-matrices-CG-0.99.csv", package = "alphabeta")
+matrices <- read.csv(fileCsv, sep = "\t",check.names=FALSE)
+knitr::kable(head(matrices, 5))
 ```
 
 Also a quote using `>`:
 
 > "He who gives up [code] safety for [code] speed deserves neither."
 ([via](https://twitter.com/hadleywickham/status/504368538874703872))
+
+
+```{r}
+sessionInfo()
+```
+

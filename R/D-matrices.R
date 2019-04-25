@@ -17,8 +17,10 @@
 #' @examples
 #'## Get some toy data
 #' file <- system.file("extdata","generations.fn", package="alphabeta")
-#'
-#' dMatrices(file, "CG", 0.99)
+#' df<-read.csv(file)
+#' df$samplename<-sub("^",paste0(dirname(file),"/"),df$samplename )
+#' write.csv(df, file = paste0(dirname(file),"/generations.fn"),row.names=FALSE,quote=FALSE)
+#' dMatrices(file, "CHH", 0.99)
 
 
 dMatrices <- function(genTable, cytosines, posteriorMaxFilter) {
