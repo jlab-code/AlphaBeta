@@ -29,6 +29,7 @@ dMatrices <- function(genTable, cytosines, posteriorMaxFilter) {
   inputCheck(genTable, cytosines, posteriorMaxFilter)
 
   gen_tbl <- fread(genTable)
+  genTable <- gen_tbl
 
   mt <- startTime("Preparing data-sets...\n")
   pairs <- utils::combn(gen_tbl$samplename, 2)
@@ -49,48 +50,52 @@ dMatrices <- function(genTable, cytosines, posteriorMaxFilter) {
   )
   cat(paste0(saved_file, "\n"))
   cat(stopTime(mt))
+ # rm(list=ls())
 }
 
 # -------------------------------------------------------------
 # getting file names
 #-------------------------------------------------------------
-getNames <- function(genTable, nameDF){
-    gen_tbl <- fread(genTable)
-    strSearch<-nameDF
-    tmp_A <- gen_tbl[gen_tbl$samplename == strSearch,][,2]
-    tmp_B <- gen_tbl[gen_tbl$samplename == strSearch,][,3]
-    if (tmp_B == "" | is.na(tmp_B) | is.null(tmp_B) ){
-    tmp_B<-""
-    gen_name <- paste0(tmp_A,tmp_B)
-    }else{
-    gen_name <- paste0(tmp_A,"-",tmp_B)
-    }
-    return(gen_name)
-}
+# getNames <- function(genTable, nameDF){
+#     gen_tbl <- fread(genTable)
+#     strSearch<-nameDF
+#     tmp_A <- gen_tbl[gen_tbl$samplename == strSearch,][,2]
+#     tmp_B <- gen_tbl[gen_tbl$samplename == strSearch,][,3]
+#     if (tmp_B == "" | is.na(tmp_B) | is.null(tmp_B) ){
+#     tmp_B<-""
+#     gen_name <- paste0(tmp_A,tmp_B)
+#     }else{
+#     gen_name <- paste0(tmp_A,"-",tmp_B)
+#     }
+#     return(gen_name)
+# }
 
-runMatrix <- function(pairs, cytosines, posteriorMaxFilter, genTable){
+runMatrix <- function(pairs, cytosines, posteriorMaxFilter,genTable){
  flag=TRUE
  pair_len <- length(pairs)/2
  for (i in seq_len(pair_len)){
   df <-pairs[,i]
-  name_ds<- getNames(genTable, df[1])
-  name_ds[2]<- getNames(genTable, df[2])
+  name_ds<- getNames( df[1],genTable)
+  name_ds[2]<- getNames(df[2],genTable)
   cat(paste0("Running: ",name_ds[[1]], " and ",
    name_ds[[2]], " ( ", i , " out of ",length(pairs)/2," pairs )"),"\n")
 
   cat("Reading data-set and constructing data-frames ...\n")
-  file_A <- fread(df[1], skip = 0, sep = '\t',
-       select=c("seqnames","start","strand","context","posteriorMax","status"),
-       showProgress=FALSE)
-  file_B <- fread(df[2], skip = 0, sep = '\t',
-       select=c("seqnames","start","strand","context","posteriorMax","status"),
-       showProgress=FALSE)
-
-  # filter out based on context & posteriorMax
-  file_A <- file_A %>%
-  filter(file_A$context == cytosines & file_A$posteriorMax >= posteriorMaxFilter )
-  file_B <- file_B %>%
-  filter(file_B$context == cytosines & file_B$posteriorMax >= posteriorMaxFilter )
+  # file_A <- fread(df[1], skip = 0, sep = '\t',
+  #      select=c("seqnames","start","strand","context","posteriorMax","status"),
+  #      showProgress=FALSE)
+  # file_B <- fread(df[2], skip = 0, sep = '\t',
+  #      select=c("seqnames","start","strand","context","posteriorMax","status"),
+  #      showProgress=FALSE)
+  #
+  # # filter out based on context & posteriorMax
+  # file_A <- file_A %>%
+  # filter(file_A$context == cytosines & file_A$posteriorMax >= posteriorMaxFilter )
+  # file_B <- file_B %>%
+  # filter(file_B$context == cytosines & file_B$posteriorMax >= posteriorMaxFilter )
+  cytosine<-as.character(cytosines)
+  file_A <-DM.dataRead(df[1],cytosine, posteriorMaxFilter)
+  file_B <-DM.dataRead(df[2],cytosine, posteriorMaxFilter)
   # check ad replace pattern in Data-set A
   returnFile <- statusStringCheck(file_A, file_B)
   file_A <- returnFile[[1]]
@@ -98,10 +103,14 @@ runMatrix <- function(pairs, cytosines, posteriorMaxFilter, genTable){
   cat("Computing divergence matrix...\n")
   file_A$seqnames<-as.character(file_A$seqnames)
   file_B$seqnames<-as.character(file_B$seqnames)
+
+  mt <- startTime("Preparing data-sets...\n")
   tmp_db <- as.data.table(
             inner_join(file_A, file_B, by = c("seqnames","start","strand")))
-
+  cat(stopTime(mt))
   #set status 0=rows is same, 1=M/U 2=I
+
+
   rm(file_A,file_B,returnFile)
 
   tmp_db$state <- ifelse(tmp_db$status.x==tmp_db$status.y,0,

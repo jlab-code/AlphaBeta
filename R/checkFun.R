@@ -55,3 +55,17 @@ statusStringCheck <-  function(file_A, file_B){
   return(list(file_A, file_B))
 
 }
+
+getNames <- function(nameDF,genTable){
+  #genTable <- fread(genTable)
+  strSearch<-nameDF
+  tmp_A <- genTable[genTable$samplename == strSearch,][,2]
+  tmp_B <- genTable[genTable$samplename == strSearch,][,3]
+  if (tmp_B == "" | is.na(tmp_B) | is.null(tmp_B) ){
+    tmp_B<-""
+    gen_name <- paste0(tmp_A,tmp_B)
+  }else{
+    gen_name <- paste0(tmp_A,"-",tmp_B)
+  }
+  return(gen_name)
+}
