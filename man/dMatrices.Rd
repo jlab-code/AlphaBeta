@@ -4,13 +4,13 @@
 \alias{dMatrices}
 \title{Constructing D-Matrices}
 \usage{
-dMatrices(genTable, cytosines, posteriorMaxFilter)
+dMatrices(genTable, cytosine, posteriorMaxFilter)
 }
 \arguments{
 \item{genTable}{Generation table name, you can find sample file in
 "extdata" called "generations.fn"}
 
-\item{cytosines}{Type of cytosines (CHH/CHG/CG)}
+\item{cytosine}{Type of cytosine (CHH/CHG/CG)}
 
 \item{posteriorMaxFilter}{Filter value, based on posteriorMax
 ex: >= 0.95 or 0.99}
