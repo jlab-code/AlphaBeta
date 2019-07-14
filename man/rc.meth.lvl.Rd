@@ -14,8 +14,7 @@ rc.meth.lvl(genTable, cytosine, posteriorMaxFilter, nThread = 2)
 
 \item{posteriorMaxFilter}{Filter value, based on posteriorMax}
 
-\item{nThread}{number of threads, default is 2.
-ex: >= 0.95 or 0.99}
+\item{nThread}{number of threads, default is 2.}
 }
 \value{
 rc meth lvl.

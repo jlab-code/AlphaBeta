@@ -37,7 +37,7 @@ convertDMATRIX<-function(sample.info, branch.points, dmatrix, design)
   time1<-NULL
   time2<-NULL
 
-  for (a in seq_len(nrow(dmatrix)))
+  for (a in seq_len(NROW(dmatrix)))
   {
 
       dtemp<-dmatrix[a,]

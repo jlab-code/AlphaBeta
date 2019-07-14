@@ -7,7 +7,6 @@
 #' @param cytosine Type of cytosine (CHH/CHG/CG)
 #' @param posteriorMaxFilter Filter value, based on posteriorMax
 #' @param nThread number of threads, default is 2.
-#' ex: >= 0.95 or 0.99
 #' @import      dplyr
 #' @import      parallel
 #' @import      doParallel
