@@ -20,19 +20,19 @@
 #'## Get some toy data
 #' file <- system.file("extdata","generations.fn", package="alphabeta")
 #' df<-read.csv(file)
-#' df$samplename<-sub("^",paste0(dirname(file),"/"),df$samplename )
+#' df$filename<-sub("^",paste0(dirname(file),"/"),df$filename )
 #' write.csv(df, file = paste0(dirname(file),"/generations.fn"),row.names=FALSE,quote=FALSE)
-#' dMatrices(file, "CHH", 0.99)
+#' dMatrix(file, "CG", 0.99)
 
 
-dMatrices <- function(genTable, cytosine, posteriorMaxFilter) {
+dMatrix <- function(genTable, cytosine, posteriorMaxFilter) {
   # checking errors
   inputCheck(genTable, cytosine, posteriorMaxFilter)
   genTable <- fread(genTable)
   mt <- startTime("Preparing data-sets...\n")
-  pairs <- combn(genTable$samplename, 2)
+  pairs <- combn(genTable$filename, 2)
   final_ds <- runMatrix(pairs, cytosine, posteriorMaxFilter, genTable)
-  saveResult(final_ds,cytosine,posteriorMaxFilter)
+  dMsaveResult(final_ds,cytosine,posteriorMaxFilter)
   cat("Generating d-matrics done.\n")
   cat(stopTime(mt))
  # rm(list=ls())
@@ -96,12 +96,12 @@ runMatrix <- function(pairs, cytosine, posteriorMaxFilter,genTable){
 }
 
 
-saveResult<-function(final_ds,cytosine,posteriorMaxFilter){
+dMsaveResult<-function(final_ds,cytosine,posteriorMaxFilter){
 
   cat("Writing to the files:\n")
   final_ds<-final_ds[mixedorder(final_ds$X1),]
   colnames(final_ds)<-(c("pair.1", "pair.2", "D.value"))
-  saved_file <- paste0(getwd(), "/", "d-matrices-", cytosine, "-", posteriorMaxFilter, ".csv")
+  saved_file <- paste0(getwd(), "/", "AB-dMatrix-", cytosine, "-", posteriorMaxFilter, ".csv")
   fwrite(final_ds, file = saved_file , quote = FALSE, sep = '\t', row.names = FALSE, col.names = TRUE)
   cat(paste0("Divergence values saved in: ",saved_file, "\n"))
 

@@ -7,19 +7,19 @@
 ABneutral(pedigree.data, p0uu, eqp, eqp.weight, Nstarts, out.dir, out.name)
 }
 \arguments{
-\item{pedigree.data}{Generation table name, you can find sample file in}
+\item{pedigree.data}{pedigree data.}
 
-\item{p0uu}{Type of cytosine (CHH/CHG/CG)}
+\item{p0uu}{initial proportion of unmethylated cytosines.}
 
-\item{eqp}{Filter value, based on posteriorMax}
+\item{eqp}{equilibrium proportion of unmethylated cytosines.}
 
-\item{eqp.weight}{number of threads, default is 2.}
+\item{eqp.weight}{weight assigned to equilibrium function.}
 
-\item{Nstarts}{Nstarts better to set 50}
+\item{Nstarts}{iterations for non linear LSQ optimization.}
 
-\item{out.dir}{outputdirectory}
+\item{out.dir}{output directory.}
 
-\item{out.name}{name of file}
+\item{out.name}{output file name.}
 }
 \value{
 ABneutral data.
@@ -30,7 +30,7 @@ Run Model with no selection (ABneutral)
 \examples{
 ## Get some toy data
 file1 <- system.file("extdata/dm/","pedigree.csv", package="alphabeta")
-pedigree <- as.matrix(read.table(file1,sep=",", header=TRUE, stringsAsFactors = FALSE))
+pedigree <- as.matrix(read.table(file1, sep=",", header=TRUE, stringsAsFactors = FALSE))
 p0uu_in <- 0.7435074
 eqp.weight <- 1
 Nstarts <- 5
@@ -42,7 +42,7 @@ out1 <- ABneutral(pedigree.data = pedigree,
                   eqp.weight=eqp.weight,
                   Nstarts=Nstarts,
                   out.dir=output.data.dir,
-                  out.name="CG_global_estimates_ABneutral")
+                  out.name=out.name)
 
 summary(out1)
 

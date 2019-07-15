@@ -1,18 +1,20 @@
 #' Run Model with no selection (ABneutral)
-#' @param pedigree.data Generation table name, you can find sample file in
-#' @param p0uu Type of cytosine (CHH/CHG/CG)
-#' @param eqp Filter value, based on posteriorMax
-#' @param eqp.weight number of threads, default is 2.
-#' @param Nstarts Nstarts better to set 50
-#' @param out.dir outputdirectory
-#' @param out.name name of file
+#' @param pedigree.data pedigree data.
+#' @param p0uu initial proportion of unmethylated cytosines.
+#' @param eqp equilibrium proportion of unmethylated cytosines.
+#' @param eqp.weight weight assigned to equilibrium function.
+#' @param Nstarts iterations for non linear LSQ optimization.
+#' @param out.dir output directory.
+#' @param out.name output file name.
 #' @import optimx
+#' @import expm
+#' @importFrom stats runif
 #' @return ABneutral data.
 #' @export
 #' @examples
 #'## Get some toy data
 #' file1 <- system.file("extdata/dm/","pedigree.csv", package="alphabeta")
-#' pedigree <- as.matrix(read.table(file1,sep=",", header=TRUE, stringsAsFactors = FALSE))
+#' pedigree <- as.matrix(read.table(file1, sep=",", header=TRUE, stringsAsFactors = FALSE))
 #' p0uu_in <- 0.7435074
 #' eqp.weight <- 1
 #' Nstarts <- 5
@@ -24,14 +26,10 @@
 #'                   eqp.weight=eqp.weight,
 #'                   Nstarts=Nstarts,
 #'                   out.dir=output.data.dir,
-#'                   out.name="CG_global_estimates_ABneutral")
+#'                   out.name=out.name)
 #'
 #' summary(out1)
 #'
-
-
-
-
 
 
 ABneutral<-function(pedigree.data, p0uu, eqp, eqp.weight, Nstarts, out.dir, out.name)
@@ -64,7 +62,7 @@ ABneutral<-function(pedigree.data, p0uu, eqp, eqp.weight, Nstarts, out.dir, out.
 	## Calculating theoretical divergence for every observed pair in 'pedigree.txt'
 	  Dt1t2<-NULL
 
-		  for (p in 1:nrow(pedigree))
+		  for (p in seq_len(NROW(pedigree)))
 		  {
 
 			## Define state vectors for t1,t2 and t0 from pedigree using matrix multiplications from library(expm)
@@ -125,7 +123,7 @@ ABneutral<-function(pedigree.data, p0uu, eqp, eqp.weight, Nstarts, out.dir, out.
 		if(is.null(p0uu ==TRUE | is.null(eqp)==TRUE))
 		{stop("Both eqp value AND p0uu have to be supplied")}
 
-		if(sum(c(p0mm, p0um, p0uu), na.rm =T) != 1)
+		if(sum(c(p0mm, p0um, p0uu), na.rm =TRUE) != 1)
 		{stop("The initial state probabilities don't sum to 1")}
 
 
@@ -139,7 +137,7 @@ ABneutral<-function(pedigree.data, p0uu, eqp, eqp.weight, Nstarts, out.dir, out.
 	pedigree<-pedigree.data
 
 
-		for (s in 1:Nstarts)
+		for (s in seq_len(Nstarts))
 		{
 
 
@@ -177,7 +175,7 @@ ABneutral<-function(pedigree.data, p0uu, eqp, eqp.weight, Nstarts, out.dir, out.
 ##### Calculating the least square of the first part of the minimized function
 	 lsqpart<-NULL
 
-	 for (l in 1:nrow(final))
+	 for (l in seq_len(NROW(final)))
 	 {
 			  PrMM <- p0mm
 			  PrUM <- p0um
@@ -201,7 +199,7 @@ ABneutral<-function(pedigree.data, p0uu, eqp, eqp.weight, Nstarts, out.dir, out.
 			  ## Calculating theoretical divergence for every observed pair in 'pedigree.txt'
 			  Dt1t2<-NULL
 
-				  for (p in 1:nrow(pedigree))
+				  for (p in seq_len(NROW(pedigree)))
 				  {
 
 					## Define state vectors for t1,t2 and t0 from pedigree using matrix multiplications from library(expm)
@@ -239,7 +237,7 @@ ABneutral<-function(pedigree.data, p0uu, eqp, eqp.weight, Nstarts, out.dir, out.
 	 final<-final[order(final[,"value"]),]
 	 index.1<-which(final["alpha"] > 0 & final["beta"] > 0 & final["intercept"] > 0 & final[,"weight"] > 0, final["convcode"] == 0)
 	 #index.1<-which(final["alpha"] > 0 & final["beta"] > 0 & final["intercept"] > 0)
-	 index.2<-setdiff(1:nrow(final), index.1)
+	 index.2<-setdiff(seq_len(NROW(final)) , index.1)
 	 final.1<-final[index.1,]
 	 final.2<-final[index.2,]
 
@@ -269,7 +267,7 @@ ABneutral<-function(pedigree.data, p0uu, eqp, eqp.weight, Nstarts, out.dir, out.
 			  Dt1t2<-NULL
 			  Residual<-NULL
 
-				  for (p in 1:nrow(pedigree))
+				  for (p in seq_len(NROW(pedigree)))
 				  {
 
 					## Define state vectors for t1,t2 and t0 from pedigree using matrix multiplications from library(expm)
@@ -364,7 +362,7 @@ ABneutral<-function(pedigree.data, p0uu, eqp, eqp.weight, Nstarts, out.dir, out.
 							## Calculating theoretical divergence for every observed pair in 'pedigree.txt'
 							Dt1t2<-NULL
 
-								for (p in 1:nrow(pedigree.new))
+								for (p in seq_len(NROW(pedigree.new)))
 								{
 
 									## Define state vectors for t1,t2 and t0 from pedigree using matrix multiplications from library(expm)

@@ -1,8 +1,8 @@
-#' Run model with selection against spontaneous gain of methylation (ABselectMM)
+#' Run model with selection against spontaneous loss of methylation (ABselectUU)
 #' @param pedigree.data pedigree data.
 #' @param p0uu initial proportion of unmethylated cytosines.
 #' @param eqp equilibrium proportion of unmethylated cytosines.
-#' @param eqp.weight nweight assigned to equilibrium function.
+#' @param eqp.weight weight assigned to equilibrium function.
 #' @param Nstarts iterations for non linear LSQ optimization.
 #' @param out.dir output directory.
 #' @param out.name output file name.
@@ -19,8 +19,8 @@
 #' eqp.weight <- 1
 #' Nstarts <- 5
 #' output.data.dir <- paste0( getwd(),"/")
-#' out.name <- "CG_global_estimates_ABselectMM"
-#' out2 <- ABselectMM(pedigree.data = pedigree,
+#' out.name <- "CG_global_estimates_ABselectUU"
+#' out3 <- ABselectMM(pedigree.data = pedigree,
 #'                   p0uu=p0uu_in,
 #'                   eqp=p0uu_in,
 #'                   eqp.weight=eqp.weight,
@@ -28,11 +28,11 @@
 #'                   out.dir=output.data.dir,
 #'                   out.name=out.name)
 #'
-#' summary(out2)
+#' summary(out3)
 #'
 
 
-ABselectMM<-function(pedigree.data, p0uu, eqp, eqp.weight, Nstarts, out.dir, out.name)
+ABselectUU<-function(pedigree.data, p0uu, eqp, eqp.weight, Nstarts, out.dir, out.name)
 {
 
 
@@ -52,19 +52,19 @@ ABselectMM<-function(pedigree.data, p0uu, eqp, eqp.weight, Nstarts, out.dir, out
 	## State probabilities at G0; first element = PrUU, second element = PrUM, third element = PrMM
 	  svGzero   <- c(PrUU, (weight)*PrMM, (1-weight)*PrMM)
 
-	  element11<-((1-alpha)^2)*sel
+	  element11<-((1-alpha)^2)
 	  element12<-(2*(1-alpha)*alpha)*(1/2*(1+sel))
-	  element13<-(alpha^2)
+	  element13<-(alpha^2)*sel
 	  rowtotal1<-element11 + element12 + element13
 
-	  element21<-(1/4*(bet + 1 - alpha)^2)*sel
+	  element21<-(1/4*(bet + 1 - alpha)^2)
 	  element22<-(1/2*(bet + 1 - alpha)*(alpha + (1 - bet)))*(1/2*(1+sel))
-	  element23<-(1/4*(alpha + (1 - bet))^2)
+	  element23<-(1/4*(alpha + (1 - bet))^2)*sel
 	  rowtotal2<-element21 + element22 + element23
 
-	  element31<-(bet^2)*sel
+	  element31<-(bet^2)
 	  element32<-(2*((1-bet))*bet)*(1/2*(1+sel))
-	  element33<-((1-bet))^2
+	  element33<-(((1-bet))^2)*sel
 	  rowtotal3<-element31 + element32 + element33
 
 	## Defining the generation (or transition) matrix
@@ -165,19 +165,19 @@ ABselectMM<-function(pedigree.data, p0uu, eqp, eqp.weight, Nstarts, out.dir, out
     					## Calculating equilibrium frequencies based on the model estimates
     						svGzero   <- c(p0uu, (weightfinal)*p0mm, (1-weightfinal)*p0mm)
 
-    						element11<-((1-alphafinal)^2)*selfinal
+    						element11<-((1-alphafinal)^2)
     						element12<-(2*(1-alphafinal)*alphafinal)*(1/2*(1+selfinal))
-    						element13<-(alphafinal^2)
+    						element13<-(alphafinal^2)*selfinal
     						rowtotal1<-element11 + element12 + element13
 
-    						element21<-(1/4*(betfinal + 1 - alphafinal)^2)*selfinal
+    						element21<-(1/4*(betfinal + 1 - alphafinal)^2)
     						element22<-(1/2*(betfinal + 1 - alphafinal)*(alphafinal + (1 - betfinal)))*(1/2*(1+selfinal))
-    						element23<-(1/4*(alphafinal + (1 - betfinal))^2)
+    						element23<-(1/4*(alphafinal + (1 - betfinal))^2)*selfinal
     						rowtotal2<-element21 + element22 + element23
 
-    						element31<-(betfinal^2)*selfinal
+    						element31<-(betfinal^2)
     						element32<-(2*((1-betfinal))*betfinal)*(1/2*(1+selfinal))
-    						element33<-((1-betfinal))^2
+    						element33<-(((1-betfinal))^2)*selfinal
     						rowtotal3<-element31 + element32 + element33
 
     					## Defining the generation (or transition) matrix
@@ -218,19 +218,19 @@ ABselectMM<-function(pedigree.data, p0uu, eqp, eqp.weight, Nstarts, out.dir, out
 			 ## State probabilities at G0; first element = PrUU, second element = PrUM, third element = PrMM
 			  svGzero   <- c(PrUU, (weight)*PrMM, (1-weight)*PrMM)
 
-			  element11<-((1-alpha)^2)*sel
+			  element11<-((1-alpha)^2)
 			  element12<-(2*(1-alpha)*alpha)*(1/2*(1+sel))
-			  element13<-(alpha^2)
+			  element13<-(alpha^2)*sel
 			  rowtotal1<-element11 + element12 + element13
 
-			  element21<-(1/4*(bet + 1 - alpha)^2)*sel
+			  element21<-(1/4*(bet + 1 - alpha)^2)
 			  element22<-(1/2*(bet + 1 - alpha)*(alpha + (1 - bet)))*(1/2*(1+sel))
-			  element23<-(1/4*(alpha + (1 - bet))^2)
+			  element23<-(1/4*(alpha + (1 - bet))^2)*sel
 			  rowtotal2<-element21 + element22 + element23
 
-			  element31<-(bet^2)*sel
+			  element31<-(bet^2)
 			  element32<-(2*((1-bet))*bet)*(1/2*(1+sel))
-			  element33<-((1-bet))^2
+			  element33<-(((1-bet))^2)*sel
 			  rowtotal3<-element31 + element32 + element33
 
 			 ## Defining the generation (or transition) matrix
@@ -299,19 +299,19 @@ ABselectMM<-function(pedigree.data, p0uu, eqp, eqp.weight, Nstarts, out.dir, out
 	## State probabilities at G0; first element = PrUU, second element = PrUM, third element = PrMM
 	 svGzero   <- c(PrUU, (weight)*PrMM, (1-weight)*PrMM)
 
-	 element11<-((1-alpha)^2)*sel
+	 element11<-((1-alpha)^2)
 	 element12<-(2*(1-alpha)*alpha)*(1/2*(1+sel))
-	 element13<-(alpha^2)
+	 element13<-(alpha^2)*sel
 	 rowtotal1<-element11 + element12 + element13
 
-	 element21<-(1/4*(bet + 1 - alpha)^2)*sel
+	 element21<-(1/4*(bet + 1 - alpha)^2)
 	 element22<-(1/2*(bet + 1 - alpha)*(alpha + (1 - bet)))*(1/2*(1+sel))
-	 element23<-(1/4*(alpha + (1 - bet))^2)
+	 element23<-(1/4*(alpha + (1 - bet))^2)*sel
 	 rowtotal2<-element21 + element22 + element23
 
-	 element31<-(bet^2)*sel
+	 element31<-(bet^2)
 	 element32<-(2*((1-bet))*bet)*(1/2*(1+sel))
-	 element33<-((1-bet))^2
+	 element33<-(((1-bet))^2)*sel
 	 rowtotal3<-element31 + element32 + element33
 
 	## Defining the generation (or transition) matrix
@@ -403,19 +403,19 @@ ABselectMM<-function(pedigree.data, p0uu, eqp, eqp.weight, Nstarts, out.dir, out
 							selfinal<-sel
 							interceptfinal<-intercept
 
-							element11<-((1-alphafinal)^2)*selfinal
+							element11<-((1-alphafinal)^2)
 							element12<-(2*(1-alphafinal)*alphafinal)*(1/2*(1+selfinal))
-							element13<-(alphafinal^2)
+							element13<-(alphafinal^2)*selfinal
 							rowtotal1<-element11 + element12 + element13
 
-							element21<-(1/4*(betfinal + 1 - alphafinal)^2)*selfinal
+							element21<-(1/4*(betfinal + 1 - alphafinal)^2)
 							element22<-(1/2*(betfinal + 1 - alphafinal)*(alphafinal + (1 - betfinal)))*(1/2*(1+selfinal))
-							element23<-(1/4*(alphafinal + (1 - betfinal))^2)
+							element23<-(1/4*(alphafinal + (1 - betfinal))^2)*selfinal
 							rowtotal2<-element21 + element22 + element23
 
-							element31<-(betfinal^2)*selfinal
+							element31<-(betfinal^2)
 							element32<-(2*((1-betfinal))*betfinal)*(1/2*(1+selfinal))
-							element33<-((1-betfinal))^2
+							element33<-(((1-betfinal))^2)*selfinal
 							rowtotal3<-element31 + element32 + element33
 
 						## Defining the generation (or transition) matrix
@@ -456,7 +456,7 @@ ABselectMM<-function(pedigree.data, p0uu, eqp, eqp.weight, Nstarts, out.dir, out
 			colnames(pedigree.new)<-c("time0", "time1", "time2", "div.sim", "delta.t")
 			pedigree.new<-pedigree.new[order(pedigree.new[,5]),]
 
-			model<-"ABselectMM.R"
+			model<-"ABselectUU.R"
 
     	abfreeS.out<-list(final.1, final.2, pedigree, info.out, model, pedigree.new)
     	names(abfreeS.out)<-c("estimates", "estimates.flagged", "pedigree", "settings", "model", "for.fit.plot")

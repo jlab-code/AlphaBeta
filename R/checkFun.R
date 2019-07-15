@@ -23,8 +23,8 @@ inputCheck <- function(...) {
 
   # posteriorMaxFiltervalue part checking
   pMFilter <- as.numeric(var[[3]])
-  if (pMFilter <= 0 | pMFilter > 1) {
-    stop("posteriorMax value must be < 1 and >= 0. ")
+  if (pMFilter <= 0.80 | pMFilter > 1) {
+    stop("posteriorMax value must be < 1 and >= 0.80 ")
   }
   return(0)
 }
@@ -59,8 +59,8 @@ statusStringCheck <-  function(file_A, file_B){
 getNames <- function(nameDF,genTable){
   #genTable <- fread(genTable)
   strSearch<-nameDF
-  tmp_A <- genTable[genTable$samplename == strSearch,][,2]
-  tmp_B <- genTable[genTable$samplename == strSearch,][,3]
+  tmp_A <- genTable[genTable$filename == strSearch,][,2]
+  tmp_B <- genTable[genTable$filename == strSearch,][,3]
   if (tmp_B == "" | is.na(tmp_B) | is.null(tmp_B) ){
     tmp_B<-""
     gen_name <- paste0(tmp_A,tmp_B)

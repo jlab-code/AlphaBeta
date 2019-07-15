@@ -20,7 +20,9 @@ Imports:
     parallel (>= 3.6.0),
     utils (>= 3.6.0),
     gtools (>= 3.8.0),
-    optimx (>= 2018-7.10)
+    optimx (>= 2018-7.10),
+    expm (>= 0.999-4),
+    stats (>= 3.6)
 Encoding: UTF-8
 LazyData: false
 LazyLoad: yes

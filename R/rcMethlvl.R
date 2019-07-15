@@ -34,9 +34,9 @@ rc.meth.lvl <- function(genTable, cytosine, posteriorMaxFilter, nThread=2){
   mt <- startTime("Preparing data-sets...\n")
   cal<-num.Core(nThread)
   i<-NULL
-  list.rc <- foreach(i=seq_len(length(genTable$samplename))) %dopar% rcRun(genTable$samplename[i],cytosine, posteriorMaxFilter, genTable)
+  list.rc <- foreach(i=seq_len(length(genTable$filename))) %dopar% rcRun(genTable$filename[i],cytosine, posteriorMaxFilter, genTable)
   stopCluster(cal)
-  saveResult(list.rc,cytosine,posteriorMaxFilter)
+  RCsaveResult(list.rc,cytosine,posteriorMaxFilter)
   cat(stopTime(mt))
 
 }
@@ -51,7 +51,7 @@ rcRun <- function(filename,cytosine, posteriorMaxFilter, genTable){
 }
 
 
-saveResult<-function(list.rc,cytosine,posteriorMaxFilter){
+RCsaveResult<-function(list.rc,cytosine,posteriorMaxFilter){
   tmp_dmr <- data.frame(matrix(ncol = 3, nrow =1 ))
   x <- c("Sample_name", "context", "rc.meth.lvls")
   colnames(tmp_dmr) <- x
@@ -63,7 +63,7 @@ saveResult<-function(list.rc,cytosine,posteriorMaxFilter){
     mainRC<-rbind(mainRC,tmp_dmr)
   }
   mainRC<-mainRC[mixedorder(mainRC$Sample_name),]
-  saveFile <- paste0(getwd(), "/", "methProp-", cytosine, "-", posteriorMaxFilter, ".csv")
+  saveFile <- paste0(getwd(), "/", "AB-methProp-", cytosine, "-", posteriorMaxFilter, ".csv")
   fwrite(mainRC,file = saveFile ,quote = FALSE,sep = '\t',row.names = FALSE,col.names = TRUE)
   cat(paste0("Methylation proportions results saved in: ",saveFile,"\n"))
 
