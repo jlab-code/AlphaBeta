@@ -1,4 +1,4 @@
-#' Run Model with no selection (ABneutral)
+#' Model with selection against spontaneous gain of methylation (outselectMM)
 #' @param pedigree.data pedigree data.
 #' @param p0uu initial proportion of unmethylated cytosines.
 #' @param eqp equilibrium proportion of unmethylated cytosines.
@@ -9,18 +9,18 @@
 #' @import optimx
 #' @import expm
 #' @importFrom stats runif
-#' @return ABneutral data.
+#' @return ABneutralSoma data.
 #' @export
 #' @examples
 #'## Get some toy data
-#' file1 <- system.file("extdata/dm/","pedigree.csv", package="alphabeta")
+#' file1 <- system.file("extdata/soma/","pedigreeSoma.csv", package="alphabeta")
 #' pedigree <- as.matrix(read.table(file1, sep=",", header=TRUE, stringsAsFactors = FALSE))
-#' p0uu_in <- 0.7435074
-#' eqp.weight <- 1
+#' p0uu_in <- 0.54755
+#' eqp.weight <- 0.001
 #' Nstarts <- 4
 #' output.data.dir <- paste0( getwd(),"/")
-#' out.name <- "CG_global_estimates_ABneutral"
-#' out1 <- ABneutral(pedigree.data = pedigree,
+#' out.name <- "ABselectMMSOMA_CG_estimates"
+#' out <- ABselectMMSOMA(pedigree.data = pedigree,
 #'                   p0uu=p0uu_in,
 #'                   eqp=p0uu_in,
 #'                   eqp.weight=eqp.weight,
@@ -28,12 +28,17 @@
 #'                   out.dir=output.data.dir,
 #'                   out.name=out.name)
 #'
-#' summary(out1)
+#' summary(out)
 #'
 
 
-ABneutral<-function(pedigree.data, p0uu, eqp, eqp.weight, Nstarts, out.dir, out.name)
+
+
+
+
+ABselectMMSOMA<-function(pedigree.data, p0uu, eqp, eqp.weight, Nstarts, out.dir, out.name)
 {
+ allow.neg.intercept="no"
 
 ##### Defining the divergence function
 	divergence <- function(pedigree, p0mm, p0um, p0uu, param)
@@ -44,25 +49,40 @@ ABneutral<-function(pedigree.data, p0uu, eqp, eqp.weight, Nstarts, out.dir, out.
 	  PrUM <- p0um
 	  PrUU <- p0uu
 	  alpha <- param[1]
-    bet <- param[2]
-    weight <- param[3]
+      bet <- param[2]
+      weight <- param[3]
+      sel    <-param[4]
 
 
 	## State probabilities at G0; first element = PrUU, second element = PrUM, third element = PrMM
 	  svGzero   <- c(PrUU, (weight)*PrMM, (1-weight)*PrMM)
 
+	  element11<-(1-alpha)^2*sel
+	  element12<-(2*(1-alpha)*alpha)*(1/2*(1+sel))
+	  element13<-(alpha^2)
+	  rowtotal1<-element11 + element12 + element13
 
+	  element21<-(bet*(1-alpha))*sel
+	  element22<-((1-alpha)*(1-bet)+alpha*bet)*(1/2*(1+sel))
+	  element23<-alpha*(1-bet)
+	  rowtotal2<-element21 + element22 + element23
+
+	  element31<-(bet^2)*sel
+	  element32<-(2*((1-bet))*bet)*(1/2*(1+sel))
+	  element33<-((1-bet))^2
+	  rowtotal3<-element31 + element32 + element33
 
 	## Defining the generation (or transition) matrix
-	  Genmatrix <- matrix(c((1-alpha)^2, 2*(1-alpha)*alpha, alpha^2,
-							1/4*(bet + 1 - alpha)^2, 1/2*(bet + 1 - alpha)*(alpha + 1 - bet), 1/4*(alpha + 1 - bet)^2,
-							bet^2, 2*(1-bet)*bet, (1-bet)^2), nrow=3, byrow=TRUE)
+	  Genmatrix <- matrix(c(element11/rowtotal1, element12/rowtotal1, element13/rowtotal1,
+	                        element21/rowtotal2,  element22/rowtotal2,  element23/rowtotal2,
+	                        element31/rowtotal3,  element32/rowtotal3,  element33/rowtotal3), nrow=3, byrow=TRUE)
+
 
 
 	## Calculating theoretical divergence for every observed pair in 'pedigree.txt'
 	  Dt1t2<-NULL
 
-		  for (p in seq_len(NROW(pedigree)))
+		  for (p in 1:nrow(pedigree))
 		  {
 
 			## Define state vectors for t1,t2 and t0 from pedigree using matrix multiplications from library(expm)
@@ -91,26 +111,28 @@ ABneutral<-function(pedigree.data, p0uu, eqp, eqp.weight, Nstarts, out.dir, out.
 		  }
 
 	  # Pr(UU) at equilibrium given alpha and beta
-	  puuinf.est<- (bet* ((1-bet)^2 - (1-alpha)^2 -1))/((alpha + bet)*((alpha + bet -1)^2 - 2))
-	  divout<-list(puuinf.est, Dt1t2)
+	  puuinf.est<- t(svGzero)  %*% ((Genmatrix)%^% 10000)
+	  puuinf.est<- puuinf.est[1,1]
+  	  divout<-list(puuinf.est, Dt1t2)
 
 	  return(divout)
 
 	}
 
-		###### Defining the Least Square function to be minimized
-		###### Note the equilibrium constraint, which can be made as small as desired.
+
+###### Defining the Least Square function to be minimized
+###### Note the equilibrium constraint, which can be made as small as desired.
 
 		LSE_intercept<-function(param_int)
 		{
-		  sum((pedigree[,4] - param_int[4] - divergence(pedigree, p0mm, p0um, p0uu, param_int[1:3])[[2]])^2) +
-		    eqp.weight*nrow(pedigree)*((divergence(pedigree, p0mm, p0um, p0uu, param_int[1:3])[[1]]- eqp)^2)
+			sum((pedigree[,4] - param_int[5] - divergence(pedigree, p0mm, p0um, p0uu, param_int[1:4])[[2]])^2) +
+			eqp.weight*nrow(pedigree)*((divergence(pedigree, p0mm, p0um, p0uu, param_int[1:4])[[1]]-eqp)^2)
 		}
 
 
 
-		###### Calculating the initial proportions
-		###### We always assume that:
+###### Calculating the initial proportions
+###### We always assume that:
 		# 1. p0mm is larger than actually observed. This means if p0um is available from measurements,
 		#    we will just add it to p0mm.
 		# 2. As a consequence of (1.) we also assume that p0um = 0.
@@ -120,11 +142,11 @@ ABneutral<-function(pedigree.data, p0uu, eqp, eqp.weight, Nstarts, out.dir, out.
 		p0um<-0
 
 
-		if(is.null(p0uu ==TRUE | is.null(eqp)==TRUE))
-		{stop("Both eqp value AND p0uu have to be supplied")}
+   if(is.null(p0mm ==TRUE | is.null(eqp)==TRUE))
+   {stop("Both eqp value AND p0mm have to be supplied")}
 
-		if(sum(c(p0mm, p0um, p0uu), na.rm =TRUE) != 1)
-		{stop("The initial state probabilities don't sum to 1")}
+   if(sum(c(p0mm, p0um, p0uu), na.rm =T) != 1)
+  {stop("The initial state probabilities don't sum to 1")}
 
 
 
@@ -137,16 +159,16 @@ ABneutral<-function(pedigree.data, p0uu, eqp, eqp.weight, Nstarts, out.dir, out.
 	pedigree<-pedigree.data
 
 
-		for (s in seq_len(Nstarts))
+		for (s in 1:Nstarts)
 		{
-
 
 			## Draw random starting values
 			alpha.start  <-10^(runif(1, log10(10^-9), log10(10^-2)))
 			beta.start   <-10^(runif(1, log10(10^-9), log10(10^-2)))
-	    weight.start <-runif(1,0,0.1)
-	    intercept.start <-runif(1,0,max(pedigree[,4]))
-			param_int0 = c(alpha.start, beta.start, weight.start, intercept.start)
+	   		weight.start <-runif(1,0,0.5)
+	     	sel.start <-runif(1,0.1,1)
+	    	intercept.start <-runif(1,0,max(pedigree[,4]))
+	    	param_int0 = c(alpha.start, beta.start, weight.start, sel.start, intercept.start)
 
 			## Initializing
 			counter<-counter+1
@@ -157,17 +179,52 @@ ABneutral<-function(pedigree.data, p0uu, eqp, eqp.weight, Nstarts, out.dir, out.
 						opt.out  <- suppressWarnings(optimx(par = param_int0, fn = LSE_intercept, method=optim.method))
 						alphafinal<-opt.out[1]
 						betfinal<-opt.out[2]
-						PrMMinf <- (alphafinal* ((1-alphafinal)^2 - (1-betfinal)^2 -1))/((alphafinal + betfinal)*((alphafinal + betfinal -1)^2 - 2))
-						PrUMinf <- (4*alphafinal*betfinal*(alphafinal + betfinal -2))/((alphafinal + betfinal)*((alphafinal + betfinal -1)^2 -2))
-						PrUUinf <- (betfinal* ((1-betfinal)^2 - (1-alphafinal)^2 -1))/((alphafinal + betfinal)*((alphafinal + betfinal -1)^2 - 2))
-						opt.out <-cbind(opt.out, PrMMinf, PrUMinf, PrUUinf, alpha.start, beta.start, weight.start, intercept.start)
-						final<-rbind(final, opt.out)
+						alphafinal<-as.numeric(opt.out[1])
+    					betfinal<-as.numeric(opt.out[2])
+    					weightfinal<-as.numeric(opt.out[3])
+    					selfinal<-as.numeric(opt.out[4])
 
+    					## Calculating equilibrium frequencies based on the model estimates
+    					svGzero   <- c(p0uu, (weightfinal)*p0mm, (1-weightfinal)*p0mm)
+
+
+							  element11<-(1-alphafinal)^2*selfinal
+							  element12<-(2*(1-alphafinal)*alphafinal)*(1/2*(1+selfinal))
+							  element13<-(alphafinal^2)
+							  rowtotal1<-element11 + element12 + element13
+
+							  element21<-(betfinal*(1-alphafinal))*selfinal
+							  element22<-((1-alphafinal)*(1-betfinal)+alphafinal*betfinal)*(1/2*(1+selfinal))
+							  element23<-alphafinal*(1-betfinal)
+							  rowtotal2<-element21 + element22 + element23
+
+							  element31<-(betfinal^2)*selfinal
+							  element32<-(2*((1-betfinal))*betfinal)*(1/2*(1+selfinal))
+							  element33<-((1-betfinal))^2
+							  rowtotal3<-element31 + element32 + element33
+
+							## Defining the generation (or transition) matrix
+							  Genmatrix <- matrix(c(element11/rowtotal1, element12/rowtotal1, element13/rowtotal1,
+							                        element21/rowtotal2,  element22/rowtotal2,  element23/rowtotal2,
+							                        element31/rowtotal3,  element32/rowtotal3,  element33/rowtotal3), nrow=3, byrow=TRUE)
+
+
+
+
+
+						## Note: This is an approximation to the equilibrium values
+    						pinf.vec<- t(svGzero)  %*% ((Genmatrix)%^% 10000)
+    						PrMMinf<- pinf.vec[1,3]
+    						PrUMinf<- pinf.vec[1,2]
+    						PrUUinf<- pinf.vec[1,1]
+    						opt.out <-cbind(opt.out, PrMMinf, PrUMinf, PrUUinf, alpha.start, beta.start, weight.start,
+    						                sel.start, intercept.start)
+    						final<-rbind(final, opt.out)
 
 		} # End of Nstarts loop
 
-	 colnames(final)[1:4]<-c("alpha", "beta", "weight", "intercept")
-	 colnames(final)[13:15]<-c("PrMMinf", "PrUMinf", "PrUUinf")
+	 colnames(final)[1:5]<-c("alpha", "beta", "weight", "sel.coef", "intercept")
+	colnames(final)[14:16]<-c("PrMMinf", "PrUMinf", "PrUUinf")
 
 
 
@@ -175,31 +232,45 @@ ABneutral<-function(pedigree.data, p0uu, eqp, eqp.weight, Nstarts, out.dir, out.
 ##### Calculating the least square of the first part of the minimized function
 	 lsqpart<-NULL
 
-	 for (l in seq_len(NROW(final)))
+	 for (l in 1:nrow(final))
 	 {
 			  PrMM <- p0mm
 			  PrUM <- p0um
-	      PrUU <- p0uu
+	          PrUU <- p0uu
 			  alpha  <- final[l, "alpha"]
 			  bet    <- final[l, "beta"]
 			  weight <- final[l, "weight"]
+			  sel <-final[l, "sel.coef"]
 			  intercept<-final[l,"intercept"]
 
 
 			## State probabilities at G0; first element = PrUU, second element = PrUM, third element = PrMM
 			  svGzero   <- c(PrUU, (weight)*PrMM, (1-weight)*PrMM)
 
+			  element11<-(1-alpha)^2*sel
+			  element12<-(2*(1-alpha)*alpha)*(1/2*(1+sel))
+			  element13<-(alpha^2)
+			  rowtotal1<-element11 + element12 + element13
 
+			  element21<-(bet*(1-alpha))*sel
+			  element22<-((1-alpha)*(1-bet)+alpha*bet)*(1/2*(1+sel))
+			  element23<-alpha*(1-bet)
+			  rowtotal2<-element21 + element22 + element23
 
-			  ## Defining the generation (or transition) matrix
-			  Genmatrix <- matrix(c((1-alpha)^2, 2*(1-alpha)*alpha, alpha^2,
-									1/4*(bet + 1 - alpha)^2, 1/2*(bet + 1 - alpha)*(alpha + 1 - bet), 1/4*(alpha + 1 - bet)^2,
-									bet^2, 2*(1-bet)*bet, (1-bet)^2), nrow=3, byrow=TRUE)
+			  element31<-(bet^2)*sel
+			  element32<-(2*((1-bet))*bet)*(1/2*(1+sel))
+			  element33<-((1-bet))^2
+			  rowtotal3<-element31 + element32 + element33
+
+			## Defining the generation (or transition) matrix
+			  Genmatrix <- matrix(c(element11/rowtotal1, element12/rowtotal1, element13/rowtotal1,
+			                        element21/rowtotal2,  element22/rowtotal2,  element23/rowtotal2,
+			                        element31/rowtotal3,  element32/rowtotal3,  element33/rowtotal3), nrow=3, byrow=TRUE)
 
 			  ## Calculating theoretical divergence for every observed pair in 'pedigree.txt'
 			  Dt1t2<-NULL
 
-				  for (p in seq_len(NROW(pedigree)))
+				  for (p in 1:nrow(pedigree))
 				  {
 
 					## Define state vectors for t1,t2 and t0 from pedigree using matrix multiplications from library(expm)
@@ -232,19 +303,18 @@ ABneutral<-function(pedigree.data, p0uu, eqp, eqp.weight, Nstarts, out.dir, out.
 			 lsqpart[l]<-sum((pedigree[,4] - intercept - Dt1t2)^2)
 		}
 
+	 ## Collecting results and filtering them
 	 final<-cbind(final, lsqpart)
 	 colnames(final)[ncol(final)]<-c("value.part")
 	 final<-final[order(final[,"value"]),]
-	 index.1<-which(final["alpha"] > 0 & final["beta"] > 0 & final["intercept"] > 0 & final[,"weight"] > 0, final["convcode"] == 0)
-	 #index.1<-which(final["alpha"] > 0 & final["beta"] > 0 & final["intercept"] > 0)
-	 index.2<-setdiff(seq_len(NROW(final)) , index.1)
+	 #index.1<-which(final["alpha"] > 0 & final["beta"] > 0 & final["convcode"] == 0 & final["sel.coef"] >= 0 & final["sel.coef"] <= 1)
+	 index.1<-which(final["alpha"] > 0 & final["beta"] > 0 & final["sel.coef"] >= 0 & final["sel.coef"] <= 1 & final["intercept"] > 0)
+	 index.2<-setdiff(1:nrow(final), index.1)
 	 final.1<-final[index.1,]
 	 final.2<-final[index.2,]
 
 
-
-##### Calculting the predicted values based on the 'best' model (i.e. that with the lowest least square)
-	 #cat("Caution: Calculating predicted divergence based on lowest LSQ model: check the biology!", "\n")
+  ## Calculting the predicted values based on the 'best' model (i.e. that with the lowest least square)
 	 PrMM <- p0mm
 	 PrUM <- p0um
 	 PrUU <- p0uu
@@ -252,22 +322,36 @@ ABneutral<-function(pedigree.data, p0uu, eqp, eqp.weight, Nstarts, out.dir, out.
 	 bet    <- final.1[1, "beta"]
 	 weight <- final.1[1, "weight"]
 	 intercept<-final.1[1,"intercept"]
+	 sel<-final.1[1,"sel.coef"]
 
-
-	 ## State probabilities at G0; first element = PrUU, second element = PrUM, third element = PrMM
+	## State probabilities at G0; first element = PrUU, second element = PrUM, third element = PrMM
 	 svGzero   <- c(PrUU, (weight)*PrMM, (1-weight)*PrMM)
 
+	  		  element11<-(1-alpha)^2*sel
+			  element12<-(2*(1-alpha)*alpha)*(1/2*(1+sel))
+			  element13<-(alpha^2)
+			  rowtotal1<-element11 + element12 + element13
 
-			  ## Defining the generation (or transition) matrix
-			  Genmatrix <- matrix(c((1-alpha)^2, 2*(1-alpha)*alpha, alpha^2,
-									1/4*(bet + 1 - alpha)^2, 1/2*(bet + 1 - alpha)*(alpha + 1 - bet), 1/4*(alpha + 1 - bet)^2,
-									bet^2, 2*(1-bet)*bet, (1-bet)^2), nrow=3, byrow=TRUE)
+			  element21<-(bet*(1-alpha))*sel
+			  element22<-((1-alpha)*(1-bet)+alpha*bet)*(1/2*(1+sel))
+			  element23<-alpha*(1-bet)
+			  rowtotal2<-element21 + element22 + element23
+
+			  element31<-(bet^2)*sel
+			  element32<-(2*((1-bet))*bet)*(1/2*(1+sel))
+			  element33<-((1-bet))^2
+			  rowtotal3<-element31 + element32 + element33
+
+			## Defining the generation (or transition) matrix
+			  Genmatrix <- matrix(c(element11/rowtotal1, element12/rowtotal1, element13/rowtotal1,
+			                        element21/rowtotal2,  element22/rowtotal2,  element23/rowtotal2,
+			                        element31/rowtotal3,  element32/rowtotal3,  element33/rowtotal3), nrow=3, byrow=TRUE)
 
 			  ## Calculating theoretical divergence for every observed pair in 'pedigree.txt'
 			  Dt1t2<-NULL
 			  Residual<-NULL
 
-				  for (p in seq_len(NROW(pedigree)))
+				  for (p in 1:nrow(pedigree))
 				  {
 
 					## Define state vectors for t1,t2 and t0 from pedigree using matrix multiplications from library(expm)
@@ -299,38 +383,33 @@ ABneutral<-function(pedigree.data, p0uu, eqp, eqp.weight, Nstarts, out.dir, out.
 
 
 
-##### Augmenting pedigree
+## Augmenting pedigree
 	delta.t<-pedigree[,2] + pedigree[,3] - 2*pedigree[,1]
-	#pedigree<-cbind(pedigree,delta.t)
 	pedigree<-cbind(pedigree, delta.t, Dt1t2 + intercept, Residual)
 	colnames(pedigree)[c(4,5,6,7)]<-c("div.obs", "delta.t","div.pred", "residual")
 
-
-	##### Making info about settings
+## Making info about settings
 	info<-c("p0mm", "p0um", "p0uu", "eqp", "eqp.weight", "Nstarts", "optim.method")
 	info2<-c(p0mm, p0um, p0uu, eqp, eqp.weight, Nstarts, optim.method)
 	info.out<-data.frame(info, info2)
 	colnames(info.out)<-c("Para", "Setting")
 
 
+## Generating theoretical fit
 
-
-
-
-###### Generating theoretical fit
-
-			## Reading in pedigree
+		## Reading in pedigree
 			obs<-pedigree[,"div.obs"]
 			dtime<-pedigree[,"delta.t"]
 
-			## Reading in parameter estimates
+		## Reading in parameter estimates
 			est <-final.1
 			alpha <-as.numeric(est[1,1])
 	    beta<-as.numeric(est[1,2])
 		  weight<-as.numeric(est[1,3])
-	    intercept<-as.numeric(est[1,4])
+		  sel<-as.numeric(est[1,4])
+	    intercept<-as.numeric(est[1,5])
 
-			## Reading initial state vector
+		## Reading initial state vector
 			settings<-info.out
 			PrMM<-p0mm<-as.numeric(as.character(settings[1,2]))
 			PrUM<-p0um<-as.numeric(as.character(settings[2,2]))
@@ -345,24 +424,39 @@ ABneutral<-function(pedigree.data, p0uu, eqp, eqp.weight, Nstarts, out.dir, out.
 			pedigree.new<-pedigree.new[!duplicated(pedigree.new[,4]), ]
 			pedigree.new<-pedigree.new[,1:3]
 
-			## State probabilities at G0; first element = PrUU, second element = PrUM, third element = PrMM
+		## State probabilities at G0; first element = PrUU, second element = PrUM, third element = PrMM
 			svGzero   <- c(PrUU, PrMM*weight, (1-weight)*PrMM)
-
 
 							alphafinal<-alpha
 							betfinal<-beta
+							selfinal<-sel
 							interceptfinal<-intercept
 
+							element11<-(1-alphafinal)^2*selfinal
+							element12<-(2*(1-alphafinal)*alphafinal)*(1/2*(1+selfinal))
+							element13<-(alphafinal^2)
+							rowtotal1<-element11 + element12 + element13
+
+							element21<-(betfinal*(1-alphafinal))*selfinal
+							element22<-((1-alphafinal)*(1-betfinal)+alphafinal*betfinal)*(1/2*(1+selfinal))
+							element23<-alphafinal*(1-betfinal)
+							rowtotal2<-element21 + element22 + element23
+
+							element31<-(betfinal^2)*selfinal
+							element32<-(2*((1-betfinal))*betfinal)*(1/2*(1+selfinal))
+							element33<-((1-betfinal))^2
+							rowtotal3<-element31 + element32 + element33
+
 							## Defining the generation (or transition) matrix
-							Genmatrix <- matrix(c((1-alphafinal)^2, 2*(1-alphafinal)*alphafinal, alphafinal^2,
-												   1/4*(betfinal + 1 - alphafinal)^2, 1/2*(betfinal + 1 - alphafinal)*(alphafinal + 1 - betfinal),
-												   1/4*(alphafinal + 1 - betfinal)^2,
-												   betfinal^2, 2*(1-betfinal)*betfinal, (1-betfinal)^2), nrow=3, byrow=TRUE)
+							  Genmatrix <- matrix(c(element11/rowtotal1, element12/rowtotal1, element13/rowtotal1,
+							                        element21/rowtotal2,  element22/rowtotal2,  element23/rowtotal2,
+							                        element31/rowtotal3,  element32/rowtotal3,  element33/rowtotal3), nrow=3, byrow=TRUE)
+
 
 							## Calculating theoretical divergence for every observed pair in 'pedigree.txt'
 							Dt1t2<-NULL
 
-								for (p in seq_len(NROW(pedigree.new)))
+								for (p in 1:nrow(pedigree.new))
 								{
 
 									## Define state vectors for t1,t2 and t0 from pedigree using matrix multiplications from library(expm)
@@ -393,16 +487,15 @@ ABneutral<-function(pedigree.data, p0uu, eqp, eqp.weight, Nstarts, out.dir, out.
 			colnames(pedigree.new)<-c("time0", "time1", "time2", "div.sim", "delta.t")
 			pedigree.new<-pedigree.new[order(pedigree.new[,5]),]
 
-	model<-"ABneutral.R"
+			model<-"ABselectMMSOMA.R"
 
-	abfree.out<-list(final.1, final.2, pedigree, info.out, model, pedigree.new)
-	names(abfree.out)<-c("estimates", "estimates.flagged", "pedigree", "settings", "model", "for.fit.plot")
+    	abfreeS.out<-list(final.1, final.2, pedigree, info.out, model, pedigree.new)
+    	names(abfreeS.out)<-c("estimates", "estimates.flagged", "pedigree", "settings", "model", "for.fit.plot")
 
+## Ouputting result datasets
+	dput(abfreeS.out, paste(out.dir, out.name, ".Rdata", sep=""))
+	return(abfreeS.out)
 
-
-	## Ouputting result datasets
-	dput(abfree.out, paste(out.dir, out.name, ".Rdata", sep=""))
-	return(abfree.out)
 
 
 } #End of function

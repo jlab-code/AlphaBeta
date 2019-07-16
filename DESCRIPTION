@@ -5,7 +5,6 @@ Version: 0.1.0
 Authors@R: c(
     person("Yadollah", "Shahryary Dizaji", email = "shahryary@gmail.com", role = c("cre","aut")),
     person("Frank", "Johannes", email = "frank@jlab.org", role = "aut"))
-Maintainer: Yadollah Shahryary Dizaji <shahryary@gmail.com>
 Description: More about what it does (maybe more than one line)
     Use four spaces when indenting paragraphs within the Description.
 License: GPL-3

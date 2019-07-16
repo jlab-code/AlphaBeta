@@ -57,3 +57,39 @@
 #                   out.name="CG_global_estimates_ABneutral")
 
 #FtestRSS(pedigree.select = ,pedigree.null = )
+# file1<-"/home/yadi/SERVER/Rpackages/alphabeta/inst/extdata/models/CG_global_estimates_ABneutral.Rdata"
+# Nboot=4
+# out.dir=paste0( getwd(),"/")
+# out.name="Boot_CG_global_estimates_ABneutral"
+# out <- BOOTmodel(pedigree.data=file1,
+#                 Nboot=Nboot,
+#                 out.dir=out.dir,
+#                 out.name=out.name)
+# file1 <- "inst/extdata/soma/D-matrix_CG.csv"
+# file2 <-"inst/extdata/soma/sample_info.csv"
+#
+#
+# d.matrix <- read.table(file1, sep="\t", header=TRUE, stringsAsFactors = FALSE)
+# sample.info <- read.table(file2, sep="\t", header=TRUE, stringsAsFactors = FALSE)
+# out <- makePHYLO(tall=330, pedigree = d.matrix, sample.info = sample.info)
+# a<-out[[1]]
+#
+# fwrite(a,"/home/yadi/SERVER/Rpackages/alphabeta/inst/extdata/soma/pedigreeSoma.csv",sep=",")
+# s
+#
+#
+# file1 <- "inst/extdata/soma/pedigreeSoma.csv"
+# pedigree <- as.matrix(read.table(file1, sep=",", header=TRUE, stringsAsFactors = FALSE))
+# p0uu_in <- 0.54755
+# eqp.weight <- 0.001
+# Nstarts <- 4
+# output.data.dir <- paste0( getwd(),"/")
+# out.name <- "ABneutralSOMA_CG_estimates"
+# out1 <- ABneutral(pedigree.data = pedigree,
+#                   p0uu=p0uu_in,
+#                   eqp=p0uu_in,
+#                   eqp.weight=eqp.weight,
+#                   Nstarts=Nstarts,
+#                   out.dir=output.data.dir,
+#                   out.name=out.name)
+

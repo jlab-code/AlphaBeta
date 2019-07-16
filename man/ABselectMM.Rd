@@ -34,7 +34,7 @@ file1 <- system.file("extdata/dm/","pedigree.csv", package="alphabeta")
 pedigree <- as.matrix(read.table(file1, sep=",", header=TRUE, stringsAsFactors = FALSE))
 p0uu_in <- 0.7435074
 eqp.weight <- 1
-Nstarts <- 5
+Nstarts <- 4
 output.data.dir <- paste0( getwd(),"/")
 out.name <- "CG_global_estimates_ABselectMM"
 out2 <- ABselectMM(pedigree.data = pedigree,
