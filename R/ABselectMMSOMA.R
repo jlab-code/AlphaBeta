@@ -145,7 +145,7 @@ ABselectMMSOMA<-function(pedigree.data, p0uu, eqp, eqp.weight, Nstarts, out.dir,
    if(is.null(p0mm ==TRUE | is.null(eqp)==TRUE))
    {stop("Both eqp value AND p0mm have to be supplied")}
 
-   if(sum(c(p0mm, p0um, p0uu), na.rm =T) != 1)
+   if(sum(c(p0mm, p0um, p0uu), na.rm =TRUE) != 1)
   {stop("The initial state probabilities don't sum to 1")}
 
 
