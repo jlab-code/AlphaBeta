@@ -30,11 +30,11 @@ Model with selection against spontaneous loss of methylation (outselectUU)
 }
 \examples{
 ## Get some toy data
-file1 <- system.file("extdata/soma/","pedigreeSoma.csv", package="alphabeta")
+file1 <- system.file("extdata/soma/","pedigreeSoma.csv", package="AlphaBeta")
 pedigree <- as.matrix(read.table(file1, sep=",", header=TRUE, stringsAsFactors = FALSE))
 p0uu_in <- 0.54755
 eqp.weight <- 0.001
-Nstarts <- 4
+Nstarts <- 2
 output.data.dir <- paste0( getwd(),"/")
 out.name <- "ABselectUUSOMA_CG_estimates"
 out <- ABselectUUSOMA(pedigree.data = pedigree,

@@ -21,7 +21,7 @@ Run model that considers no accumulation of epimutations (ABnull)
 }
 \examples{
 # Get some toy data
-file1 <- system.file("extdata/dm/","pedigree.csv", package="alphabeta")
+file1 <- system.file("extdata/dm/","pedigree.csv", package="AlphaBeta")
 pedigree <- as.matrix(read.table(file1,sep=",", header=TRUE, stringsAsFactors = FALSE))
 output.data.dir <- paste0( getwd(),"/")
 out.name <- "CG_global_estimates_ABnull"

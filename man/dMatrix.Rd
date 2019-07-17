@@ -23,7 +23,7 @@ Estimating epimutation rates from high-throughput DNA methylation data
 }
 \examples{
 ## Get some toy data
-file <- system.file("extdata","generations.fn", package="alphabeta")
+file <- system.file("extdata","generations.fn", package="AlphaBeta")
 df<-read.csv(file)
 df$filename<-sub("^",paste0(dirname(file),"/"),df$filename )
 write.csv(df, file = paste0(dirname(file),"/generations.fn"),row.names=FALSE,quote=FALSE)

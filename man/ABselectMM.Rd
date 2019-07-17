@@ -30,7 +30,7 @@ Run model with selection against spontaneous gain of methylation (ABselectMM)
 }
 \examples{
 ## Get some toy data
-file1 <- system.file("extdata/dm/","pedigree.csv", package="alphabeta")
+file1 <- system.file("extdata/dm/","pedigree.csv", package="AlphaBeta")
 pedigree <- as.matrix(read.table(file1, sep=",", header=TRUE, stringsAsFactors = FALSE))
 p0uu_in <- 0.7435074
 eqp.weight <- 1

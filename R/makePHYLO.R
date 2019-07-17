@@ -6,8 +6,8 @@
 #' @export
 #' @examples
 #'## Get some toy data
-#' file1 <- system.file("extdata/soma/","D-matrix_CG.csv", package="alphabeta")
-#' file2 <- system.file("extdata/soma/","sample_info.csv", package="alphabeta")
+#' file1 <- system.file("extdata/soma/","D-matrix_CG.csv", package="AlphaBeta")
+#' file2 <- system.file("extdata/soma/","sample_info.csv", package="AlphaBeta")
 #' d.matrix <- read.table(file1, sep="\t", header=TRUE, stringsAsFactors = FALSE)
 #' sample.info <- read.table(file2, sep="\t", header=TRUE, stringsAsFactors = FALSE)
 #' out <- makePHYLO(tall=330, pedigree = d.matrix, sample.info = sample.info)

@@ -1,7 +1,6 @@
 #' Calculating rc.Meth.lvl
 #'
 #' Estimating epimutation rates from high-throughput DNA methylation data
-#'
 #' @param genTable Generation table name, you can find sample file in
 #' "extdata" called "generations.fn"
 #' @param cytosine Type of cytosine (CHH/CHG/CG)
@@ -22,7 +21,7 @@
 #' @export
 #' @examples
 #'## Get some toy data
-#' file <- system.file("extdata","generations.fn", package="alphabeta")
+#' file <- system.file("extdata","generations.fn", package="AlphaBeta")
 #' rc.meth.lvl(file, "CG", 0.99)
 
 

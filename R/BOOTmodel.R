@@ -12,7 +12,7 @@
 #' @export
 #' @examples
 #'## Get some toy data
-#' file1 <- system.file("extdata/models/","CG_global_estimates_ABneutral.Rdata", package="alphabeta")
+#' file1 <- system.file("extdata/models/","CG_global_estimates_ABneutral.Rdata", package="AlphaBeta")
 #' Nboot <- 4
 #' out.dir <- paste0( getwd(),"/")
 #' out.name <-"Boot_CG_global_estimates_ABneutral"
