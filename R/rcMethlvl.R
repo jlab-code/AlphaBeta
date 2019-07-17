@@ -31,10 +31,18 @@ rc.meth.lvl <- function(genTable, cytosine, posteriorMaxFilter, nThread=2){
   inputCheck(genTable, cytosine, posteriorMaxFilter)
   genTable <- fread(genTable)
   mt <- startTime("Preparing data-sets...\n")
-  cal<-num.Core(nThread)
   i<-NULL
+
+  if(.Platform$OS.type == "unix") {
+  cal<-num.Core(nThread)
   list.rc <- foreach(i=seq_len(length(genTable$filename))) %dopar% rcRun(genTable$filename[i],cytosine, posteriorMaxFilter, genTable)
   stopCluster(cal)
+  }else{
+    list.rc <- list()
+    for (i in seq_len(length(genTable$filename))){
+      list.rc[[i]]<- rcRun(genTable$filename[i],cytosine, posteriorMaxFilter, genTable)
+    }
+  }
   RCsaveResult(list.rc,cytosine,posteriorMaxFilter)
   cat(stopTime(mt))
 
