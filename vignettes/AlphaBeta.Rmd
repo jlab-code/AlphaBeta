@@ -2,7 +2,7 @@
 title: "AlphaBeta"
 author: "Y.Shahryary, Frank Johannes, Rashmi Hazarika"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+output: rmarkdown::pdf_document
 vignette: >
   %\VignetteIndexEntry{AlphaBeta}
   %\VignetteEngine{knitr::rmarkdown}
