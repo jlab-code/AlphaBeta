@@ -45,7 +45,7 @@ To install from GitHub (development version), follow the steps given below.
 
 ### How to use AlphaBeta
 
-Please open the [vignette](https://github.com/jlab-code/AlphaBeta/tree/master/vignettes/AlphaBeta.pdf) file.
+Please open the [vignette](https://github.com/jlab-code/AlphaBeta/blob/master/vignettes/AlphaBeta.pdf) file.
 
 ------------------------------------------------------------------------
 ### Contributors

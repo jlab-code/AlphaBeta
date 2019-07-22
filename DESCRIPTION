@@ -10,7 +10,7 @@ Description: AlphaBeta is a computational method for estimating epimutation rate
     The method has been specifically designed to:
     1. analyze 'germline' epimutations in the context of multi-generational mutation accumulation lines (MA-lines).
     2. analyze 'somatic' epimutations in the context of plant development and aging.
-License: GPL (>=3) 
+License: GPL-3
 Depends:
     R (>= 3.6.0)
 Imports:
