@@ -1,5 +1,5 @@
 filename, generation,lineage
-methylome_Col_G0-merged.txt, G0,
-methylome_Col_G1_L2-merged.txt,G1,L2
-methylome_Col_G4_L8-merged.txt,G4,L8
-methylome_Col_G11_L2-merged.txt, G11,L2
+data/methylome_Col_G0-merged.txt, G0,
+data/methylome_Col_G1_L2-merged.txt,G1,L2
+data/methylome_Col_G4_L8-merged.txt,G4,L8
+data/methylome_Col_G11_L2-merged.txt, G11,L2

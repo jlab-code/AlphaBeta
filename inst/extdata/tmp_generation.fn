@@ -1,0 +1,5 @@
+filename,generation,lineage
+/home/yadi/SERVER/Rpackages/AlphaBeta/inst/extdata/data/methylome_Col_G0-merged.txt, G0,
+/home/yadi/SERVER/Rpackages/AlphaBeta/inst/extdata/data/methylome_Col_G1_L2-merged.txt,G1,L2
+/home/yadi/SERVER/Rpackages/AlphaBeta/inst/extdata/data/methylome_Col_G4_L8-merged.txt,G4,L8
+/home/yadi/SERVER/Rpackages/AlphaBeta/inst/extdata/data/methylome_Col_G11_L2-merged.txt, G11,L2

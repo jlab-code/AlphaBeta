@@ -25,7 +25,7 @@ calculate divergence times of the pedigree
 ## Get some toy data
 file1 <- system.file("extdata/dm/","sampleInfo.csv", package="AlphaBeta")
 file2<-system.file("extdata/dm/","branchPoints.csv", package="AlphaBeta")
-file3<-system.file("extdata/dm/","d-matrix-CG.csv", package="AlphaBeta")
+file3<-system.file("extdata/dm/","AB-dMatrix-CG-0.99.csv", package="AlphaBeta")
 sample.info <-read.table(file1,sep="\\t", header=TRUE, stringsAsFactors = FALSE)
 branch.points <-read.table(file2,sep="\\t", header=TRUE, stringsAsFactors = FALSE)
 dmatrix <-read.table(file3,sep="\\t", header=TRUE, stringsAsFactors = FALSE)

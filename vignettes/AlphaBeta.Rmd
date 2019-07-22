@@ -1,87 +1,428 @@
 ---
 title: "AlphaBeta"
-author: "Y.Shahryary, Frank Johannes, Rashmi Hazarika"
+author: "Y.Shahryary, Rashmi Hazarika, Frank Johannes "
 date: "`r Sys.Date()`"
-output: rmarkdown::pdf_document
+output: 
+  pdf_document:
+    toc: true
+    toc_depth: 4
+    number_sections: true
+
+geometry: margin=0.5in 
 vignette: >
   %\VignetteIndexEntry{AlphaBeta}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+
 ---
 
 ```{r setup, include = FALSE}
+options(width=100)
 knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
+  collapse = FALSE,
+  comment = " ",
+  tidy.opts =list(width.cutoff=60),
+  tidy = TRUE,
+  size="small"
 )
 ```
 
-Vignettes are long form documentation commonly included in packages. 
-Because they are part of the distribution of the package, they need to be as compact as possible. 
-The `html_vignette` output type provides a custom style sheet (and tweaks some options) 
-to ensure that the resulting html is as small as possible. The `html_vignette` format:
+\newpage
 
-- Never uses retina figures
-- Has a smaller default figure size
-- Uses a custom CSS stylesheet instead of the default Twitter Bootstrap style
 
-## Vignette Info
-
-Note the various macros within the `vignette` section of the metadata block above. These are required in order to instruct R how to build the vignette. Note that you should change the `title` field and the `\VignetteIndexEntry` to match the title of your vignette.
-
-## Styles
-
-The `html_vignette` template includes a basic CSS theme. To override this theme you can specify your own CSS in the document metadata as follows:
-
-    output: 
-      rmarkdown::html_vignette:
-        css: mystyles.css
-
-## Figures
-
-The figure sizes have been customised so that you can easily put two images side-by-side. 
-
-```{r, fig.show='hold'}
-plot(1:10)
-plot(10:1)
+```{r, include=FALSE}
+library(AlphaBeta)
+library(data.table)
 ```
 
-You can enable figure captions by `fig_caption: yes` in YAML:
+\section{Introduction}
 
-    output:
-      rmarkdown::html_vignette:
-        fig_caption: yes
+**AlphaBeta** is a computational method for estimating epimutation rates and spectra from high-throughput DNA methylation data in plants.
 
-Then you can use the chunk option `fig.cap = "Your figure caption."` in **knitr**.
+The method has been specifically designed to:
 
-## More Examples
+**1.** Analyze 'germline' epimutations in the context of multi-generational mutation accumulation lines (MA-lines).
 
-You can write math expressions, e.g. $Y = X\beta + \epsilon$, footnotes^[A footnote here.], and tables, e.g. using `knitr::kable()`.
+**2.** Analyze 'somatic' epimutations in the context of plant development and aging.
+
+Heritable changes in cytosine methylation can arise stochastically in plant genomes independently of DNA sequence alterations. 
+These so-called ‘spontaneous epimutations’ appear to be a byproduct of imperfect DNA methylation maintenance during mitotic and meitotic cell divisions. 
+
+Accurate estimates of the rate and spectrum of these stochastic events are necessary to be able to quantify how epimutational processes shape methylome diversity in the context of plant evolution, development and aging. 
+
+Here we describe AlphaBeta, a computational method for estimating epimutation rates and spectra from pedigree-based high-throughput DNA methylation data in plants. 
+
+The method requires that the topology of the pedigree is known, which is typically the case in the construction of mutation accumulation lines (MA-lines) in sexually or clonally reproducing plant species. 
+
+However, the method also works for inferring somatic epimutations in long-lived perrenials, such as trees, using leaf methylomes and coring data as input. In this case, AlphaBeta treats the tree branching structure as an intra-organismal phylogeny of somatic lineages that carry information about the epimutational history of each branch.  
 
 
+\section{Preparing Files}
 
-```{r, echo=FALSE, results='asis'}
-fileFn <- system.file("extdata","generations.fn", package = "AlphaBeta")
-df <- read.csv(fileFn)
-knitr::kable(head(df, 5))
+## Generation file
+
+A file containing the list of filenames should be provided for generation of a divergence matrix and calculation of methylation proportions.
+
+```{r}
+# SAMPLE FILE
+generation.fn <- system.file("extdata","generations.fn", package="AlphaBeta")
+file <- fread(generation.fn)
+head(file)
+
+```
+
+```{r,include=FALSE}
+df<-read.csv(generation.fn)
+df$filename<-sub("^",paste0(dirname(generation.fn),"/"),df$filename )
+write.csv(df, file = paste0(dirname(generation.fn),"/tmp_generation.fn"),row.names=FALSE,quote=FALSE)
+generation.fn<- system.file("extdata","tmp_generation.fn", package="AlphaBeta")
+
+```
+
+## Generate divergence matrix
+
+Estimating epimutation rates from high-throughput DNA methylation data.
+Generation of divergence matrix and calculation of methylation levels.
+
+```{r, eval=FALSE, r,paged.print=FALSE}
+dMatrix(genTable =generation.fn,
+        cytosine = "CG",
+        posteriorMaxFilter = 0.99 )
 ```
 
 
+```{r paged.print=FALSE}
+#Sample output from dMatrix function
+head(fread("AB-dMatrix-CG-0.99.csv"))
 
-
-
-
-```{r, echo=FALSE, results='asis'}
-fileCsv <- system.file("extdata","d-matrices-CG-0.99.csv", package = "AlphaBeta")
-matrices <- read.csv(fileCsv, sep = "\t",check.names=FALSE)
-knitr::kable(head(matrices, 5))
 ```
 
-Also a quote using `>`:
+## Generate methylation proportions
 
-> "He who gives up [code] safety for [code] speed deserves neither."
-([via](https://twitter.com/hadleywickham/status/504368538874703872))
+```{r,eval=FALSE, paged.print=FALSE}
+rc.meth.lvl(genTable = generation.fn , 
+            cytosine = "CG",
+            posteriorMaxFilter = 0.99,
+            nThread = 4 )
+```
 
+```{r , paged.print=FALSE}
+#Sample output from proportions function
+head(fread(system.file("extdata/dm","AB-methprop-CG-0.99.csv", package="AlphaBeta")))
+
+```
+
+## Information about Sample file.
+
+This file containing information on generation times and pedigree lineages
+ 
+```{r ,  paged.print=FALSE}
+#Sample file
+head(fread(system.file("extdata/dm","sampleInfo.csv", package="AlphaBeta")))
+
+```
+
+## File containing lineage branch points
+ 
+```{r , paged.print=FALSE}
+#Sample file
+head(fread(system.file("extdata/dm","branchPoints.csv", package="AlphaBeta")))
+```
+
+\section{Germline epimutations}
+
+## Calculate divergence times 
+
+To calculate divergence times of the pedigree should be provided in the form of 4 files as shown below.
+
+```{r }
+props.name <- read.table(system.file("extdata/dm","AB-methprop-CG-0.99.csv", package="AlphaBeta"), sep="\t", header=TRUE)
+sample.info <-read.table(system.file("extdata/dm","sampleInfo.csv", package="AlphaBeta"), sep="\t", header=TRUE) 
+branch.points <-read.table(system.file("extdata/dm","branchPoints.csv", package="AlphaBeta"), sep="\t", header=TRUE)
+dmatrix <-read.table(system.file("extdata/dm","AB-dMatrix-CG-0.99.csv", package="AlphaBeta"), sep="\t", header=TRUE)
+context <- "CG"
+```
+
+calculate divergence times of the pedigree:
+
+```{r }
+pedigree <- convertDMATRIX(sample.info=sample.info,
+                           branch.points=branch.points,
+                           dmatrix=dmatrix,
+                           design="sibling")
+head(pedigree)
+```
+
+This is a manual step for inspecting the divergence data and removing outlier samples (if any):
+
+
+
+```{r echo=FALSE}
+dt <- pedigree[,2] + pedigree[,3] - 2 * pedigree[,1]
+plot(dt, pedigree[,"D.value"], ylab="Divergence value", xlab=expression(paste(Delta, " t")))
+```
+
+Read in the proportions data: 
+
+```{r}
+outliers <- "none"
+dmatrix <- dmatrix[which(dmatrix[,1] != outliers), ]
+dmatrix <- dmatrix[which(dmatrix[,2] != outliers), ]
+pedigree <- pedigree[c(as.numeric(rownames(dmatrix))),]
+
+props <- props.name[which(as.character(props.name[,2]) == context),]
+props <- props.name[which(!is.element(props.name[,1], outliers) == TRUE),]
+```
+Calculate initial proportions of unmethylated cytosines after removal of outliers:
+
+```{r}
+p0uu_in <- 1-mean(as.numeric(as.character(props[,3])))
+p0uu_in
+```
+
+
+## Run Models
+
+### Run Model with no selection (ABneutral)
+
+```{r,output.lines=5 }
+# output directory
+output.data.dir<-paste0(getwd(),"/") 
+
+output <- ABneutral(
+  pedigree.data = pedigree,
+  p0uu = p0uu_in,
+  eqp = p0uu_in,
+  eqp.weight = 1,
+  Nstarts = 4,
+  out.dir = output.data.dir,
+  out.name = "CG_global_estimates_ABneutral"
+)
+```
+**NOTE: ** it is recommended to use at least 50 Nstarts to achieve best solutions
+
+Showing summary output of only output:
+
+```{r,output.lines=5 }
+summary(output)
+```
+
+```{r,output.lines=5}
+head(output$pedigree)
+```
+
+### Run model with selection against spontaneous gain of methylation (ABselectMM)
+
+```{r}
+output <- ABselectMM(
+  pedigree.data = pedigree,
+  p0uu = p0uu_in,
+  eqp = p0uu_in,
+  eqp.weight = 1,
+  Nstarts = 4,
+  out.dir = output.data.dir,
+  out.name = "CG_global_estimates_ABselectMM"
+)
+
+summary(output)
+```
+
+### Run model with selection against spontaneous loss of methylation (ABselectUU)
+
+```{r}
+output <- ABselectUU(
+  pedigree.data = pedigree,
+  p0uu = p0uu_in,
+  eqp = p0uu_in,
+  eqp.weight = 1,
+  Nstarts = 4,
+  out.dir = output.data.dir,
+  out.name = "CG_global_estimates_ABselectUU"
+)
+
+summary(output)
+```
+
+
+### Run model that considers no accumulation of epimutations (ABnull)
+
+```{r}
+output <- ABnull(pedigree.data = pedigree,
+               out.dir = output.data.dir,
+               out.name = "CG_global_estimates_ABnull")
+
+summary(output)
+```
+
+
+## Comparison of different models and selection of best model
+
+### Testing ABneutral vs. ABnull
+
+```{r}
+file1 <-
+  system.file("extdata/models/",
+              "CG_global_estimates_ABneutral.Rdata",
+              package = "AlphaBeta")
+file2 <-
+  system.file("extdata/models/",
+              "CG_global_estimates_ABnull.Rdata",
+              package = "AlphaBeta")
+
+out <- FtestRSS(pedigree.select = file1,
+                pedigree.null = file2)
+
+out$Ftest
+```
+
+### Testing ABselectMM vs.ABneutral
+
+```{r}
+file1 <-
+  system.file("extdata/models/",
+              "CG_global_estimates_ABselectMM.Rdata",
+              package = "AlphaBeta")
+file2 <-
+  system.file("extdata/models/",
+              "CG_global_estimates_ABnull.Rdata",
+              package = "AlphaBeta")
+
+out <- FtestRSS(pedigree.select = file1,
+                pedigree.null = file2)
+
+out$Ftest
+```
+
+### Testing ABselectUU vs.ABneutral
+
+```{r}
+file1 <-
+  system.file("extdata/models/",
+              "CG_global_estimates_ABselectUU.Rdata",
+              package = "AlphaBeta")
+file2 <-
+  system.file("extdata/models/",
+              "CG_global_estimates_ABnull.Rdata",
+              package = "AlphaBeta")
+
+out <- FtestRSS(pedigree.select = file1,
+                pedigree.null = file2)
+
+out$Ftest
+```
+
+## Bootstrap analysis with the best model
+
+
+i.e ABneutral in our case
+
+```{r}
+
+inputModel <- system.file("extdata/models/",
+              "CG_global_estimates_ABneutral.Rdata",
+              package = "AlphaBeta")
+
+# Bootstrapping models CG
+output.data.dir <-paste0(getwd(),"/") 
+
+Boutput <- BOOTmodel(
+  pedigree.data = inputModel,
+  Nboot = 4,
+  out.dir = output.data.dir,
+  out.name = "Boot_CG_global_estimates_ABneutral"
+)
+
+summary(Boutput)
+```
+
+```{r}
+Boutput$standard.errors
+```
+
+\section{Somatic epimutations}
+
+## Loading data and generation of pedigree
+
+```{r }
+props.name <- read.table(system.file("extdata/soma/","AB-methprop-CG-0.99.csv", package="AlphaBeta"), sep="\t", header=TRUE,stringsAsFactors = FALSE)
+sample.info <-read.table(system.file("extdata/soma/","sampleInfo.csv", package="AlphaBeta"), sep="\t", header=TRUE,stringsAsFactors = FALSE) 
+dmatrix <-read.table(system.file("extdata/soma/","AB-dMatrix-CG-0.99.csv", package="AlphaBeta"), sep="\t", header=TRUE,stringsAsFactors = FALSE)
+```
+
+
+## Generate pedigree from the input files
+
+```{r}
+
+pedigree.out <- makePHYLO(tall=330, pedigree = dmatrix, sample.info = sample.info)
+pedigree.out <- pedigree.out[[1]]
+head(pedigree.out)
+```
+
+## Calculate the proportion of unmethylated cytosines
+
+```{r}
+p0uu_in <- mean(props[,3])
+p0uu_in
+```
+
+
+## Run Models
+
+### Run Model with no selection (outneutral)
+
+```{r}
+outneutral <- ABneutralSOMA(
+  pedigree.data = pedigree.out,
+  p0uu = p0uu_in,
+  eqp = p0uu_in,
+  eqp.weight = 0.001,
+  Nstarts = 5,
+  out.dir = output.data.dir,
+  out.name = "ABneutralSOMA_CG_estimates"
+)
+summary(outneutral)
+```
+
+```{r}
+head(outneutral$pedigree)
+```
+
+
+### Run model with selection against spontaneous gain of methylation (outselectMM)
+
+```{r}
+outselectMM <- ABselectMMSOMA(
+  pedigree.data = pedigree.out,
+  p0uu = p0uu_in,
+  eqp = p0uu_in,
+  eqp.weight = 0.001,
+  Nstarts = 5,
+  out.dir = output.data.dir,
+  out.name = "ABselectMMSOMA_CG_estimates"
+)
+
+summary(outselectMM)
+```
+
+
+### Run model with selection against spontaneous loss of methylation (outselectUU)
+
+
+```{r}
+outselectUU <- ABselectUUSOMA(
+  pedigree.data = pedigree.out,
+  p0uu = p0uu_in,
+  eqp = p0uu_in,
+  eqp.weight = 0.001,
+  Nstarts = 5,
+  out.dir = output.data.dir,
+  out.name = "ABselectUUSOMA_CG_estimates"
+)
+summary(outselectUU)
+```
+
+\section{R session info }
 
 ```{r}
 sessionInfo()
