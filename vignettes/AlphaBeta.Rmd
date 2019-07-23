@@ -7,7 +7,7 @@ output:
     toc: true
     toc_depth: 4
     number_sections: true
-
+urlcolor: blue
 geometry: margin=0.5in 
 vignette: >
   %\VignetteIndexEntry{AlphaBeta}
@@ -58,6 +58,10 @@ However, the method also works for inferring somatic epimutations in long-lived 
 
 
 \section{Preparing Files}
+
+**NOTE** In this tutorial we are reading methylome files from the methimpute package:
+
+You can find more information here:  [Methimpute package](https://bioconductor.org/packages/release/bioc/html/methimpute.html)
 
 ## Generation file
 
@@ -131,7 +135,12 @@ head(fread(system.file("extdata/dm","branchPoints.csv", package="AlphaBeta")))
 
 \section{Germline epimutations}
 
+Models ABneutral, ABselectMM and ABselectUU can be used to estimate the rate of spontaneous epimutations from pedigree-based high-throughput DNA methylation data. The models are generally designed for pedigree data arising from selfing diploid species.
+
+
 ## Calculate divergence times 
+
+Divergence time (delta t) is calculated as follows: delta t = t1 + t2 - 2*t0, where t1 is the time of sample 1 (in generations), t2 is the time of sample 2 (in generations) and t0 is the time (in generations) of the most recent common founder of samples 1 and 2.
 
 To calculate divergence times of the pedigree should be provided in the form of 4 files as shown below.
 
@@ -185,6 +194,8 @@ p0uu_in
 
 ### Run Model with no selection (ABneutral)
 
+This model assumes that heritable gains and losses in cytosine methylation are selectively neutral.
+
 ```{r,output.lines=5 }
 # output directory
 output.data.dir<-paste0(getwd(),"/") 
@@ -213,6 +224,8 @@ head(output$pedigree)
 
 ### Run model with selection against spontaneous gain of methylation (ABselectMM)
 
+This model assumes that heritable losses of cytosine methylation are under negative selection. The selection parameter is estimated.
+
 ```{r}
 output <- ABselectMM(
   pedigree.data = pedigree,
@@ -228,6 +241,8 @@ summary(output)
 ```
 
 ### Run model with selection against spontaneous loss of methylation (ABselectUU)
+
+This model assumes that heritable gains of cytosine methylation are under negative selection. The selection parameter is estimated.
 
 ```{r}
 output <- ABselectUU(
@@ -245,6 +260,8 @@ summary(output)
 
 
 ### Run model that considers no accumulation of epimutations (ABnull)
+
+This is the null model of no accumulation.
 
 ```{r}
 output <- ABnull(pedigree.data = pedigree,
@@ -341,6 +358,9 @@ Boutput$standard.errors
 
 \section{Somatic epimutations}
 
+Models ABneutralSOMA, ABselectMMSOMA and ABselectUUSOMA can be used to estimate the rate of spontaneous epimutations from pedigree-based high-throughput DNA methylation data. The models are generally designed for pedigree data arising from clonally or asexually propagated diploid species. The models can also be applied to long-lived perrenials, such as trees, using leaf methylomes and coring data as input. In this case, the tree branching structure is treated as an intra-organismal pedigree (or phylogeny) of somatic lineages. 
+
+
 ## Loading data and generation of pedigree
 
 ```{r }
@@ -369,7 +389,9 @@ p0uu_in
 
 ## Run Models
 
-### Run Model with no selection (outneutral)
+### Run Model with no selection (ABneutralSOMA)
+
+This model assumes that somatically heritable gains and losses in cytosine methylation are selectively neutral. 
 
 ```{r}
 outneutral <- ABneutralSOMA(
@@ -389,7 +411,9 @@ head(outneutral$pedigree)
 ```
 
 
-### Run model with selection against spontaneous gain of methylation (outselectMM)
+### Run model with selection against spontaneous gain of methylation (ABselectMMSOMA)
+
+This model assumes that somatically heritable losses of cytosine methylation are under negative selection. The selection parameter is estimated.
 
 ```{r}
 outselectMM <- ABselectMMSOMA(
@@ -406,8 +430,10 @@ summary(outselectMM)
 ```
 
 
-### Run model with selection against spontaneous loss of methylation (outselectUU)
+### Run model with selection against spontaneous loss of methylation (ABselectUUSOMA)
 
+
+This model assumes that somatically heritable gains of cytosine methylation are under negative selection. The selection parameter is estimated.
 
 ```{r}
 outselectUU <- ABselectUUSOMA(
