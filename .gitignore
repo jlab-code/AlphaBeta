@@ -3,6 +3,7 @@
 .RData
 .Ruserdata
 .Rbuildignore
+.Rproj
 inst/doc
 .renviron
 .rprofile

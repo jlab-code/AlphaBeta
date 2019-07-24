@@ -24,6 +24,6 @@ Estimating epimutation rates from high-throughput DNA methylation data
 }
 \examples{
 ## Get some toy data
-file <- system.file("extdata","generations.fn", package="AlphaBeta")
+file <- system.file("extdata","tm_generations.fn", package="AlphaBeta")
 rc.meth.lvl(file, "CG", 0.99)
 }

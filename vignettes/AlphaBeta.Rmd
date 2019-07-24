@@ -205,7 +205,7 @@ output <- ABneutral(
   p0uu = p0uu_in,
   eqp = p0uu_in,
   eqp.weight = 1,
-  Nstarts = 4,
+  Nstarts = 2,
   out.dir = output.data.dir,
   out.name = "CG_global_estimates_ABneutral"
 )
@@ -232,7 +232,7 @@ output <- ABselectMM(
   p0uu = p0uu_in,
   eqp = p0uu_in,
   eqp.weight = 1,
-  Nstarts = 4,
+  Nstarts = 2,
   out.dir = output.data.dir,
   out.name = "CG_global_estimates_ABselectMM"
 )
@@ -250,7 +250,7 @@ output <- ABselectUU(
   p0uu = p0uu_in,
   eqp = p0uu_in,
   eqp.weight = 1,
-  Nstarts = 4,
+  Nstarts = 2,
   out.dir = output.data.dir,
   out.name = "CG_global_estimates_ABselectUU"
 )
@@ -344,7 +344,7 @@ output.data.dir <-paste0(getwd(),"/")
 
 Boutput <- BOOTmodel(
   pedigree.data = inputModel,
-  Nboot = 4,
+  Nboot = 2,
   out.dir = output.data.dir,
   out.name = "Boot_CG_global_estimates_ABneutral"
 )
@@ -399,7 +399,7 @@ outneutral <- ABneutralSOMA(
   p0uu = p0uu_in,
   eqp = p0uu_in,
   eqp.weight = 0.001,
-  Nstarts = 5,
+  Nstarts = 2,
   out.dir = output.data.dir,
   out.name = "ABneutralSOMA_CG_estimates"
 )
@@ -421,7 +421,7 @@ outselectMM <- ABselectMMSOMA(
   p0uu = p0uu_in,
   eqp = p0uu_in,
   eqp.weight = 0.001,
-  Nstarts = 5,
+  Nstarts = 2,
   out.dir = output.data.dir,
   out.name = "ABselectMMSOMA_CG_estimates"
 )
@@ -441,7 +441,7 @@ outselectUU <- ABselectUUSOMA(
   p0uu = p0uu_in,
   eqp = p0uu_in,
   eqp.weight = 0.001,
-  Nstarts = 5,
+  Nstarts = 2,
   out.dir = output.data.dir,
   out.name = "ABselectUUSOMA_CG_estimates"
 )

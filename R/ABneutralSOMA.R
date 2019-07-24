@@ -66,7 +66,7 @@ ABneutralSOMA<-function(pedigree.data, p0uu, eqp, eqp.weight, Nstarts, out.dir, 
 	## Calculating theoretical divergence for every observed pair in 'pedigree.txt'
 	  Dt1t2<-NULL
 
-		  for (p in 1:nrow(pedigree))
+		  for (p in seq_len(NROW(pedigree)))
 		  {
 
 			## Define state vectors for t1,t2 and t0 from pedigree using matrix multiplications from library(expm)
@@ -142,7 +142,7 @@ ABneutralSOMA<-function(pedigree.data, p0uu, eqp, eqp.weight, Nstarts, out.dir, 
 	pedigree<-pedigree.data
 
 
-		for (s in 1:Nstarts)
+		for (s in seq_len(Nstarts))
 		{
 
 			## Draw random starting values
@@ -179,7 +179,7 @@ ABneutralSOMA<-function(pedigree.data, p0uu, eqp, eqp.weight, Nstarts, out.dir, 
 ##### Calculating the least square of the first part of the minimized function
 	 lsqpart<-NULL
 
-	 for (l in 1:nrow(final))
+	 for (l in seq_len(NROW(final)))
 	 {
 			  PrMM <- p0mm
 			  PrUM <- p0um
@@ -202,7 +202,7 @@ ABneutralSOMA<-function(pedigree.data, p0uu, eqp, eqp.weight, Nstarts, out.dir, 
 			  ## Calculating theoretical divergence for every observed pair in 'pedigree.txt'
 			  Dt1t2<-NULL
 
-				  for (p in 1:nrow(pedigree))
+				  for (p in seq_len(NROW(pedigree)))
 				  {
 
 					## Define state vectors for t1,t2 and t0 from pedigree using matrix multiplications from library(expm)
@@ -247,7 +247,7 @@ ABneutralSOMA<-function(pedigree.data, p0uu, eqp, eqp.weight, Nstarts, out.dir, 
 
 
 	 #index.1<-which(final["alpha"] > 0 & final["beta"] > 0 & final["intercept"] > 0)
-	 index.2<-setdiff(1:nrow(final), index.1)
+	 index.2<-setdiff(seq_len(NROW(final)), index.1)
 	 final.1<-final[index.1,]
 	 final.2<-final[index.2,]
 
@@ -277,7 +277,7 @@ ABneutralSOMA<-function(pedigree.data, p0uu, eqp, eqp.weight, Nstarts, out.dir, 
 			  Dt1t2<-NULL
 			  Residual<-NULL
 
-				  for (p in 1:nrow(pedigree))
+				  for (p in seq_len(NROW(pedigree)))
 				  {
 
 					## Define state vectors for t1,t2 and t0 from pedigree using matrix multiplications from library(expm)
@@ -369,7 +369,7 @@ ABneutralSOMA<-function(pedigree.data, p0uu, eqp, eqp.weight, Nstarts, out.dir, 
 							## Calculating theoretical divergence for every observed pair in 'pedigree.txt'
 							Dt1t2<-NULL
 
-								for (p in 1:nrow(pedigree.new))
+								for (p in seq_len(NROW(pedigree.new)))
 								{
 
 									## Define state vectors for t1,t2 and t0 from pedigree using matrix multiplications from library(expm)

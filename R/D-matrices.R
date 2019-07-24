@@ -21,7 +21,8 @@
 #' file <- system.file("extdata","generations.fn", package="AlphaBeta")
 #' df<-read.csv(file)
 #' df$filename<-sub("^",paste0(dirname(file),"/"),df$filename )
-#' write.csv(df, file = paste0(dirname(file),"/generations.fn"),row.names=FALSE,quote=FALSE)
+#' write.csv(df, file = paste0(dirname(file),"/tm_generations.fn"),row.names=FALSE,quote=FALSE)
+#' file <- system.file("extdata","tm_generations.fn", package="AlphaBeta")
 #' dMatrix(file, "CG", 0.99)
 
 
