@@ -23,21 +23,21 @@ ABselectUU(pedigree.data, p0uu, eqp, eqp.weight, Nstarts, out.dir,
 \item{out.name}{output file name.}
 }
 \value{
-ABselectMM  RDATA
+ABselectMM  RData file.
 }
 \description{
-Run model with selection against spontaneous loss of methylation (ABselectUU)
+This model assumes that heritable gains of cytosine methylation are under negative selection.
 }
 \examples{
 ## Get some toy data
-file1 <- system.file("extdata/dm/","pedigree.csv", package="AlphaBeta")
-pedigree <- as.matrix(read.table(file1, sep=",", header=TRUE, stringsAsFactors = FALSE))
+inFile <- system.file("extdata/dm/","pedigree.csv", package="AlphaBeta")
+pedigree <- as.matrix(read.table(inFile, sep=",", header=TRUE, stringsAsFactors = FALSE))
 p0uu_in <- 0.7435074
 eqp.weight <- 1
 Nstarts <- 2
 output.data.dir <- paste0( getwd(),"/")
 out.name <- "CG_global_estimates_ABselectUU"
-out3 <- ABselectMM(pedigree.data = pedigree,
+out3 <- ABselectUU(pedigree.data = pedigree,
                   p0uu=p0uu_in,
                   eqp=p0uu_in,
                   eqp.weight=eqp.weight,

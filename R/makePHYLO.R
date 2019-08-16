@@ -1,8 +1,8 @@
-#' Generate pedigree
-#' @param tall pedigree data.
-#' @param pedigree dmatrix.
-#' @param sample.info sample.info
-#' @return pedigree data.
+#' Generating tree pedigree data
+#' @param tall total age of the tree.
+#' @param pedigree dmatrix file.
+#' @param sample.info sample info file.
+#' @return tree pedigree data file.
 #' @export
 #' @examples
 #'## Get some toy data
@@ -10,6 +10,7 @@
 #' file2 <- system.file("extdata/soma/","sampleInfo.csv", package="AlphaBeta")
 #' d.matrix <- read.table(file1, sep="\t", header=TRUE, stringsAsFactors = FALSE)
 #' sample.info <- read.table(file2, sep="\t", header=TRUE, stringsAsFactors = FALSE)
+#' # in our case, the total age of tree is 330
 #' out <- makePHYLO(tall=330, pedigree = d.matrix, sample.info = sample.info)
 #'
 

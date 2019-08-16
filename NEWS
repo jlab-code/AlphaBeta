@@ -5,4 +5,8 @@
 + added models.
 + renamed package.
 
-
+Changes in version 0.99.2 (2019-08-15)
++ Fixed bugs.
++ Made the following significant changes
+  o Using BiocParallel for parallel evaulation.
+  o Updated documentation file.

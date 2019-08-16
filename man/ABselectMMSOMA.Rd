@@ -23,15 +23,15 @@ ABselectMMSOMA(pedigree.data, p0uu, eqp, eqp.weight, Nstarts, out.dir,
 \item{out.name}{output file name.}
 }
 \value{
-ABneutralSoma data.
+ABneutralSoma RData file.
 }
 \description{
-Model with selection against spontaneous gain of methylation (outselectMM)
+This model assumes that somatically heritable gains of cytosine methylation are under negative selection.
 }
 \examples{
 ## Get some toy data
-file1 <- system.file("extdata/soma/","pedigreeSoma.csv", package="AlphaBeta")
-pedigree <- as.matrix(read.table(file1, sep=",", header=TRUE, stringsAsFactors = FALSE))
+inFile <- system.file("extdata/soma/","pedigreeSoma.csv", package="AlphaBeta")
+pedigree <- as.matrix(read.table(inFile, sep=",", header=TRUE, stringsAsFactors = FALSE))
 p0uu_in <- 0.54755
 eqp.weight <- 0.001
 Nstarts <- 2

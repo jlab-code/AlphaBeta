@@ -8,21 +8,19 @@
 #' @importFrom  stats quantile
 #' @importFrom stats runif
 #' @importFrom stats sd
-#' @return outfinal compared data.
+#' @return bootstrap result.
 #' @export
 #' @examples
 #'## Get some toy data
-#' file1 <- system.file("extdata/models/","CG_global_estimates_ABneutral.Rdata", package="AlphaBeta")
+#' inFile <- system.file("extdata/models/","CG_global_estimates_ABneutral.Rdata", package="AlphaBeta")
 #' Nboot <- 4
 #' out.dir <- paste0( getwd(),"/")
 #' out.name <-"Boot_CG_global_estimates_ABneutral"
-#' Bout <- BOOTmodel(pedigree.data=file1,
+#' Bout <- BOOTmodel(pedigree.data=inFile,
 #'                 Nboot=Nboot,
 #'                 out.dir=out.dir,
 #'                 out.name=out.name)
-
-
-
+#' summary(Bout)
 
 
 
@@ -159,7 +157,7 @@ BOOTmodel<-function(pedigree.data, Nboot, out.dir, out.name)
 
         			counter<-counter+1
 
-        			cat("Bootstrap interation: ", counter/Nboot, "\n")
+        			message("Bootstrap interation: ", counter/Nboot, "\n")
 
         			opt.out  <- suppressWarnings(optimx(par = param_int0, fn = LSE_intercept, method=optim.method))
         			alphafinal<-as.numeric(opt.out[1])
@@ -377,7 +375,7 @@ BOOTmodel<-function(pedigree.data, Nboot, out.dir, out.name)
 
       counter<-counter+1
 
-      cat("Bootstrap interation: ", counter/Nboot, "\n")
+      message("Bootstrap interation: ", counter/Nboot, "\n")
 
       opt.out  <- suppressWarnings(optimx(par = param_int0, fn = LSE_intercept, method=optim.method))
       alphafinal<-as.numeric(opt.out[1])
@@ -600,7 +598,7 @@ BOOTmodel<-function(pedigree.data, Nboot, out.dir, out.name)
 
       counter<-counter+1
 
-      cat("Bootstrap interation: ", counter/Nboot, "\n")
+      message("Bootstrap interation: ", counter/Nboot, "\n")
 
       opt.out  <- suppressWarnings(optimx(par = param_int0, fn = LSE_intercept, method=optim.method))
       alphafinal<-as.numeric(opt.out[1])
@@ -822,7 +820,7 @@ BOOTmodel<-function(pedigree.data, Nboot, out.dir, out.name)
 
       counter<-counter+1
 
-      cat("Bootstrap interation: ", counter/Nboot, "\n")
+      message("Bootstrap interation: ", counter/Nboot, "\n")
 
       opt.out  <- suppressWarnings(optimx(par = param_int0, fn = LSE_intercept, method=optim.method))
       alphafinal<-as.numeric(opt.out[1])
@@ -1031,7 +1029,7 @@ BOOTmodel<-function(pedigree.data, Nboot, out.dir, out.name)
 
     counter<-counter+1
 
-    cat("Bootstrap interation: ", counter/Nboot, "\n")
+    message("Bootstrap interation: ", counter/Nboot, "\n")
 
 
     opt.out  <- suppressWarnings(optimx(par = param_int0, fn = LSE_intercept, method=optim.method))
@@ -1221,7 +1219,7 @@ allow.neg.intercept="yes"
       ## Initializing
       counter<-counter+1
 
-      cat("Bootstrap interation: ", counter/Nboot, "\n")
+      message("Bootstrap interation: ", counter/Nboot, "\n")
 
             opt.out  <- suppressWarnings(optimx(par = param_int0, fn = LSE_intercept, method=optim.method))
             alphafinal<-opt.out[1]

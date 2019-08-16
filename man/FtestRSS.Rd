@@ -12,7 +12,7 @@ FtestRSS(pedigree.select, pedigree.null)
 \item{pedigree.null}{ABnull pedigree.}
 }
 \value{
-outfinal compared data.
+result of Ftest.
 }
 \description{
 Comparison of different models and selection of best model

@@ -2,7 +2,7 @@
 #' @param pedigree.select pedigree model.
 #' @param pedigree.null ABnull pedigree.
 #' @importFrom  stats pf
-#' @return outfinal compared data.
+#' @return result of Ftest.
 #' @export
 #' @examples
 #'## Get some toy data

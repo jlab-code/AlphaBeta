@@ -14,21 +14,21 @@ ABnull(pedigree.data, out.dir, out.name)
 \item{out.name}{name of file}
 }
 \value{
-ABnull data.
+ABnull RData file.
 }
 \description{
 Run model that considers no accumulation of epimutations (ABnull)
 }
 \examples{
 # Get some toy data
-file1 <- system.file("extdata/dm/","pedigree.csv", package="AlphaBeta")
-pedigree <- as.matrix(read.table(file1,sep=",", header=TRUE, stringsAsFactors = FALSE))
+inFile <- system.file("extdata/dm/","pedigree.csv", package="AlphaBeta")
+pedigree <- as.matrix(read.table(inFile, sep=",", header=TRUE, stringsAsFactors = FALSE))
 output.data.dir <- paste0( getwd(),"/")
 out.name <- "CG_global_estimates_ABnull"
-out1 <- ABnull(pedigree.data = pedigree,
+out <- ABnull(pedigree.data = pedigree,
                   out.dir=output.data.dir,
                   out.name=out.name)
 
-summary(out1)
+summary(out)
 
 }

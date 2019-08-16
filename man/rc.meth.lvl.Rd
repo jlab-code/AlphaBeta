@@ -4,7 +4,7 @@
 \alias{rc.meth.lvl}
 \title{Calculating rc.Meth.lvl}
 \usage{
-rc.meth.lvl(genTable, cytosine, posteriorMaxFilter, nThread = 2)
+rc.meth.lvl(genTable, cytosine, posteriorMaxFilter)
 }
 \arguments{
 \item{genTable}{Generation table name, you can find sample file in
@@ -13,8 +13,6 @@ rc.meth.lvl(genTable, cytosine, posteriorMaxFilter, nThread = 2)
 \item{cytosine}{Type of cytosine (CHH/CHG/CG)}
 
 \item{posteriorMaxFilter}{Filter value, based on posteriorMax}
-
-\item{nThread}{number of threads, default is 2.}
 }
 \value{
 rc meth lvl.

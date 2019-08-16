@@ -2,22 +2,22 @@
 % Please edit documentation in R/makePHYLO.R
 \name{makePHYLO}
 \alias{makePHYLO}
-\title{Generate pedigree}
+\title{Generating tree pedigree data}
 \usage{
 makePHYLO(tall, pedigree, sample.info)
 }
 \arguments{
-\item{tall}{pedigree data.}
+\item{tall}{total age of the tree.}
 
-\item{pedigree}{dmatrix.}
+\item{pedigree}{dmatrix file.}
 
-\item{sample.info}{sample.info}
+\item{sample.info}{sample info file.}
 }
 \value{
-pedigree data.
+tree pedigree data file.
 }
 \description{
-Generate pedigree
+Generating tree pedigree data
 }
 \examples{
 ## Get some toy data
@@ -25,6 +25,7 @@ file1 <- system.file("extdata/soma/","AB-dMatrix-CG-0.99.csv", package="AlphaBet
 file2 <- system.file("extdata/soma/","sampleInfo.csv", package="AlphaBeta")
 d.matrix <- read.table(file1, sep="\\t", header=TRUE, stringsAsFactors = FALSE)
 sample.info <- read.table(file2, sep="\\t", header=TRUE, stringsAsFactors = FALSE)
+# in our case, the total age of tree is 330
 out <- makePHYLO(tall=330, pedigree = d.matrix, sample.info = sample.info)
 
 }

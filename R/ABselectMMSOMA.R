@@ -1,4 +1,7 @@
 #' Model with selection against spontaneous gain of methylation (outselectMM)
+#'
+#' This model assumes that somatically heritable gains of cytosine methylation are under negative selection.
+#'
 #' @param pedigree.data pedigree data.
 #' @param p0uu initial proportion of unmethylated cytosines.
 #' @param eqp equilibrium proportion of unmethylated cytosines.
@@ -9,12 +12,12 @@
 #' @import optimx
 #' @import expm
 #' @importFrom stats runif
-#' @return ABneutralSoma data.
+#' @return ABneutralSoma RData file.
 #' @export
 #' @examples
 #'## Get some toy data
-#' file1 <- system.file("extdata/soma/","pedigreeSoma.csv", package="AlphaBeta")
-#' pedigree <- as.matrix(read.table(file1, sep=",", header=TRUE, stringsAsFactors = FALSE))
+#' inFile <- system.file("extdata/soma/","pedigreeSoma.csv", package="AlphaBeta")
+#' pedigree <- as.matrix(read.table(inFile, sep=",", header=TRUE, stringsAsFactors = FALSE))
 #' p0uu_in <- 0.54755
 #' eqp.weight <- 0.001
 #' Nstarts <- 2
@@ -158,31 +161,26 @@ ABselectMMSOMA<-function(pedigree.data, p0uu, eqp, eqp.weight, Nstarts, out.dir,
 	opt.out<-NULL
 	pedigree<-pedigree.data
 
-
 		for (s in seq_len(Nstarts) )
 		{
 
 			## Draw random starting values
 			alpha.start  <-10^(runif(1, log10(10^-9), log10(10^-2)))
 			beta.start   <-10^(runif(1, log10(10^-9), log10(10^-2)))
-	   		weight.start <-runif(1,0,0.5)
-	     	sel.start <-runif(1,0.1,1)
-	    	intercept.start <-runif(1,0,max(pedigree[,4]))
-	    	param_int0 = c(alpha.start, beta.start, weight.start, sel.start, intercept.start)
-
+      weight.start <-runif(1,0,0.5)
+      sel.start <-runif(1,0.1,1)
+      intercept.start <-runif(1,0,max(pedigree[,4]))
+      param_int0 = c(alpha.start, beta.start, weight.start, sel.start, intercept.start)
 			## Initializing
 			counter<-counter+1
-
-			cat("Progress: ", counter/Nstarts, "\n")
-
-
+			message("Progress: ", counter/Nstarts, "\n")
 						opt.out  <- suppressWarnings(optimx(par = param_int0, fn = LSE_intercept, method=optim.method))
 						alphafinal<-opt.out[1]
 						betfinal<-opt.out[2]
 						alphafinal<-as.numeric(opt.out[1])
-    					betfinal<-as.numeric(opt.out[2])
-    					weightfinal<-as.numeric(opt.out[3])
-    					selfinal<-as.numeric(opt.out[4])
+						betfinal<-as.numeric(opt.out[2])
+            weightfinal<-as.numeric(opt.out[3])
+            selfinal<-as.numeric(opt.out[4])
 
     					## Calculating equilibrium frequencies based on the model estimates
     					svGzero   <- c(p0uu, (weightfinal)*p0mm, (1-weightfinal)*p0mm)
@@ -219,12 +217,13 @@ ABselectMMSOMA<-function(pedigree.data, p0uu, eqp, eqp.weight, Nstarts, out.dir,
     						PrUUinf<- pinf.vec[1,1]
     						opt.out <-cbind(opt.out, PrMMinf, PrUMinf, PrUUinf, alpha.start, beta.start, weight.start,
     						                sel.start, intercept.start)
-    						final<-rbind(final, opt.out)
+    						final[[s]] <- opt.out
 
 		} # End of Nstarts loop
 
-	 colnames(final)[1:5]<-c("alpha", "beta", "weight", "sel.coef", "intercept")
-	colnames(final)[14:16]<-c("PrMMinf", "PrUMinf", "PrUUinf")
+	  final <- do.call("rbind", final)
+    colnames(final)[1:5]<-c("alpha", "beta", "weight", "sel.coef", "intercept")
+    colnames(final)[14:16]<-c("PrMMinf", "PrUMinf", "PrUUinf")
 
 
 
@@ -327,7 +326,7 @@ ABselectMMSOMA<-function(pedigree.data, p0uu, eqp, eqp.weight, Nstarts, out.dir,
 	## State probabilities at G0; first element = PrUU, second element = PrUM, third element = PrMM
 	 svGzero   <- c(PrUU, (weight)*PrMM, (1-weight)*PrMM)
 
-	  		  element11<-(1-alpha)^2*sel
+	  		element11<-(1-alpha)^2*sel
 			  element12<-(2*(1-alpha)*alpha)*(1/2*(1+sel))
 			  element13<-(alpha^2)
 			  rowtotal1<-element11 + element12 + element13

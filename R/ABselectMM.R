@@ -1,4 +1,7 @@
 #' Run model with selection against spontaneous gain of methylation (ABselectMM)
+#'
+#' This model assumes that heritable losses of cytosine methylation are under negative selection.
+#'
 #' @param pedigree.data pedigree data.
 #' @param p0uu initial proportion of unmethylated cytosines.
 #' @param eqp equilibrium proportion of unmethylated cytosines.
@@ -9,18 +12,18 @@
 #' @import optimx
 #' @import expm
 #' @importFrom stats runif
-#' @return ABselectMM  RDATA
+#' @return ABselectMM  RData file.
 #' @export
 #' @examples
 #'## Get some toy data
-#' file1 <- system.file("extdata/dm/","pedigree.csv", package="AlphaBeta")
-#' pedigree <- as.matrix(read.table(file1, sep=",", header=TRUE, stringsAsFactors = FALSE))
+#' inFile <- system.file("extdata/dm/","pedigree.csv", package="AlphaBeta")
+#' pedigree <- as.matrix(read.table(inFile, sep=",", header=TRUE, stringsAsFactors = FALSE))
 #' p0uu_in <- 0.7435074
 #' eqp.weight <- 1
 #' Nstarts <- 2
 #' output.data.dir <- paste0( getwd(),"/")
 #' out.name <- "CG_global_estimates_ABselectMM"
-#' out2 <- ABselectMM(pedigree.data = pedigree,
+#' out <- ABselectMM(pedigree.data = pedigree,
 #'                   p0uu=p0uu_in,
 #'                   eqp=p0uu_in,
 #'                   eqp.weight=eqp.weight,
@@ -28,7 +31,7 @@
 #'                   out.dir=output.data.dir,
 #'                   out.name=out.name)
 #'
-#' summary(out2)
+#' summary(out)
 #'
 
 
@@ -153,7 +156,7 @@ ABselectMM<-function(pedigree.data, p0uu, eqp, eqp.weight, Nstarts, out.dir, out
     		## Initializing
     			counter<-counter+1
 
-    			cat("Progress: ", counter/Nstarts, "\n")
+    			message("Progress: ", counter/Nstarts, "\n")
 
 
     						opt.out  <- suppressWarnings(optimx(par = param_int0, fn = LSE_intercept, method=optim.method))
@@ -192,12 +195,13 @@ ABselectMM<-function(pedigree.data, p0uu, eqp, eqp.weight, Nstarts, out.dir, out
     						PrUUinf<- pinf.vec[1,1]
     						opt.out <-cbind(opt.out, PrMMinf, PrUMinf, PrUUinf, alpha.start, beta.start, weight.start,
     						                sel.start, intercept.start)
-    						final<-rbind(final, opt.out)
+    						final[[s]]<-opt.out
 
 		  } # End of Nstarts loop
 
-	colnames(final)[1:5]<-c("alpha", "beta", "weight", "sel.coef", "intercept")
-	colnames(final)[14:16]<-c("PrMMinf", "PrUMinf", "PrUUinf")
+    final<-do.call("rbind", final)
+    colnames(final)[1:5]<-c("alpha", "beta", "weight", "sel.coef", "intercept")
+    colnames(final)[14:16]<-c("PrMMinf", "PrUMinf", "PrUUinf")
 
 
 

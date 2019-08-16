@@ -15,17 +15,18 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 
 ---
-
 ```{r setup, include = FALSE}
-options(width=100)
+options(width=120)
 knitr::opts_chunk$set(
   collapse = FALSE,
+  eval = FALSE,
   comment = " ",
-  tidy.opts =list(width.cutoff=60),
+  tidy.opts =list(width.cutoff=80),
   tidy = TRUE,
   size="small"
 )
 ```
+
 
 \newpage
 
@@ -59,16 +60,19 @@ However, the method also works for inferring somatic epimutations in long-lived 
 
 \section{Preparing Files}
 
-**NOTE** In this tutorial we are reading methylome files from the methimpute package:
+*NOTE: In this tutorial we are reading methylome files generated using Bioconductor package Methimpute:*
 
 You can find more information here:  [Methimpute package](https://bioconductor.org/packages/release/bioc/html/methimpute.html)
 
-## Generation file
+## List of files
 
-A file containing the list of filenames should be provided for generation of a divergence matrix and calculation of methylation proportions.
+List of filenames containing generations and lineage.
+
+*User must define "generations.fn" file.*
+*The structure of "generations.fn" should be same as in our example*
 
 ```{r}
-# SAMPLE FILE
+# Sample "generations.fn" file
 generation.fn <- system.file("extdata","generations.fn", package="AlphaBeta")
 file <- fread(generation.fn)
 head(file)
@@ -97,17 +101,16 @@ dMatrix(genTable =generation.fn,
 
 ```{r paged.print=FALSE}
 #Sample output from dMatrix function
-head(fread("AB-dMatrix-CG-0.99.csv"))
-
+head(fread(system.file("extdata/dm","AB-dMatrix-CG-0.99.csv", package="AlphaBeta")))
 ```
 
 ## Generate methylation proportions
 
+
 ```{r,eval=FALSE, paged.print=FALSE}
 rc.meth.lvl(genTable = generation.fn , 
             cytosine = "CG",
-            posteriorMaxFilter = 0.99,
-            nThread = 4 )
+            posteriorMaxFilter = 0.99 )
 ```
 
 ```{r , paged.print=FALSE}
@@ -118,7 +121,9 @@ head(fread(system.file("extdata/dm","AB-methprop-CG-0.99.csv", package="AlphaBet
 
 ## Information about Sample file.
 
-This file containing information on generation times and pedigree lineages
+This file containing information on generation times and pedigree lineages.
+
+(should be provide manually)
  
 ```{r ,  paged.print=FALSE}
 #Sample file
@@ -126,7 +131,9 @@ head(fread(system.file("extdata/dm","sampleInfo.csv", package="AlphaBeta")))
 
 ```
 
-## File containing lineage branch points
+## File containing lineage branch points.
+
+(should be provide manually)
  
 ```{r , paged.print=FALSE}
 #Sample file
@@ -210,7 +217,7 @@ output <- ABneutral(
   out.name = "CG_global_estimates_ABneutral"
 )
 ```
-**NOTE: ** it is recommended to use at least 50 Nstarts to achieve best solutions
+*NOTE:  it is recommended to use at least 50 Nstarts to achieve best solutions*
 
 Showing summary output of only output:
 
@@ -369,11 +376,22 @@ sample.info <-read.table(system.file("extdata/soma/","sampleInfo.csv", package="
 dmatrix <-read.table(system.file("extdata/soma/","AB-dMatrix-CG-0.99.csv", package="AlphaBeta"), sep="\t", header=TRUE,stringsAsFactors = FALSE)
 ```
 
+Samples:
+
+```{r }
+head(props.name)
+head(sample.info)
+head(dmatrix)
+```
+
+
 
 ## Generate pedigree from the input files
 
-```{r}
+*NOTE: Here in our example "makePHYLO" function calculates divergence times of a tree branching structure with total age of 330 years derived from coring-based measurements.*
 
+```{r}
+# 'tall' is total age of tree
 pedigree.out <- makePHYLO(tall=330, pedigree = dmatrix, sample.info = sample.info)
 pedigree.out <- pedigree.out[[1]]
 head(pedigree.out)

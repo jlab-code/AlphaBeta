@@ -25,61 +25,61 @@
 convertDMATRIX<-function(sample.info, branch.points, dmatrix, design)
 {
 
-  #sample.info=sample.info
-  #branch.points=branch.points
-  #dmatrix=dmatrix
-  #design="direct"
+    #sample.info=sample.info
+    #branch.points=branch.points
+    #dmatrix=dmatrix
+    #design="direct"
 
-  si<-sample.info
-  bp<-branch.points
+    si<-sample.info
+    bp<-branch.points
 
-  time0<-NULL
-  time1<-NULL
-  time2<-NULL
+    time0<-NULL
+    time1<-NULL
+    time2<-NULL
 
-  for (a in seq_len(NROW(dmatrix)))
-  {
+    for (a in seq_len(NROW(dmatrix)))
+    {
 
-      dtemp<-dmatrix[a,]
-      si1<-si[which(as.character(si[,1]) == as.character(dtemp[,1])),]
-      si2<-si[which(as.character(si[,1]) == as.character(dtemp[,2])),]
+        dtemp<-dmatrix[a,]
+        si1<-si[which(as.character(si[,1]) == as.character(dtemp[,1])),]
+        si2<-si[which(as.character(si[,1]) == as.character(dtemp[,2])),]
 
-        if (as.character(si1[,3]) != as.character(si2[,3]))
-        {
-            time1[a]<-as.numeric(si1[,2])
-            time2[a]<-as.numeric(si2[,2])
-            time0[a]<-0
-        }
-        if (as.character(si1[,3]) == as.character(si2[,3]))
-        {
-            min.si<-min(as.numeric(si1[,2]), as.numeric(si2[,2]))
-            bptemp<-bp[which(bp[,3] == si1[,3]),]
+          if (as.character(si1[,3]) != as.character(si2[,3]))
+          {
+              time1[a]<-as.numeric(si1[,2])
+              time2[a]<-as.numeric(si2[,2])
+              time0[a]<-0
+          }
+          if (as.character(si1[,3]) == as.character(si2[,3]))
+          {
+              min.si<-min(as.numeric(si1[,2]), as.numeric(si2[,2]))
+              bptemp<-bp[which(bp[,3] == si1[,3]),]
 
-            if (design == "sibling")
-            {
-                 bptemp<-bptemp[which(bptemp[,2] < min.si),]
-                 bptemp<-bptemp[which.max(bptemp[,2]),]
-                 time1[a]<-as.numeric(si1[,2])
-                 time2[a]<-as.numeric(si2[,2])
-                 time0[a]<-as.numeric(bptemp[,2])
-            }
-            if (design == "direct")
-            {
-                bptemp<-bptemp[which(bptemp[,2] <= min.si),]
-                bptemp<-bptemp[which.max(bptemp[,2]),]
-                time1[a]<-as.numeric(si1[,2])
-                time2[a]<-as.numeric(si2[,2])
-                time0[a]<-as.numeric(bptemp[,2])
-            }
-        }
-  }
-
-
+              if (design == "sibling")
+              {
+                   bptemp<-bptemp[which(bptemp[,2] < min.si),]
+                   bptemp<-bptemp[which.max(bptemp[,2]),]
+                   time1[a]<-as.numeric(si1[,2])
+                   time2[a]<-as.numeric(si2[,2])
+                   time0[a]<-as.numeric(bptemp[,2])
+              }
+              if (design == "direct")
+              {
+                  bptemp<-bptemp[which(bptemp[,2] <= min.si),]
+                  bptemp<-bptemp[which.max(bptemp[,2]),]
+                  time1[a]<-as.numeric(si1[,2])
+                  time2[a]<-as.numeric(si2[,2])
+                  time0[a]<-as.numeric(bptemp[,2])
+              }
+          }
+    }
 
 
-   dmatrixout<-cbind(time0, time1, time2, dmatrix[,3])
-   colnames(dmatrixout)[4]<-"D.value"
 
-  return(dmatrixout)
+
+     dmatrixout<-cbind(time0, time1, time2, dmatrix[,3])
+     colnames(dmatrixout)[4]<-"D.value"
+
+    return(dmatrixout)
 
 }

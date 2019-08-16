@@ -1,4 +1,7 @@
 #' Run Model with no selection (ABneutral)
+#'
+#' This model assumes that heritable gains and losses in cytosine methylation are selectively neutral.
+#'
 #' @param pedigree.data pedigree data.
 #' @param p0uu initial proportion of unmethylated cytosines.
 #' @param eqp equilibrium proportion of unmethylated cytosines.
@@ -9,18 +12,18 @@
 #' @import optimx
 #' @import expm
 #' @importFrom stats runif
-#' @return ABneutral data.
+#' @return ABneutral RData file.
 #' @export
 #' @examples
 #'## Get some toy data
-#' file1 <- system.file("extdata/dm/","pedigree.csv", package="AlphaBeta")
-#' pedigree <- as.matrix(read.table(file1, sep=",", header=TRUE, stringsAsFactors = FALSE))
+#' inFile <- system.file("extdata/dm/","pedigree.csv", package="AlphaBeta")
+#' pedigree <- as.matrix(read.table(inFile, sep=",", header=TRUE, stringsAsFactors = FALSE))
 #' p0uu_in <- 0.7435074
 #' eqp.weight <- 1
 #' Nstarts <- 2
 #' output.data.dir <- paste0( getwd(),"/")
 #' out.name <- "CG_global_estimates_ABneutral"
-#' out1 <- ABneutral(pedigree.data = pedigree,
+#' out <- ABneutral(pedigree.data = pedigree,
 #'                   p0uu=p0uu_in,
 #'                   eqp=p0uu_in,
 #'                   eqp.weight=eqp.weight,
@@ -28,7 +31,7 @@
 #'                   out.dir=output.data.dir,
 #'                   out.name=out.name)
 #'
-#' summary(out1)
+#' summary(out)
 #'
 
 
@@ -36,20 +39,20 @@ ABneutral<-function(pedigree.data, p0uu, eqp, eqp.weight, Nstarts, out.dir, out.
 {
 
 ##### Defining the divergence function
-	divergence <- function(pedigree, p0mm, p0um, p0uu, param)
-	{
+    divergence <- function(pedigree, p0mm, p0um, p0uu, param)
+      {
 
-	  ## Initializing parameters
-	  PrMM <- p0mm
-	  PrUM <- p0um
-	  PrUU <- p0uu
-	  alpha <- param[1]
+    ## Initializing parameters
+    PrMM <- p0mm
+    PrUM <- p0um
+    PrUU <- p0uu
+    alpha <- param[1]
     bet <- param[2]
     weight <- param[3]
 
 
 	## State probabilities at G0; first element = PrUU, second element = PrUM, third element = PrMM
-	  svGzero   <- c(PrUU, (weight)*PrMM, (1-weight)*PrMM)
+    svGzero   <- c(PrUU, (weight)*PrMM, (1-weight)*PrMM)
 
 
 
@@ -130,17 +133,16 @@ ABneutral<-function(pedigree.data, p0uu, eqp, eqp.weight, Nstarts, out.dir, out.
 
 
 ##### Initializing
-	optim.method<-"Nelder-Mead"
-	final<-NULL
-	counter<-0
-	opt.out<-NULL
-	pedigree<-pedigree.data
+    optim.method<-"Nelder-Mead"
+    final<-NULL
+    counter<-0
+    opt.out<-NULL
+    pedigree<-pedigree.data
+
 
 
 		for (s in seq_len(Nstarts))
 		{
-
-
 			## Draw random starting values
 			alpha.start  <-10^(runif(1, log10(10^-9), log10(10^-2)))
 			beta.start   <-10^(runif(1, log10(10^-9), log10(10^-2)))
@@ -151,8 +153,7 @@ ABneutral<-function(pedigree.data, p0uu, eqp, eqp.weight, Nstarts, out.dir, out.
 			## Initializing
 			counter<-counter+1
 
-			cat("Progress: ", counter/Nstarts, "\n")
-
+			message("Progress: ", counter/Nstarts, "\n")
 
 						opt.out  <- suppressWarnings(optimx(par = param_int0, fn = LSE_intercept, method=optim.method))
 						alphafinal<-opt.out[1]
@@ -161,13 +162,12 @@ ABneutral<-function(pedigree.data, p0uu, eqp, eqp.weight, Nstarts, out.dir, out.
 						PrUMinf <- (4*alphafinal*betfinal*(alphafinal + betfinal -2))/((alphafinal + betfinal)*((alphafinal + betfinal -1)^2 -2))
 						PrUUinf <- (betfinal* ((1-betfinal)^2 - (1-alphafinal)^2 -1))/((alphafinal + betfinal)*((alphafinal + betfinal -1)^2 - 2))
 						opt.out <-cbind(opt.out, PrMMinf, PrUMinf, PrUUinf, alpha.start, beta.start, weight.start, intercept.start)
-						final<-rbind(final, opt.out)
-
-
+						final[[s]]<- opt.out
 		} # End of Nstarts loop
 
-	 colnames(final)[1:4]<-c("alpha", "beta", "weight", "intercept")
-	 colnames(final)[13:15]<-c("PrMMinf", "PrUMinf", "PrUUinf")
+    final <- do.call("rbind", final)
+    colnames(final)[1:4]<-c("alpha", "beta", "weight", "intercept")
+    colnames(final)[13:15]<-c("PrMMinf", "PrUMinf", "PrUUinf")
 
 
 
@@ -299,18 +299,18 @@ ABneutral<-function(pedigree.data, p0uu, eqp, eqp.weight, Nstarts, out.dir, out.
 
 
 
-##### Augmenting pedigree
-	delta.t<-pedigree[,2] + pedigree[,3] - 2*pedigree[,1]
-	#pedigree<-cbind(pedigree,delta.t)
-	pedigree<-cbind(pedigree, delta.t, Dt1t2 + intercept, Residual)
-	colnames(pedigree)[c(4,5,6,7)]<-c("div.obs", "delta.t","div.pred", "residual")
+    ##### Augmenting pedigree
+    delta.t<-pedigree[,2] + pedigree[,3] - 2*pedigree[,1]
+    #pedigree<-cbind(pedigree,delta.t)
+    pedigree<-cbind(pedigree, delta.t, Dt1t2 + intercept, Residual)
+    colnames(pedigree)[c(4,5,6,7)]<-c("div.obs", "delta.t","div.pred", "residual")
 
 
-	##### Making info about settings
-	info<-c("p0mm", "p0um", "p0uu", "eqp", "eqp.weight", "Nstarts", "optim.method")
-	info2<-c(p0mm, p0um, p0uu, eqp, eqp.weight, Nstarts, optim.method)
-	info.out<-data.frame(info, info2)
-	colnames(info.out)<-c("Para", "Setting")
+    ##### Making info about settings
+    info<-c("p0mm", "p0um", "p0uu", "eqp", "eqp.weight", "Nstarts", "optim.method")
+    info2<-c(p0mm, p0um, p0uu, eqp, eqp.weight, Nstarts, optim.method)
+    info.out<-data.frame(info, info2)
+    colnames(info.out)<-c("Para", "Setting")
 
 
 
@@ -393,16 +393,14 @@ ABneutral<-function(pedigree.data, p0uu, eqp, eqp.weight, Nstarts, out.dir, out.
 			colnames(pedigree.new)<-c("time0", "time1", "time2", "div.sim", "delta.t")
 			pedigree.new<-pedigree.new[order(pedigree.new[,5]),]
 
-	model<-"ABneutral.R"
+    model<-"ABneutral.R"
 
-	abfree.out<-list(final.1, final.2, pedigree, info.out, model, pedigree.new)
-	names(abfree.out)<-c("estimates", "estimates.flagged", "pedigree", "settings", "model", "for.fit.plot")
+    abfree.out<-list(final.1, final.2, pedigree, info.out, model, pedigree.new)
+    names(abfree.out)<-c("estimates", "estimates.flagged", "pedigree", "settings", "model", "for.fit.plot")
 
-
-
-	## Ouputting result datasets
-	dput(abfree.out, paste(out.dir, out.name, ".Rdata", sep=""))
-	return(abfree.out)
+    ## Ouputting result datasets
+    dput(abfree.out, paste(out.dir, out.name, ".Rdata", sep=""))
+    return(abfree.out)
 
 
 } #End of function

@@ -1,4 +1,7 @@
 #' Model with no selection (outneutral)
+#'
+#' This model assumes that somatically heritable gains and losses in cytosine methylation are selectively neutral.
+#'
 #' @param pedigree.data pedigree data.
 #' @param p0uu initial proportion of unmethylated cytosines.
 #' @param eqp equilibrium proportion of unmethylated cytosines.
@@ -9,12 +12,12 @@
 #' @import optimx
 #' @import expm
 #' @importFrom stats runif
-#' @return ABneutralSoma data.
+#' @return ABneutralSoma RData file.
 #' @export
 #' @examples
 #'## Get some toy data
-#' file1 <- system.file("extdata/soma/","pedigreeSoma.csv", package="AlphaBeta")
-#' pedigree <- as.matrix(read.table(file1, sep=",", header=TRUE, stringsAsFactors = FALSE))
+#' inFile <- system.file("extdata/soma/","pedigreeSoma.csv", package="AlphaBeta")
+#' pedigree <- as.matrix(read.table(inFile, sep=",", header=TRUE, stringsAsFactors = FALSE))
 #' p0uu_in <- 0.54755
 #' eqp.weight <- 0.001
 #' Nstarts <- 2
@@ -155,7 +158,7 @@ ABneutralSOMA<-function(pedigree.data, p0uu, eqp, eqp.weight, Nstarts, out.dir, 
 			## Initializing
 			counter<-counter+1
 
-			cat("Progress: ", counter/Nstarts, "\n")
+			message("Progress: ", counter/Nstarts, "\n")
 
 
 						opt.out  <- suppressWarnings(optimx(par = param_int0, fn = LSE_intercept, method=optim.method))
@@ -165,13 +168,13 @@ ABneutralSOMA<-function(pedigree.data, p0uu, eqp, eqp.weight, Nstarts, out.dir, 
 						PrUMinf <- (2*alphafinal*betfinal)/((alphafinal+betfinal)^2)
 						PrUUinf <- (betfinal^2)/((alphafinal+betfinal)^2)
 						opt.out <-cbind(opt.out, PrMMinf, PrUMinf, PrUUinf, alpha.start, beta.start, weight.start, intercept.start)
-						final<-rbind(final, opt.out)
+						final[[s]] <- opt.out
 
 
 		} # End of Nstarts loop
-
-	 colnames(final)[1:4]<-c("alpha", "beta", "weight", "intercept")
-	 colnames(final)[13:15]<-c("PrMMinf", "PrUMinf", "PrUUinf")
+    final <- do.call("rbind", final)
+    colnames(final)[1:4]<-c("alpha", "beta", "weight", "intercept")
+    colnames(final)[13:15]<-c("PrMMinf", "PrUMinf", "PrUUinf")
 
 
 

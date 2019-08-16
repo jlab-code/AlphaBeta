@@ -16,19 +16,20 @@ BOOTmodel(pedigree.data, Nboot, out.dir, out.name)
 \item{out.name}{output file name.}
 }
 \value{
-outfinal compared data.
+bootstrap result.
 }
 \description{
 Bootstrap analysis with the best model
 }
 \examples{
 ## Get some toy data
-file1 <- system.file("extdata/models/","CG_global_estimates_ABneutral.Rdata", package="AlphaBeta")
+inFile <- system.file("extdata/models/","CG_global_estimates_ABneutral.Rdata", package="AlphaBeta")
 Nboot <- 4
 out.dir <- paste0( getwd(),"/")
 out.name <-"Boot_CG_global_estimates_ABneutral"
-Bout <- BOOTmodel(pedigree.data=file1,
+Bout <- BOOTmodel(pedigree.data=inFile,
                 Nboot=Nboot,
                 out.dir=out.dir,
                 out.name=out.name)
+summary(Bout)
 }

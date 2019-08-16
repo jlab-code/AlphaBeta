@@ -22,21 +22,21 @@ ABneutral(pedigree.data, p0uu, eqp, eqp.weight, Nstarts, out.dir, out.name)
 \item{out.name}{output file name.}
 }
 \value{
-ABneutral data.
+ABneutral RData file.
 }
 \description{
-Run Model with no selection (ABneutral)
+This model assumes that heritable gains and losses in cytosine methylation are selectively neutral.
 }
 \examples{
 ## Get some toy data
-file1 <- system.file("extdata/dm/","pedigree.csv", package="AlphaBeta")
-pedigree <- as.matrix(read.table(file1, sep=",", header=TRUE, stringsAsFactors = FALSE))
+inFile <- system.file("extdata/dm/","pedigree.csv", package="AlphaBeta")
+pedigree <- as.matrix(read.table(inFile, sep=",", header=TRUE, stringsAsFactors = FALSE))
 p0uu_in <- 0.7435074
 eqp.weight <- 1
 Nstarts <- 2
 output.data.dir <- paste0( getwd(),"/")
 out.name <- "CG_global_estimates_ABneutral"
-out1 <- ABneutral(pedigree.data = pedigree,
+out <- ABneutral(pedigree.data = pedigree,
                   p0uu=p0uu_in,
                   eqp=p0uu_in,
                   eqp.weight=eqp.weight,
@@ -44,6 +44,6 @@ out1 <- ABneutral(pedigree.data = pedigree,
                   out.dir=output.data.dir,
                   out.name=out.name)
 
-summary(out1)
+summary(out)
 
 }
