@@ -1,12 +1,23 @@
 # AlphaBeta 0.99.0
 
+Changes in version 0.99.0 (2019-07-1)
 * Added a `NEWS.md` file to track changes to the package.
-+ Fixed bug.
-+ added models.
-+ renamed package.
 
 Changes in version 0.99.2 (2019-08-15)
-+ Fixed bugs.
-+ Made the following significant changes
-  o Using BiocParallel for parallel evaulation.
-  o Updated documentation file.
+* Submitted to Bioconductor
+* Fixed bugs.
+* Made the following significant changes
+    + Using BiocParallel for parallel evaulation.
+    + Updated documentation file.
+
+Changes in version 0.99.3 (2019-08-21)
+* Fixed bugs.
+* Made the following significant changes
+    + Updated man pages.
+    + Fixed vignette output file.
+
+Changes in version 1.1.0 (2020-03-05)
+* Fixed bugs.
+* Made the following significant changes
+    + Using ape package to make tree.
+    + Added some plots.

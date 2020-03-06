@@ -1,15 +1,19 @@
 Package: AlphaBeta
 Type: Package
 Title: Computational inference of epimutation rates and spectra from high-throughput DNA methylation data in plants
-Version: 0.99.2
+<<<<<<< Updated upstream
+Version: 1.1.0
+=======
+Version: 0.99.3
+>>>>>>> Stashed changes
 Authors@R: c(
     person("Yadollah", "Shahryary Dizaji", email = "shahryary@gmail.com", role = c("cre","aut")),
     person("Frank", "Johannes", email = "frank@jlab.org", role = "aut"),
     person("Rashmi", "Hazarika", email = "hazarika.rr@gmail.com", role = "aut"))
 Description: AlphaBeta is a computational method for estimating epimutation rates and spectra from high-throughput DNA methylation data in plants.
-    The method has been specifically designed to:
-    1. analyze 'germline' epimutations in the context of multi-generational mutation accumulation lines (MA-lines).
-    2. analyze 'somatic' epimutations in the context of plant development and aging.
+        The method has been specifically designed to:
+        1. analyze 'germline' epimutations in the context of multi-generational mutation accumulation lines (MA-lines).
+        2. analyze 'somatic' epimutations in the context of plant development and aging.
 License: GPL-3
 Depends:
     R (>= 3.6.0)
