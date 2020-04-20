@@ -4,8 +4,7 @@
 \alias{ABselectMM}
 \title{Run model with selection against spontaneous gain of methylation (ABselectMM)}
 \usage{
-ABselectMM(pedigree.data, p0uu, eqp, eqp.weight, Nstarts, out.dir,
-  out.name)
+ABselectMM(pedigree.data, p0uu, eqp, eqp.weight, Nstarts, out.dir, out.name)
 }
 \arguments{
 \item{pedigree.data}{pedigree data.}
@@ -29,20 +28,19 @@ ABselectMM  RData file.
 This model assumes that heritable losses of cytosine methylation are under negative selection.
 }
 \examples{
-## Get some toy data
-inFile <- system.file("extdata/dm/","pedigree.csv", package="AlphaBeta")
-pedigree <- as.matrix(read.table(inFile, sep=",", header=TRUE, stringsAsFactors = FALSE))
-p0uu_in <- 0.7435074
+#Get some toy data
+inFile <- readRDS(system.file("extdata/dm/","output.rds", package="AlphaBeta"))
+pedigree <- inFile$Pdata
+p0uu_in <- inFile$tmpp0
 eqp.weight <- 1
 Nstarts <- 2
-output.data.dir <- paste0( getwd(),"/")
 out.name <- "CG_global_estimates_ABselectMM"
 out <- ABselectMM(pedigree.data = pedigree,
                   p0uu=p0uu_in,
                   eqp=p0uu_in,
                   eqp.weight=eqp.weight,
                   Nstarts=Nstarts,
-                  out.dir=output.data.dir,
+                  out.dir=getwd(),
                   out.name=out.name)
 
 summary(out)

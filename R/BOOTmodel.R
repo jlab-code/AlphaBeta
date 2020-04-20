@@ -12,13 +12,12 @@
 #' @export
 #' @examples
 #'## Get some toy data
-#' inFile <- system.file("extdata/models/","CG_global_estimates_ABneutral.Rdata", package="AlphaBeta")
+#' inFile <- system.file("extdata/models/","ABneutral_CG_global_estimates.Rdata", package="AlphaBeta")
 #' Nboot <- 4
-#' out.dir <- paste0( getwd(),"/")
 #' out.name <-"Boot_CG_global_estimates_ABneutral"
 #' Bout <- BOOTmodel(pedigree.data=inFile,
 #'                 Nboot=Nboot,
-#'                 out.dir=out.dir,
+#'                 out.dir=getwd(),
 #'                 out.name=out.name)
 #' summary(Bout)
 
@@ -240,7 +239,7 @@ BOOTmodel<-function(pedigree.data, Nboot, out.dir, out.name)
     	 names(SE.out)<-c("standard.errors", "boot.base", "settings", "N.boots", "N.good.boots", "boot.results", "model")
 
     	 ## Ouputting result datasets
-    	 dput(SE.out, paste(out.dir, out.name, ".Rdata", sep=""))
+    	 dput(SE.out, paste0(out.dir,"/", out.name, ".Rdata", sep=""))
 
     	 return(SE.out)
 
@@ -456,7 +455,7 @@ BOOTmodel<-function(pedigree.data, Nboot, out.dir, out.name)
     names(SE.out)<-c("standard.errors", "boot.base", "settings", "N.boots", "N.good.boots", "boot.results", "model")
 
     ## Ouputting result datasets
-    dput(SE.out, paste(out.dir, out.name, ".Rdata", sep=""))
+    dput(SE.out, paste0(out.dir,"/", out.name, ".Rdata", sep=""))
 
     return(SE.out)
 
@@ -678,7 +677,7 @@ BOOTmodel<-function(pedigree.data, Nboot, out.dir, out.name)
     names(SE.out)<-c("standard.errors", "boot.base", "settings", "N.boots", "N.good.boots", "boot.results", "model")
 
     ## Ouputting result datasets
-    dput(SE.out, paste(out.dir, out.name, ".Rdata", sep=""))
+    dput(SE.out, paste0(out.dir,"/", out.name, ".Rdata", sep=""))
 
     return(SE.out)
 
@@ -901,7 +900,7 @@ BOOTmodel<-function(pedigree.data, Nboot, out.dir, out.name)
     names(SE.out)<-c("standard.errors", "boot.base", "settings", "N.boots", "N.good.boots", "boot.results", "model")
 
     ## Ouputting result datasets
-    dput(SE.out, paste(out.dir, out.name, ".Rdata", sep=""))
+    dput(SE.out, paste0(out.dir,"/", out.name, ".Rdata", sep=""))
 
     return(SE.out)
 
@@ -1080,7 +1079,7 @@ BOOTmodel<-function(pedigree.data, Nboot, out.dir, out.name)
   names(SE.out)<-c("standard.errors", "boot.base", "settings", "N.boots", "N.good.boots", "boot.results", "model")
 
   ## Ouputting result datasets
-  dput(SE.out, paste(out.dir, out.name, ".Rdata", sep=""))
+  dput(SE.out, paste0(out.dir,"/", out.name, ".Rdata", sep=""))
 
   return(SE.out)
 
@@ -1277,7 +1276,7 @@ allow.neg.intercept="yes"
       names(SE.out)<-c("standard.errors", "boot.base", "settings", "N.boots", "N.good.boots", "boot.results", "model")
 
       ## Ouputting result datasets
-      dput(SE.out, paste(out.dir, out.name, ".Rdata", sep=""))
+      dput(SE.out, paste0(out.dir,"/", out.name, ".Rdata", sep=""))
 
   return(SE.out)
 

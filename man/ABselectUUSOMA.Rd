@@ -4,8 +4,15 @@
 \alias{ABselectUUSOMA}
 \title{Model with selection against spontaneous loss of methylation (outselectUU)}
 \usage{
-ABselectUUSOMA(pedigree.data, p0uu, eqp, eqp.weight, Nstarts, out.dir,
-  out.name)
+ABselectUUSOMA(
+  pedigree.data,
+  p0uu,
+  eqp,
+  eqp.weight,
+  Nstarts,
+  out.dir,
+  out.name
+)
 }
 \arguments{
 \item{pedigree.data}{pedigree data.}
@@ -29,20 +36,19 @@ ABneutralSoma RData file.
 This model assumes that somatically heritable gains of cytosine methylation are under negative selection.
 }
 \examples{
-## Get some toy data
-inFile <- system.file("extdata/soma/","pedigreeSoma.csv", package="AlphaBeta")
-pedigree <- as.matrix(read.table(inFile, sep=",", header=TRUE, stringsAsFactors = FALSE))
-p0uu_in <- 0.54755
+#Get some toy data
+inFile <- readRDS(system.file("extdata/soma/","outputSoma.rds", package="AlphaBeta"))
+pedigree <- inFile$Pdata
+p0uu_in <- inFile$tmpp0
 eqp.weight <- 0.001
 Nstarts <- 2
-output.data.dir <- paste0( getwd(),"/")
 out.name <- "ABselectUUSOMA_CG_estimates"
 out <- ABselectUUSOMA(pedigree.data = pedigree,
                   p0uu=p0uu_in,
                   eqp=p0uu_in,
                   eqp.weight=eqp.weight,
                   Nstarts=Nstarts,
-                  out.dir=output.data.dir,
+                  out.dir=getwd(),
                   out.name=out.name)
 
 summary(out)

@@ -5,9 +5,10 @@ inputCheck <- function(...) {
 
   # check if genTable is exist then check file exist one-by-one
   if (!file.exists(var[[1]])){
-    stop("Generation file dosen't exist.")
+    stop("Sample file dosen't exist.")
   }
   gen_tbl <- fread(var[[1]])
+  gen_tbl <- gen_tbl %>% filter(gen_tbl$meth=="Y")
   for (i in seq_len(NROW(gen_tbl))){
     if (!file.exists(gen_tbl[[i,1]])){
       stop(paste0("File ",gen_tbl[[i,1]], " Not Exist!"))
@@ -60,12 +61,13 @@ getNames <- function(nameDF,genTable){
   #genTable <- fread(genTable)
   strSearch<-nameDF
   tmp_A <- genTable[genTable$filename == strSearch,][,2]
-  tmp_B <- genTable[genTable$filename == strSearch,][,3]
-  if (tmp_B == "" | is.na(tmp_B) | is.null(tmp_B) ){
-    tmp_B<-""
-    gen_name <- paste0(tmp_A,tmp_B)
-  }else{
-    gen_name <- paste0(tmp_A,"-",tmp_B)
-  }
-  return(gen_name)
+  #tmp_B <- genTable[genTable$filename == strSearch,][,3]
+  #if (tmp_B == "" | is.na(tmp_B) | is.null(tmp_B) ){
+  #  tmp_B<-""
+  #  gen_name <- paste0(tmp_A,tmp_B)
+  #}else{
+  #  gen_name <- paste0(tmp_A,"-",tmp_B)
+  #}
+  #return(gen_name)
+  return(tmp_A)
 }

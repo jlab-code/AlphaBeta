@@ -2,8 +2,8 @@
 #'
 #' Estimating epimutation rates from high-throughput DNA methylation data
 #'
-#' @param genTable Generation table name, you can find sample file in
-#' "extdata" called "generations.fn"
+#' @param nodelist list of samples, you can find sample file in
+#' "extdata" called "nodelist.fn"
 #' @param cytosine Type of cytosine (CHH/CHG/CG)
 #' @param posteriorMaxFilter Filter value, based on posteriorMax
 #' ex: >= 0.95 or 0.99
@@ -17,26 +17,32 @@
 #' @return generating divergence matrices file.
 #' @export
 #' @examples
-#'## Get some toy data
-#' file <- system.file("extdata","generations.fn", package="AlphaBeta")
+#'# Get some toy data
+#' file <- system.file("extdata/dm/","nodelist.fn", package="AlphaBeta")
 #' df<-read.csv(file)
 #' df$filename<-sub("^",paste0(dirname(file),"/"),df$filename )
-#' write.csv(df, file = paste0(dirname(file),"/tm_generations.fn"),row.names=FALSE,quote=FALSE)
-#' file <- system.file("extdata","tm_generations.fn", package="AlphaBeta")
+#' write.csv(df, file = paste0(dirname(file),"tmp_nodelist.fn"),row.names=FALSE,quote=FALSE)
+#' file <- system.file("extdata/dm/","tmp_nodelist.fn", package="AlphaBeta")
 #' dMatrix(file, "CG", 0.99)
 
 
-dMatrix <- function(genTable, cytosine, posteriorMaxFilter) {
+dMatrix <- function(nodelist, cytosine, posteriorMaxFilter) {
     # checking errors
-    inputCheck(genTable, cytosine, posteriorMaxFilter)
-    genTable <- fread(genTable)
-    mt <- startTime("Preparing data-sets...\n")
+    inputCheck(nodelist, cytosine, posteriorMaxFilter)
+    genTable <- fread(nodelist)
+    #---------------------------Filter based on meth
+    genTable <- genTable %>% filter(genTable$meth=="Y")
+    #---------------------------
     pairs <- combn(genTable$filename, 2)
     final_ds <- runMatrix(pairs, cytosine, posteriorMaxFilter, genTable)
-    dMsaveResult(final_ds,cytosine,posteriorMaxFilter)
-    cat("Generating d-matrics done.\n")
-    cat(stopTime(mt))
-   # rm(list=ls())
+
+    final_ds<-final_ds[mixedorder(final_ds$X1),]
+    colnames(final_ds)<-(c("pair.1", "pair.2", "D.value"))
+
+    #dmatrix <- dMsaveResult(final_ds, cytosine, posteriorMaxFilter)
+    message("generating d-matrics done.\n")
+    rm(genTable)
+    return(final_ds)
 }
 
 
@@ -47,7 +53,8 @@ runMatrix <- function(pairs, cytosine, posteriorMaxFilter,genTable){
         df <-pairs[,i]
         name_ds<- getNames( df[1],genTable)
         name_ds[2]<- getNames(df[2],genTable)
-        cat(paste0("Running: ",name_ds[[1]], " and ",
+
+        cat(paste0("Reading sample: ",name_ds[[1]], " and ",
          name_ds[[2]], " ( ", i , " out of ",length(pairs)/2," pairs )"),"\n")
 
         cytosine<-as.character(cytosine)
@@ -96,12 +103,12 @@ runMatrix <- function(pairs, cytosine, posteriorMaxFilter,genTable){
     return(tmp_big)
 }
 
-dMsaveResult<-function(final_ds,cytosine,posteriorMaxFilter){
-    cat("Writing to the files:\n")
-    final_ds<-final_ds[mixedorder(final_ds$X1),]
-    colnames(final_ds)<-(c("pair.1", "pair.2", "D.value"))
-    saved_file <- paste0(getwd(), "/", "AB-dMatrix-", cytosine, "-", posteriorMaxFilter, ".csv")
-    fwrite(final_ds, file = saved_file , quote = FALSE, sep = '\t', row.names = FALSE, col.names = TRUE)
-    cat(paste0("Divergence values saved in: ",saved_file, "\n"))
-}
+#dMsaveResult<-function(final_ds,cytosine,posteriorMaxFilter){
+#    cat("Writing to the files:\n")
+#    final_ds<-final_ds[mixedorder(final_ds$X1),]
+#    colnames(final_ds)<-(c("pair.1", "pair.2", "D.value"))
+#    saved_file <- paste0(getwd(), "/", "AB-dMatrix-", cytosine, "-", posteriorMaxFilter, ".csv")
+#    fwrite(final_ds, file = saved_file , quote = FALSE, sep = '\t', row.names = FALSE, col.names = TRUE)
+#    cat(paste0("Divergence values saved in: ",saved_file, "\n"))
+#}
 

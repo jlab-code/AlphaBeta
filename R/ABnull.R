@@ -5,13 +5,12 @@
 #' @return ABnull RData file.
 #' @export
 #' @examples
-#' # Get some toy data
-#' inFile <- system.file("extdata/dm/","pedigree.csv", package="AlphaBeta")
-#' pedigree <- as.matrix(read.table(inFile, sep=",", header=TRUE, stringsAsFactors = FALSE))
-#' output.data.dir <- paste0( getwd(),"/")
+#' #Get some toy data
+#' inFile <- readRDS(system.file("extdata/dm/","output.rds", package="AlphaBeta"))
+#' pedigree <- inFile$Pdata
 #' out.name <- "CG_global_estimates_ABnull"
 #' out <- ABnull(pedigree.data = pedigree,
-#'                   out.dir=output.data.dir,
+#'                   out.dir=getwd(),
 #'                   out.name=out.name)
 #'
 #' summary(out)
@@ -38,7 +37,7 @@ ABnull<-function(pedigree.data, out.dir, out.name)
     names(abfree.out)<-c("estimates", "estimates.flagged", "pedigree", "settings", "model", "for.fit.plot")
 
     ## Ouputting result datasets
-    dput(abfree.out, paste(out.dir, out.name, ".Rdata", sep=""))
+    dput(abfree.out, paste0(out.dir,"/", out.name, ".Rdata", sep=""))
     return(abfree.out)
 
 } #End of function

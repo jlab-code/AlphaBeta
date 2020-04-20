@@ -4,11 +4,11 @@
 \alias{dMatrix}
 \title{Constructing D-Matrices}
 \usage{
-dMatrix(genTable, cytosine, posteriorMaxFilter)
+dMatrix(nodelist, cytosine, posteriorMaxFilter)
 }
 \arguments{
-\item{genTable}{Generation table name, you can find sample file in
-"extdata" called "generations.fn"}
+\item{nodelist}{list of samples, you can find sample file in
+"extdata" called "nodelist.fn"}
 
 \item{cytosine}{Type of cytosine (CHH/CHG/CG)}
 
@@ -22,11 +22,11 @@ generating divergence matrices file.
 Estimating epimutation rates from high-throughput DNA methylation data
 }
 \examples{
-## Get some toy data
-file <- system.file("extdata","generations.fn", package="AlphaBeta")
+# Get some toy data
+file <- system.file("extdata/dm/","nodelist.fn", package="AlphaBeta")
 df<-read.csv(file)
 df$filename<-sub("^",paste0(dirname(file),"/"),df$filename )
-write.csv(df, file = paste0(dirname(file),"/tm_generations.fn"),row.names=FALSE,quote=FALSE)
-file <- system.file("extdata","tm_generations.fn", package="AlphaBeta")
+write.csv(df, file = paste0(dirname(file),"tmp_nodelist.fn"),row.names=FALSE,quote=FALSE)
+file <- system.file("extdata/dm/","tmp_nodelist.fn", package="AlphaBeta")
 dMatrix(file, "CG", 0.99)
 }

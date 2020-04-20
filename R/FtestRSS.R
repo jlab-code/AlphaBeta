@@ -6,8 +6,8 @@
 #' @export
 #' @examples
 #'## Get some toy data
-#' file1 <- system.file("extdata/models/","CG_global_estimates_ABneutral.Rdata", package="AlphaBeta")
-#' file2 <- system.file("extdata/models/","CG_global_estimates_ABnull.Rdata", package="AlphaBeta")
+#' file1 <- system.file("extdata/models/","ABneutral_CG_global_estimates.Rdata", package="AlphaBeta")
+#' file2 <- system.file("extdata/models/","ABnull_CG_global_estimates.Rdata", package="AlphaBeta")
 #' out <- FtestRSS(pedigree.select=file1,
 #'                 pedigree.null=file2)
 

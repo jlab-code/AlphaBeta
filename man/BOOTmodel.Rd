@@ -23,13 +23,12 @@ Bootstrap analysis with the best model
 }
 \examples{
 ## Get some toy data
-inFile <- system.file("extdata/models/","CG_global_estimates_ABneutral.Rdata", package="AlphaBeta")
+inFile <- system.file("extdata/models/","ABneutral_CG_global_estimates.Rdata", package="AlphaBeta")
 Nboot <- 4
-out.dir <- paste0( getwd(),"/")
 out.name <-"Boot_CG_global_estimates_ABneutral"
 Bout <- BOOTmodel(pedigree.data=inFile,
                 Nboot=Nboot,
-                out.dir=out.dir,
+                out.dir=getwd(),
                 out.name=out.name)
 summary(Bout)
 }

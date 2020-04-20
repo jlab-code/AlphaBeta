@@ -1,11 +1,7 @@
 Package: AlphaBeta
 Type: Package
 Title: Computational inference of epimutation rates and spectra from high-throughput DNA methylation data in plants
-<<<<<<< Updated upstream
-Version: 1.1.0
-=======
-Version: 0.99.3
->>>>>>> Stashed changes
+Version: 1.2.1
 Authors@R: c(
     person("Yadollah", "Shahryary Dizaji", email = "shahryary@gmail.com", role = c("cre","aut")),
     person("Frank", "Johannes", email = "frank@jlab.org", role = "aut"),
@@ -26,12 +22,17 @@ Imports:
     optimx (>= 2018-7.10),
     expm (>= 0.999-4),
     stats (>= 3.6),
-    BiocParallel (>= 1.18)
+    BiocParallel (>= 1.18),
+    igraph (>= 1.2.4),
+    graphics (>= 3.6),
+    ggplot2 (>= 3.2),
+    grDevices (>= 3.6),
+    plotly (>= 4.9)
 Encoding: UTF-8
 LazyData: false
 LazyLoad: yes
 VignetteBuilder: knitr
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.0
 Suggests: knitr,
     rmarkdown
 biocViews: Epigenetics, FunctionalGenomics, Genetics, MathematicalBiology

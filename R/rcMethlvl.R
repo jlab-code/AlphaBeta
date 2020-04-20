@@ -1,8 +1,8 @@
 #' Calculating rc.Meth.lvl
 #'
 #' Estimating epimutation rates from high-throughput DNA methylation data
-#' @param genTable Generation table name, you can find sample file in
-#' "extdata" called "generations.fn"
+#' @param nodelist List of samples, you can find sample file in
+#' "extdata" called "nodelist.fn"
 #' @param cytosine Type of cytosine (CHH/CHG/CG)
 #' @param posteriorMaxFilter Filter value, based on posteriorMax
 #' @import      dplyr
@@ -17,22 +17,25 @@
 #' @export
 #' @examples
 #'## Get some toy data
-#' file <- system.file("extdata","tm_generations.fn", package="AlphaBeta")
+#' file <- system.file("extdata/dm/","tmp_nodelist.fn", package="AlphaBeta")
 #' rc.meth.lvl(file, "CG", 0.99)
 
 
 # running join
-rc.meth.lvl <- function(genTable, cytosine, posteriorMaxFilter){
+rc.meth.lvl <- function(nodelist, cytosine, posteriorMaxFilter){
 
-      inputCheck(genTable, cytosine, posteriorMaxFilter)
-      genTable <- fread(genTable)
-      mt <- startTime("Preparing data-sets...\n")
+      #inputCheck(genTable, cytosine, posteriorMaxFilter)
+      genTable <- fread(nodelist)
+      #---------------------------Filter based on WGBS
+      genTable <- genTable %>% filter(genTable$meth=="Y")
+      #---------------------------
 
       list.rc<-bplapply(genTable$filename,cytosine=cytosine,posteriorMaxFilter= posteriorMaxFilter,
         genTable= genTable, rcRun, BPPARAM = SnowParam(exportglobals = FALSE))
 
-      RCsaveResult(list.rc,cytosine,posteriorMaxFilter)
-      cat(stopTime(mt))
+      rclvl <- RCsaveResult(list.rc,cytosine,posteriorMaxFilter)
+
+      return(rclvl)
 
 }
 
@@ -58,9 +61,10 @@ RCsaveResult<-function(list.rc,cytosine,posteriorMaxFilter){
         mainRC<-rbind(mainRC,tmp_dmr)
       }
       mainRC<-mainRC[mixedorder(mainRC$Sample_name),]
-      saveFile <- paste0(getwd(), "/", "AB-methProp-", cytosine, "-", posteriorMaxFilter, ".csv")
-      fwrite(mainRC,file = saveFile ,quote = FALSE,sep = '\t',row.names = FALSE,col.names = TRUE)
-      cat(paste0("Methylation proportions results saved in: ",saveFile,"\n"))
+      #saveFile <- paste0(getwd(), "/", "AB-methProp-", cytosine, "-", posteriorMaxFilter, ".csv")
+      #fwrite(mainRC,file = saveFile ,quote = FALSE,sep = '\t',row.names = FALSE,col.names = TRUE)
+      #cat(paste0("Methylation proportions results saved in: ",saveFile,"\n"))
+      return(mainRC)
 
 }
 

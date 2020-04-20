@@ -28,20 +28,19 @@ ABneutral RData file.
 This model assumes that heritable gains and losses in cytosine methylation are selectively neutral.
 }
 \examples{
-## Get some toy data
-inFile <- system.file("extdata/dm/","pedigree.csv", package="AlphaBeta")
-pedigree <- as.matrix(read.table(inFile, sep=",", header=TRUE, stringsAsFactors = FALSE))
-p0uu_in <- 0.7435074
+#Get some toy data
+inFile <- readRDS(system.file("extdata/dm/","output.rds", package="AlphaBeta"))
+pedigree <- inFile$Pdata
+p0uu_in <- inFile$tmpp0
 eqp.weight <- 1
 Nstarts <- 2
-output.data.dir <- paste0( getwd(),"/")
 out.name <- "CG_global_estimates_ABneutral"
 out <- ABneutral(pedigree.data = pedigree,
                   p0uu=p0uu_in,
                   eqp=p0uu_in,
                   eqp.weight=eqp.weight,
                   Nstarts=Nstarts,
-                  out.dir=output.data.dir,
+                  out.dir=getwd(),
                   out.name=out.name)
 
 summary(out)

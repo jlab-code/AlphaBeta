@@ -13,13 +13,12 @@ vignette: >
   %\VignetteIndexEntry{AlphaBeta}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
-
 ---
 ```{r setup, include = FALSE}
 options(width=120)
 knitr::opts_chunk$set(
   collapse = FALSE,
-  eval = TRUE,
+  eval = FALSE,
   comment = " ",
   tidy.opts =list(width.cutoff=80),
   tidy = TRUE,
@@ -30,182 +29,380 @@ knitr::opts_chunk$set(
 
 \newpage
 
-
 ```{r, include=FALSE}
 library(AlphaBeta)
 library(data.table)
+library(igraph)
+library(ggplot2)
 ```
 
 \section{Introduction}
+**AlphaBeta** is a computational method for estimating epimutation rates and spectra from high-throughput DNA methylation data in plants. The method can be generally applied to study 'germline' epimuations in mutation accumulation lines (MA-lines), as well as 'somatic' epimutations in long-lived perennials, such as trees. Details regarding the inference approach and example applications can be found in Shahryary et al. 2020. 
 
-**AlphaBeta** is a computational method for estimating epimutation rates and spectra from high-throughput DNA methylation data in plants.
+## Experimental systems
+A key challenge in studying epimutational proceses in multi-generational experiments is to be able to distinguish ’germline’ epimutations from other types of methylation changes, such as those that are associated with segregating genetic variation or transient environmental perturbations. Mutation accumulation lines (MA-lines) grown in controlled laboratory conditions are a powerful experimental system to achieve this. MA-lines are derived from a single isogenic founder and are independently propagated for a large number of generations. The lines can be advanced either clonally or sexually, i.e. self-fertilization or sibling mating (Fig. 1A). In clonally produced MA lines the isogenicity of the founder is not required because the genome is ’fixed’ due to the lack of genetic
+segregation.
 
-The method has been specifically designed to:
+The kinship among the different MA lineages can be presented as a pedigree (Fig. 1A). The structure (or topology) of these pedigrees is typically known, a priori, as the branch-point times and the branch lengths are deliberately chosen as part of the experimental design. In conjunction with multi-generational methylome measurements MA lines therefore permit ‘real-time’ observations of ’germline’ epimutations against a nearly invariant genomic background, and can facilitate estimates of the per generation epimutation rates. 
 
-**1.** Analyze 'germline' epimutations in the context of multi-generational mutation accumulation lines (MA-lines).
+Beyond experimentally-derived MA lines, natural mutation accumulation systems can also be found in the context of plant development and aging. An instructive example are long-lived perennials, such as trees, whose branching structure can be interpreted as a pedigree (or phylogeny) of somatic lineages that carry information about the epimutational history of each branch. In this case, the branch-point times and the branch lengths can be determined ad hoc using coring data, or other types of dating methods (Fig. 1B). By combining this information with contemporary leaf methylome measurements it is possible to infer the rate of somatic epimutations as a function of age (see Hofmeister et al.).
 
-**2.** Analyze 'somatic' epimutations in the context of plant development and aging.
+```{r fig.align="center", echo=FALSE, out.width = "80%", fig.cap="Experimental systems"}
+#knitr::include_graphics(paste0(output.dir=getwd(),"/Figure1.png"))
+f1 <- system.file("extdata/vg", "Figure1.png",  package = "AlphaBeta")
+knitr::include_graphics(f1)
+```
 
-Heritable changes in cytosine methylation can arise stochastically in plant genomes independently of DNA sequence alterations. 
-These so-called ‘spontaneous epimutations’ appear to be a byproduct of imperfect DNA methylation maintenance during mitotic and meitotic cell divisions. 
+## DNA methylation sampling strategies
+In the analysis of selfing or clonally-derived MA-lines, DNA methylation samples are typically obtained from the final generation (Fig. 2, endpoint sampling) and/or from intermediate generations (Fig. 2, intermediate sampling). With intermediate sampling, the samples can be obtained either directly from the progenitors of each generation (progenitor design, Fig. 2) or else from siblings of those progenitors (sibling design, Fig. 2). The sibling design is feasible in plants as seeds from early generations can be stored and grown out later. This is advantageous because plant material from all generations can be sampled simultaneously under identical conditions. An advantage of the progenitor design is that the methylation status of the pedigree founder is known, and that the methylation status of individual cytosines can be traced back in time through the entire pedigree. However, progenitor samples are taken in real-time (i.e. at selected generations) and thus growth conditions may vary over the experiment and introduce unwanted sources of noise. In the analysis of trees, DNA methylation samples come from contemporary leafs, as the methylomes of earlier developmental time-points are inaccessible (at least not easily accessible). Endpoint sampling is therefore the most obvious sampling strategy.
 
-Accurate estimates of the rate and spectrum of these stochastic events are necessary to be able to quantify how epimutational processes shape methylome diversity in the context of plant evolution, development and aging. 
+Irregardless of sampling design, AlphaBeta interprets the underlying pedigree as a sparse directed network. The nodes of the network correspond to ‘individuals’ whose methylomes have been sampled (i.e. type S* nodes), or of the common ancestors of these individuals, whose methylomes have typically not been sampled (i.e. type S nodes) (Fig.2).
 
-Here we describe AlphaBeta, a computational method for estimating epimutation rates and spectra from pedigree-based high-throughput DNA methylation data in plants. 
+```{r fig.align="center", echo=FALSE, out.width = "80%", fig.cap="Pedigrees and DNA methylation sampling strategies.\nS* denotes sampled individuals and S are their (typically unsampled) most recent ancestors."}
+f2 <- system.file("extdata/vg", "Figure2.pdf",  package = "AlphaBeta")
+knitr::include_graphics(f2)
+```
 
-The method requires that the topology of the pedigree is known, which is typically the case in the construction of mutation accumulation lines (MA-lines) in sexually or clonally reproducing plant species. 
+\section{Input files}
 
-However, the method also works for inferring somatic epimutations in long-lived perrenials, such as trees, using leaf methylomes and coring data as input. In this case, AlphaBeta treats the tree branching structure as an intra-organismal phylogeny of somatic lineages that carry information about the epimutational history of each branch.  
+## Pedigree files of MA lineages
 
-
-\section{Preparing Files}
-
-*NOTE: In this tutorial we are reading methylome files generated using Bioconductor package Methimpute:*
-
-You can find more information here:  [Methimpute package](https://bioconductor.org/packages/release/bioc/html/methimpute.html)
-
-## List of files
-
-List of filenames containing generations and lineage.
-
-*User must define "generations.fn" file.*
-*The structure of "generations.fn" should be same as in our example*
+To be able to re-construct the topology of the underlying pedigree, AlphaBeta requires two types of input files: "nodeslist.fn" and "edgelist.fn".  The structure of these files follows the standard file format required by the R network package igraph.
 
 ```{r}
-# Sample "generations.fn" file
-generation.fn <- system.file("extdata","generations.fn", package="AlphaBeta")
-file <- fread(generation.fn)
-head(file)
+#Load "nodelist.fn" file
+sampleFile <- system.file("extdata/dm", "nodelist.fn",  package = "AlphaBeta")
+```
 
+*"nodelist.fn" has the following structure*
+```{r echo=FALSE}
+file <- fread(sampleFile)
+head(file,10)
+```
+
+\setlength{\leftskip}{1cm}
+
+**filename**: Lists the filenames corresponding to nodes (S and S* ). Filenames of type S* nodes should be identical with the names of their corresponding methylome files (see below). Type S nodes lacking corresponding methylome measurements, and should be designated by (-).
+
+**node**: An arbitrary but unique name given to each node.
+
+**gen**: Specifies the generation time of the nodes in the underlying pedigree.
+
+**meth**: Indicates if methylome measurements are available for a given node (Y = yes, N = no).
+
+\setlength{\leftskip}{0pt}
+
+\pagebreak
+
+The "edgelist.fn" file specifies the ancestral (i.e. lineages) relationship between nodes.
+
+
+```{r}
+#Load "edgelist.fn" file
+edgesFile <- system.file("extdata/dm", "edgelist.fn",  package = "AlphaBeta")
+```
+
+*"edgelist.fn" has the following structure*
+```{r echo=FALSE}
+edges <- fread(edgesFile)
+head (edges, 10)
+```
+
+\setlength{\leftskip}{1cm}
+
+**from and to**: Specifies the network edges, which are any direct connections between type S and S* nodes in the pedigree. Only unique pairs of nodes need to be supplied (Fig.1). These 2 columns are mandatory.
+
+**gendiff (optional)**: Specifies the number of generations that separate the two nodes. This column is useful only for plotting purpose and it can be omitted for epimutation rate estimation. However, we recommend that this column be supplied because it is useful for accurately scaling the edge lengths when plotting certain pedigrees with progenitor.endpoint and sibling design (see 4.1).
+
+**group (optional)**: Along with "gendiff" column, groupings supplied in this column will help in scaling the edge lengths when plotting the pedigree.
+
+\setlength{\leftskip}{0pt}
+
+## Pedigree files of Trees
+
+```{r }
+#Load "SOMA_nodelist.fn" file
+treeSamples <- system.file("extdata/soma", "SOMA_nodelist2.fn", package="AlphaBeta")
+```
+
+*"SOMA_nodelist.fn" has the following structure*
+```{r echo=FALSE}
+fileTree <- fread(treeSamples)
+head(fileTree, 10)
+```
+
+\setlength{\leftskip}{1cm}
+
+**filename**: Lists the filenames corresponding to nodes S. Type S nodes lacking corresponding methylome measurements, and should be designated by (-).
+
+**node**: An arbitrary but unique name given to each node.
+
+**Branchpoint_date**: Specifies the branchpoint time of the nodes in the underlying pedigree.
+
+**meth**: Indicates if methylome measurements are available for a given node (Y = yes, N = no).
+
+\setlength{\leftskip}{0pt}
+
+\pagebreak
+
+The "SOMA_edgelist.fn" file specifies the ancestral (i.e. lineages) relationship between nodes.
+
+```{r }
+treeEdges <- system.file("extdata/soma", "SOMA_edgelist2.fn", package="AlphaBeta")
+```
+
+*"SOMA_edgelist.fn" has the following structure*
+```{r echo=FALSE}
+fileEdges <- fread(treeEdges)
+head(fileEdges, 10)
+```
+
+\setlength{\leftskip}{1cm}
+
+**from and to**: Specifies the network edges, which are any direct connections between type nodes in the pedigree. Only unique pairs of nodes need to be supplied. These 2 columns are mandatory.
+
+**stem (optional)**: To be provided only for trees with 2 or more stems (as.in our example). This column should be left blank for a tree with a single stem. 
+
+\setlength{\leftskip}{0pt}
+
+## Methylome files
+
+Type S* nodes in the pedigree have corresponding methylome data. In its current implementation, AlphaBeta expects methylome files that have been produced by \textit{methimpute}  [Methimpute package](https://bioconductor.org/packages/release/bioc/html/methimpute.html). \textit{methimpute} is a HMM-based methylation state caller for whole-genome bisulphite sequencing (WGBS) data. It can produce cytosine-level methylation state as well as region-level methylation methylation state calls. The former calls are required to obtain cytosine-level epimutation rates, while the latter calls are required to obtain region-level epimuation rates. Methylome files from alternative callers and/or measurement technologies are possible but should be converted to the \textit{methimpute} file structure (see below). 
+
+### Cytosine-level calls
+*"cytosine-level methylome files" have the following structure*
+
+```{r echo=FALSE}
+f3 <- system.file("extdata/vg", "methylome-sample.png",  package = "AlphaBeta")
+knitr::include_graphics(f3)
+```
+
+\setlength{\leftskip}{1cm}
+
+**seqnames, start and strand**: Chromosome coordinates
+
+**context**: Sequence context of cytosine i.e CG,CHG,CHH
+
+**counts.methylated**: Counts for methylated reads at each position
+
+**counts.total**: Counts for total reads at each position
+
+**posteriorMax**: Posterior value of the methylation state call
+
+**status** : Methylation status
+
+**rc.meth.lvl**: Recalibrated methylation level calculated from the posteriors and fitted parameters
+
+**context.trinucleotide**: Trinucleotide context of the cytosine context
+
+\setlength{\leftskip}{0pt}
+
+### Region-level calls
+
+*"region-level methylome files" have the following structure*
+
+```{r echo=FALSE, out.width = "60%"}
+f4 <- system.file("extdata/vg", "methylome-sample-region.png",  package = "AlphaBeta")
+knitr::include_graphics(f4)
+```
+
+\setlength{\leftskip}{1cm}
+
+**seqnames, start and strand**: Chromosome coordinates
+
+**posteriorMax**: Posterior value of the methylation state call
+
+**status** : Methylation status
+
+**rc.meth.lvl**: Recalibrated methylation level calculated from the posteriors and fitted parameters
+
+**context**: Sequence context of cytosine i.e CG,CHG,CHH
+
+\setlength{\leftskip}{0pt}
+
+### Tips for converting files from alternative callers and/or technologies
+Methylome files generated by alternative callers and/or measurement technologies should be converted to meet the \textit{methimpute} file structure. We have the following tentative recommendations.
+
+**NGS-based technologies:** For NGS-based technologies including whole-genome bisulphite sequencing (WGBS), reduced presentation bisulphite sequencing (RRBS) and epigenotyping by sequencing (epiGBS), columns seqnames, start, strand, context, counts.methylated, counts.toal and status are typically available as they are part of standard outputs of BS-seq aligment software, such as Bismark and BSseeker. In this case, we recommend removing all rows where counts.total = 0, and set posteriorMax =  1, rc.meth.lvl = counts.methylated/counts.total, context.trinucleotide = NA. 
+
+**Array-based technologies:** Although we have not directly tested this, it should also be possible to convert methylome data from array-based technologies, including MeDIP-chip, to the methylome file structure required by AlphaBeta. In this case, we recommend to set seqnames = probe chromosome position, start = probe start position, strand = arbitrarily fix to (+), context = arbitrarily fix to context "CG", counts.methylated = NA, count.total = NA, posteriorMax = 1, rc.meth.lvl = array methylation signal, context.trinucleotide = NA.  
+
+\section{Building pedigree}
+The function "buildPedigree" builds the pedigree from the input files.
+Divergence time (delta.t) is calculated as follows: delta.t = t1 + t2 - 2*t0, where t1 is the time of sample 1 (in generations), t2 is the time of sample 2 (in generations) and t0 is the time (in generations) of the most recent common founder of samples 1 and 2.
+
+## Building MA-lines Pedigree
+
+```{r eval=FALSE, include=TRUE}
+output <- buildPedigree(nodelist = sampleFile, 
+                        edgelist = edgesFile,
+                        cytosine = "CG",
+                        posteriorMaxFilter = 0.99)
 ```
 
 ```{r,include=FALSE}
-df<-read.csv(generation.fn)
-df$filename<-sub("^",paste0(dirname(generation.fn),"/"),df$filename )
-write.csv(df, file = paste0(dirname(generation.fn),"/tmp_generation.fn"),row.names=FALSE,quote=FALSE)
-generation.fn<- system.file("extdata","tmp_generation.fn", package="AlphaBeta")
-
+rFile <- system.file("extdata/dm","output.rds", package="AlphaBeta")
+output <- readRDS(rFile )
 ```
 
-## Generate divergence matrix
-
-Estimating epimutation rates from high-throughput DNA methylation data.
-Generation of divergence matrix and calculation of methylation levels.
-
-```{r, eval=FALSE, r,paged.print=FALSE}
-dMatrix(genTable =generation.fn,
-        cytosine = "CG",
-        posteriorMaxFilter = 0.99 )
-```
-
-
-```{r paged.print=FALSE}
-#Sample output from dMatrix function
-head(fread(system.file("extdata/dm","AB-dMatrix-CG-0.99.csv", package="AlphaBeta")))
-```
-
-## Generate methylation proportions
-
-
-```{r,eval=FALSE, paged.print=FALSE}
-rc.meth.lvl(genTable = generation.fn , 
-            cytosine = "CG",
-            posteriorMaxFilter = 0.99 )
-```
-
-```{r , paged.print=FALSE}
-#Sample output from proportions function
-head(fread(system.file("extdata/dm","AB-methprop-CG-0.99.csv", package="AlphaBeta")))
-
-```
-
-## Information about Sample file.
-
-This file containing information on generation times and pedigree lineages.
-
-(should be provide manually)
- 
-```{r ,  paged.print=FALSE}
-#Sample file
-head(fread(system.file("extdata/dm","sampleInfo.csv", package="AlphaBeta")))
-
-```
-
-## File containing lineage branch points.
-
-(should be provide manually)
- 
-```{r , paged.print=FALSE}
-#Sample file
-head(fread(system.file("extdata/dm","branchPoints.csv", package="AlphaBeta")))
-```
-
-\section{Germline epimutations}
-
-Models ABneutral, ABselectMM and ABselectUU can be used to estimate the rate of spontaneous epimutations from pedigree-based high-throughput DNA methylation data. The models are generally designed for pedigree data arising from selfing diploid species.
-
-
-## Calculate divergence times 
-
-Divergence time (delta t) is calculated as follows: delta t = t1 + t2 - 2*t0, where t1 is the time of sample 1 (in generations), t2 is the time of sample 2 (in generations) and t0 is the time (in generations) of the most recent common founder of samples 1 and 2.
-
-To calculate divergence times of the pedigree should be provided in the form of 4 files as shown below.
-
+Divergence values (D.value): 
 ```{r }
-props.name <- read.table(system.file("extdata/dm","AB-methprop-CG-0.99.csv", package="AlphaBeta"), sep="\t", header=TRUE)
-sample.info <-read.table(system.file("extdata/dm","sampleInfo.csv", package="AlphaBeta"), sep="\t", header=TRUE) 
-branch.points <-read.table(system.file("extdata/dm","branchPoints.csv", package="AlphaBeta"), sep="\t", header=TRUE)
-dmatrix <-read.table(system.file("extdata/dm","AB-dMatrix-CG-0.99.csv", package="AlphaBeta"), sep="\t", header=TRUE)
-context <- "CG"
+head(output$Pdata)     
 ```
 
-calculate divergence times of the pedigree:
+\setlength{\leftskip}{1cm}
 
+**time 1**: Generation time of sample \textit{i} 
+
+**time 2**: Generation time of sample \textit{j} 
+
+**time 0**: Generation time of most recent common ancestor of samples \textit{i} and \textit{j} 
+
+**D.value**: Mean absolute divergence in DNA methylation states between samples \textit{i} and \textit{j}
+
+\setlength{\leftskip}{0pt}
+
+## Building Tree Pedigree 
+
+```{r eval=FALSE, include=TRUE}
+outputTree <- buildPedigree(nodelist = treeSamples, 
+                        edgelist = treeEdges,
+                        cytosine = "CG",
+                        posteriorMaxFilter = 0.99)
+```
+
+
+```{r,include=FALSE}
+TrFile <- system.file("extdata/soma","outputSoma.rds", package="AlphaBeta")
+outputTree <- readRDS(TrFile)
+```
+
+Divergence values (D.value): 
 ```{r }
-pedigree <- convertDMATRIX(sample.info=sample.info,
-                           branch.points=branch.points,
-                           dmatrix=dmatrix,
-                           design="sibling")
-head(pedigree)
+head(outputTree$Pdata)     
 ```
 
-This is a manual step for inspecting the divergence data and removing outlier samples (if any):
+\section{Diagnostic plots}
 
+The correct specification of the pedigree topology and the removal of influential outlier data points are critical aspects for epimutation rate estimation.  Visual inspection of the pedigree is provided through the function "plotPedigree".
 
+## Plotting pedigrees
 
-```{r echo=FALSE}
+### Pedigree of MA-lines
+```{r eval=FALSE, include=TRUE}
+
+## Progenitor-endpoint design
+plotPedigree(nodelist=sampleFile, 
+               edgelist=edgesFile,
+               sampling.design="progenitor.endpoint",
+               output.dir=out.dir,
+               plot.width=5, 
+               plot.height=5,
+               aspect.ratio=1,
+               vertex.size=6,
+               vertex.label=FALSE,
+               out.pdf="MA1_1")
+
+## Sibling design
+plotPedigree(nodelist=system.file("extdata/vg","nodelist_MA2_3.fn", package="AlphaBeta"), 
+               edgelist=system.file("extdata/vg","edgelist_MA2_3.fn", package="AlphaBeta"),
+               sampling.design="sibling",
+               output.dir=out.dir,
+               plot.width=5, 
+               plot.height=5,
+               aspect.ratio=2.5,
+               vertex.size=12,
+               vertex.label=FALSE,
+               out.pdf="MA2_3")
+
+## Progenitor-intermediate design
+plotPedigree(nodelist=system.file("extdata/vg","nodelist_MA3.fn", package="AlphaBeta"),
+               edgelist=system.file("extdata/vg","edgelist_MA3.fn", package="AlphaBeta"),
+               sampling.design="progenitor.intermediate",
+               output.dir=out.dir,
+               plot.width=5,
+               plot.height=8,
+               aspect.ratio=2.5,
+               vertex.size=13,
+               vertex.label=FALSE,
+               out.pdf="MA3")
+```
+
+```{r fig.align="center", echo=FALSE, out.width = "90%", fig.cap="Pedigrees of MA lines with progenitor.endpoint (left), sibling (middle) and progenitor.intermediate design (right)"}
+f5 <- system.file("extdata/vg", "MAlines.png",  package = "AlphaBeta")
+knitr::include_graphics(f5)
+```
+\pagebreak
+
+### Tree pedigrees 
+
+```{r eval=FALSE, include=TRUE}
+plotPedigree(nodelist=treeSamples, 
+               edgelist=treeEdges,
+               sampling.design="tree",
+               output.dir=out.dir,
+               plot.width=5, 
+               plot.height=5,
+               aspect.ratio=1,
+               vertex.size=8,
+               vertex.label=FALSE,
+               out.pdf="Tree")
+
+```
+
+\setlength{\leftskip}{1cm}
+
+**nodelist**: file containing list of nodes
+
+**edgelist**: files containing list of edges
+
+**sampling.design**: set sampling design according to pedigree
+
+**output.dir**: set output directory path
+               
+**plot.width, plot.height**: set width and height of the output pdf
+               
+**aspect.ratio, vertex.size**: for adjusting the ratio of height to width of the pedigree plot
+               
+**vertex.label**: vertex labels can be printed with either TRUE or FALSE
+               
+**out.pdf**: set NULL to print plot on screen or set name to output as pdf
+
+\setlength{\leftskip}{0pt}
+
+```{r fig.align="center", echo=FALSE, out.width = "90%", fig.cap="Pedigree of a tree with 2 stems (left) and a single stem (right)"}
+f6 <- system.file("extdata/vg", "Trees.png",  package = "AlphaBeta")
+knitr::include_graphics(f6)
+```
+
+## Plotting divergence time (delta.t) versus methylome divergence (D.value)
+This is an interactive plot for inspecting the divergence data and removing outlier samples (if any):
+
+```{r echo=TRUE}
+pedigree<- output$Pdata
 dt <- pedigree[,2] + pedigree[,3] - 2 * pedigree[,1]
 plot(dt, pedigree[,"D.value"], ylab="Divergence value", xlab=expression(paste(Delta, " t")))
 ```
 
-Read in the proportions data: 
+\section{Epimutation rate estimation in selfing-systems}
 
-```{r}
-outliers <- "none"
-dmatrix <- dmatrix[which(dmatrix[,1] != outliers), ]
-dmatrix <- dmatrix[which(dmatrix[,2] != outliers), ]
-pedigree <- pedigree[c(as.numeric(rownames(dmatrix))),]
-
-props <- props.name[which(as.character(props.name[,2]) == context),]
-props <- props.name[which(!is.element(props.name[,1], outliers) == TRUE),]
-```
-Calculate initial proportions of unmethylated cytosines after removal of outliers:
-
-```{r}
-p0uu_in <- 1-mean(as.numeric(as.character(props[,3])))
-p0uu_in
-```
-
+Models ABneutral, ABselectMM, ABselectUU and ABnull can be used to estimate the rate of spontaneous epimutations in selfing-derived MA-lines. The models are currently restricted to diploids.
 
 ## Run Models
 
 ### Run Model with no selection (ABneutral)
+ABneutral fits a neutral epimutation model. The model assumes that epimutation accumulation is under no selective constraint.  Returned are estimates of the methylation gain and loss rates and the proportion of epi-heterozygote loci in the pedigree founder genome.
 
-This model assumes that heritable gains and losses in cytosine methylation are selectively neutral.
+Initial proportions of unmethylated cytosines:
+```{r}
+p0uu_in <- output$tmpp0
+p0uu_in
+pedigree <- output$Pdata
+```
 
 ```{r,output.lines=5 }
 # output directory
-output.data.dir<-paste0(getwd(),"/") 
+output.data.dir <- paste0(getwd()) 
 
 output <- ABneutral(
   pedigree.data = pedigree,
@@ -214,7 +411,7 @@ output <- ABneutral(
   eqp.weight = 1,
   Nstarts = 2,
   out.dir = output.data.dir,
-  out.name = "CG_global_estimates_ABneutral"
+  out.name = "ABneutral_CG_global_estimates"
 )
 ```
 *NOTE:  it is recommended to use at least 50 Nstarts to achieve best solutions*
@@ -229,55 +426,69 @@ summary(output)
 head(output$pedigree)
 ```
 
+Plot estimates of ABneutral model:
+```{r eval=FALSE, include=TRUE}
+ABfile <- system.file("extdata/models/", 
+                      "ABneutral_CG_global_estimates.Rdata", 
+                      package = "AlphaBeta")
+#In 'ABplot' function you can set parameters to customize the pdf output. 
+ABplot(pedigree.names=ABfile, output.dir=getwd(), out.name="ABneutral", plot.height=8, plot.width=11)
+```
+
+\pagebreak
+
+```{r fig.align="center", echo=FALSE, out.width = "80%", fig.cap = "Divergence versus delta.t"}
+f7 <- system.file("extdata/vg", "ABneutral_MA1_1.pdf",  package = "AlphaBeta")
+knitr::include_graphics(f7)
+```
+
+
 ### Run model with selection against spontaneous gain of methylation (ABselectMM)
 
-This model assumes that heritable losses of cytosine methylation are under negative selection. The selection parameter is estimated.
+ABselectMM fits an epimutation model with selection. The model assumes that epimutation accumulation is in part shaped by selection against spontaenous losses of cytosine methylation. Returned are estimates of the methylation gain and loss rates, the selection coeficient, and the proportion of epi-heterozygote loci in the pedigree founder genome.
 
 ```{r}
-output <- ABselectMM(
+outputABselectMM <- ABselectMM(
   pedigree.data = pedigree,
   p0uu = p0uu_in,
   eqp = p0uu_in,
   eqp.weight = 1,
   Nstarts = 2,
   out.dir = output.data.dir,
-  out.name = "CG_global_estimates_ABselectMM"
+  out.name = "ABselectMM_CG_global_estimates"
 )
 
-summary(output)
 ```
 
 ### Run model with selection against spontaneous loss of methylation (ABselectUU)
 
-This model assumes that heritable gains of cytosine methylation are under negative selection. The selection parameter is estimated.
+ABselectUU fits an epimutation model with selection. The model assumes that epimutation accumulation is in part shaped by selection against spontaenous gains of cytosine methylation. Returned are estimates of the methylation gain and loss rates, the selection coeficient, and the proportion of epi-heterozygote loci in the pedigree founder genome.
 
 ```{r}
-output <- ABselectUU(
+outputABselectUU <- ABselectUU(
   pedigree.data = pedigree,
   p0uu = p0uu_in,
   eqp = p0uu_in,
   eqp.weight = 1,
   Nstarts = 2,
   out.dir = output.data.dir,
-  out.name = "CG_global_estimates_ABselectUU"
+  out.name = "ABselectUU_CG_global_estimates"
 )
 
-summary(output)
 ```
-
 
 ### Run model that considers no accumulation of epimutations (ABnull)
 
-This is the null model of no accumulation.
+ABnull fits a model of no epimutation accumulation. This model serves as the Null model.
 
 ```{r}
-output <- ABnull(pedigree.data = pedigree,
-               out.dir = output.data.dir,
-               out.name = "CG_global_estimates_ABnull")
+outputABnull <- ABnull(
+  pedigree.data = pedigree,
+  out.dir = output.data.dir,
+  out.name = "ABnull_CG_global_estimates"
+  )
 
-summary(output)
 ```
-
 
 ## Comparison of different models and selection of best model
 
@@ -286,11 +497,11 @@ summary(output)
 ```{r}
 file1 <-
   system.file("extdata/models/",
-              "CG_global_estimates_ABneutral.Rdata",
+              "ABneutral_CG_global_estimates.Rdata",
               package = "AlphaBeta")
 file2 <-
   system.file("extdata/models/",
-              "CG_global_estimates_ABnull.Rdata",
+              "ABnull_CG_global_estimates.Rdata",
               package = "AlphaBeta")
 
 out <- FtestRSS(pedigree.select = file1,
@@ -304,11 +515,11 @@ out$Ftest
 ```{r}
 file1 <-
   system.file("extdata/models/",
-              "CG_global_estimates_ABselectMM.Rdata",
+              "ABselectMM_CG_global_estimates.Rdata",
               package = "AlphaBeta")
 file2 <-
   system.file("extdata/models/",
-              "CG_global_estimates_ABnull.Rdata",
+              "ABnull_CG_global_estimates.Rdata",
               package = "AlphaBeta")
 
 out <- FtestRSS(pedigree.select = file1,
@@ -322,11 +533,11 @@ out$Ftest
 ```{r}
 file1 <-
   system.file("extdata/models/",
-              "CG_global_estimates_ABselectUU.Rdata",
+              "ABselectUU_CG_global_estimates.Rdata",
               package = "AlphaBeta")
 file2 <-
   system.file("extdata/models/",
-              "CG_global_estimates_ABnull.Rdata",
+              "ABnull_CG_global_estimates.Rdata",
               package = "AlphaBeta")
 
 out <- FtestRSS(pedigree.select = file1,
@@ -335,75 +546,37 @@ out <- FtestRSS(pedigree.select = file1,
 out$Ftest
 ```
 
-## Bootstrap analysis with the best model
+## Bootstrap analysis with the best fitting model(BOOTmodel)
 
 
 i.e ABneutral in our case
 
+*NOTE:  it is recommended to use at least 50 Nboot to achieve best solutions*
 ```{r}
-
 inputModel <- system.file("extdata/models/",
-              "CG_global_estimates_ABneutral.Rdata",
+              "ABneutral_CG_global_estimates.Rdata",
               package = "AlphaBeta")
 
 # Bootstrapping models CG
-output.data.dir <-paste0(getwd(),"/") 
 
 Boutput <- BOOTmodel(
   pedigree.data = inputModel,
   Nboot = 2,
-  out.dir = output.data.dir,
-  out.name = "Boot_CG_global_estimates_ABneutral"
+  out.dir = getwd(),
+  out.name = "ABneutral_Boot_CG_global_estimates"
 )
 
 summary(Boutput)
 ```
 
-```{r}
+```{r echo=FALSE}
 Boutput$standard.errors
 ```
 
-\section{Somatic epimutations}
+\section{Epimutation rate estimation in clonal, asexual and somatic systems}
+
 
 Models ABneutralSOMA, ABselectMMSOMA and ABselectUUSOMA can be used to estimate the rate of spontaneous epimutations from pedigree-based high-throughput DNA methylation data. The models are generally designed for pedigree data arising from clonally or asexually propagated diploid species. The models can also be applied to long-lived perrenials, such as trees, using leaf methylomes and coring data as input. In this case, the tree branching structure is treated as an intra-organismal pedigree (or phylogeny) of somatic lineages. 
-
-
-## Loading data and generation of pedigree
-
-```{r }
-props.name <- read.table(system.file("extdata/soma/","AB-methprop-CG-0.99.csv", package="AlphaBeta"), sep="\t", header=TRUE,stringsAsFactors = FALSE)
-sample.info <-read.table(system.file("extdata/soma/","sampleInfo.csv", package="AlphaBeta"), sep="\t", header=TRUE,stringsAsFactors = FALSE) 
-dmatrix <-read.table(system.file("extdata/soma/","AB-dMatrix-CG-0.99.csv", package="AlphaBeta"), sep="\t", header=TRUE,stringsAsFactors = FALSE)
-```
-
-Samples:
-
-```{r }
-head(props.name)
-head(sample.info)
-head(dmatrix)
-```
-
-
-
-## Generate pedigree from the input files
-
-*NOTE: Here in our example "makePHYLO" function calculates divergence times of a tree branching structure with total age of 330 years derived from coring-based measurements.*
-
-```{r}
-# 'tall' is total age of tree
-pedigree.out <- makePHYLO(tall=330, pedigree = dmatrix, sample.info = sample.info)
-pedigree.out <- pedigree.out[[1]]
-head(pedigree.out)
-```
-
-## Calculate the proportion of unmethylated cytosines
-
-```{r}
-p0uu_in <- mean(props[,3])
-p0uu_in
-```
-
 
 ## Run Models
 
@@ -411,59 +584,111 @@ p0uu_in
 
 This model assumes that somatically heritable gains and losses in cytosine methylation are selectively neutral. 
 
+Initial proportions of unmethylated cytosines:
 ```{r}
-outneutral <- ABneutralSOMA(
-  pedigree.data = pedigree.out,
-  p0uu = p0uu_in,
-  eqp = p0uu_in,
+Tree_p0uu_in <- outputTree$tmpp0
+Tree_p0uu_in
+```
+
+```{r}
+pedigree.Tree <- outputTree$Pdata
+```
+
+
+```{r}
+outputABneutralSOMA <- ABneutralSOMA(
+  pedigree.data = pedigree.Tree,
+  p0uu = Tree_p0uu_in,
+  eqp = Tree_p0uu_in,
   eqp.weight = 0.001,
   Nstarts = 2,
-  out.dir = output.data.dir,
-  out.name = "ABneutralSOMA_CG_estimates"
+  out.dir = getwd(),
+  out.name = "ABneutralSOMA_CG_global_estimates"
 )
-summary(outneutral)
+
 ```
 
-```{r}
-head(outneutral$pedigree)
+```{r eval=TRUE, include=FALSE}
+ABfilesoma <- system.file("extdata/models/", 
+                      "ABneutralSOMA_CG_global_estimates.Rdata", 
+                      package = "AlphaBeta")
+outputABneutralSOMA <- dget(ABfilesoma)
 ```
 
+```{r eval=TRUE, include=TRUE}
+summary(outputABneutralSOMA)
+head(outputABneutralSOMA$pedigree)
+```
+
+Plot estimates of ABneutralSOMA model:
+```{r eval=FALSE, include=TRUE}
+ABfilesoma <- system.file("extdata/models/", 
+                      "ABneutralSOMA_CG_global_estimates.Rdata", 
+                      package = "AlphaBeta")
+ABplot(pedigree.names=ABfilesoma, output.dir=getwd(), out.name="ABneutralSOMA", plot.height=8, plot.width=11)
+```
+
+```{r fig.align="center", echo=FALSE, out.width = "80%", fig.cap = "Divergence versus delta.t of Tree"}
+f8 <- system.file("extdata/vg", "ABneutralSOMA.pdf",  package = "AlphaBeta")
+knitr::include_graphics(f8)
+```
 
 ### Run model with selection against spontaneous gain of methylation (ABselectMMSOMA)
 
 This model assumes that somatically heritable losses of cytosine methylation are under negative selection. The selection parameter is estimated.
 
 ```{r}
-outselectMM <- ABselectMMSOMA(
-  pedigree.data = pedigree.out,
-  p0uu = p0uu_in,
-  eqp = p0uu_in,
+outputABselectMMSOMA <- ABselectMMSOMA(
+  pedigree.data = pedigree.Tree,
+  p0uu = Tree_p0uu_in,
+  eqp = Tree_p0uu_in,
   eqp.weight = 0.001,
   Nstarts = 2,
-  out.dir = output.data.dir,
-  out.name = "ABselectMMSOMA_CG_estimates"
+  out.dir = getwd(),
+  out.name = "ABselectMMSOMA_CG_global_estimates"
 )
 
-summary(outselectMM)
 ```
 
-
 ### Run model with selection against spontaneous loss of methylation (ABselectUUSOMA)
-
 
 This model assumes that somatically heritable gains of cytosine methylation are under negative selection. The selection parameter is estimated.
 
 ```{r}
-outselectUU <- ABselectUUSOMA(
-  pedigree.data = pedigree.out,
-  p0uu = p0uu_in,
-  eqp = p0uu_in,
+outputABselectUUSOMA <- ABselectUUSOMA(
+  pedigree.data = pedigree.Tree,
+  p0uu = Tree_p0uu_in,
+  eqp = Tree_p0uu_in,
   eqp.weight = 0.001,
   Nstarts = 2,
-  out.dir = output.data.dir,
-  out.name = "ABselectUUSOMA_CG_estimates"
+  out.dir = getwd(),
+  out.name = "ABselectUUSOMA_CG_global_estimates"
 )
-summary(outselectUU)
+
+```
+
+## Bootstrap analysis with the best fitting model (BOOTmodel)
+
+
+```{r}
+inputModelSOMA <- system.file("extdata/models",
+              "ABneutralSOMA_CG_global_estimates.Rdata",
+              package = "AlphaBeta")
+
+# Bootstrapping models CG
+
+Boutput <- BOOTmodel(
+  pedigree.data = inputModelSOMA,
+  Nboot = 2,
+  out.dir = getwd(),
+  out.name = "ABneutral_Boot_CG_global_estimates"
+)
+
+summary(Boutput)
+```
+
+```{r echo=FALSE}
+Boutput$standard.errors
 ```
 
 \section{R session info }
@@ -471,4 +696,5 @@ summary(outselectUU)
 ```{r}
 sessionInfo()
 ```
+
 

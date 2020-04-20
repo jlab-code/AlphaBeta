@@ -1,0 +1,10 @@
+filename,node,gen,meth
+/home/jlab/yadi/AlphaBeta/inst/extdata/data/G0.txt,0_0,0,Y
+/home/jlab/yadi/AlphaBeta/inst/extdata/data/G1_2.txt,1_2,1,Y
+/home/jlab/yadi/AlphaBeta/inst/extdata/data/G1_8.txt,1_8,1,N
+/home/jlab/yadi/AlphaBeta/inst/extdata/data/G2_2.txt,2_2,1,N
+/home/jlab/yadi/AlphaBeta/inst/extdata/data/G2_8.txt,2_8,1,N
+/home/jlab/yadi/AlphaBeta/inst/extdata/-,3_2,3,N
+/home/jlab/yadi/AlphaBeta/inst/extdata/-,3_8,3,N
+/home/jlab/yadi/AlphaBeta/inst/extdata/data/G4_2.txt,4_2,4,Y
+/home/jlab/yadi/AlphaBeta/inst/extdata/data/G4_8.txt,4_8,4,Y

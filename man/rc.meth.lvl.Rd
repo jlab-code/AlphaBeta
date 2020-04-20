@@ -4,11 +4,11 @@
 \alias{rc.meth.lvl}
 \title{Calculating rc.Meth.lvl}
 \usage{
-rc.meth.lvl(genTable, cytosine, posteriorMaxFilter)
+rc.meth.lvl(nodelist, cytosine, posteriorMaxFilter)
 }
 \arguments{
-\item{genTable}{Generation table name, you can find sample file in
-"extdata" called "generations.fn"}
+\item{nodelist}{List of samples, you can find sample file in
+"extdata" called "nodelist.fn"}
 
 \item{cytosine}{Type of cytosine (CHH/CHG/CG)}
 
@@ -22,6 +22,6 @@ Estimating epimutation rates from high-throughput DNA methylation data
 }
 \examples{
 ## Get some toy data
-file <- system.file("extdata","tm_generations.fn", package="AlphaBeta")
+file <- system.file("extdata/dm/","tmp_nodelist.fn", package="AlphaBeta")
 rc.meth.lvl(file, "CG", 0.99)
 }

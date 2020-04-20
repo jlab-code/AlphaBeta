@@ -19,6 +19,7 @@ inst/doc
 .dll
 .def
 .ds_store
+.DS_Store
 unsrturl.bst
 .log
 .aux
