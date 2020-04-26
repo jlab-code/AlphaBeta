@@ -18,7 +18,7 @@ vignette: >
 options(width=120)
 knitr::opts_chunk$set(
   collapse = FALSE,
-  eval = FALSE,
+  eval = TRUE,
   comment = " ",
   tidy.opts =list(width.cutoff=80),
   tidy = TRUE,
@@ -71,7 +71,7 @@ To be able to re-construct the topology of the underlying pedigree, AlphaBeta re
 
 ```{r}
 #Load "nodelist.fn" file
-sampleFile <- system.file("extdata/dm", "nodelist.fn",  package = "AlphaBeta")
+sampleFile <- system.file("extdata/vg", "nodelist.fn",  package = "AlphaBeta")
 ```
 
 *"nodelist.fn" has the following structure*
@@ -99,7 +99,7 @@ The "edgelist.fn" file specifies the ancestral (i.e. lineages) relationship betw
 
 ```{r}
 #Load "edgelist.fn" file
-edgesFile <- system.file("extdata/dm", "edgelist.fn",  package = "AlphaBeta")
+edgesFile <- system.file("extdata/vg", "edgelist.fn",  package = "AlphaBeta")
 ```
 
 *"edgelist.fn" has the following structure*
@@ -370,7 +370,7 @@ plotPedigree(nodelist=treeSamples,
 
 \setlength{\leftskip}{0pt}
 
-```{r fig.align="center", echo=FALSE, out.width = "90%", fig.cap="Pedigree of a tree with 2 stems (left) and a single stem (right)"}
+```{r fig.align="left", echo=FALSE, out.width = "70%", fig.cap="Pedigree of a tree with 2 stems (left) and a single stem (right)"}
 f6 <- system.file("extdata/vg", "Trees.png",  package = "AlphaBeta")
 knitr::include_graphics(f6)
 ```

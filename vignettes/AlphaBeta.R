@@ -26,7 +26,7 @@ knitr::include_graphics(f2)
 
 ## ---------------------------------------------------------------------------------------------------------------------
 #Load "nodelist.fn" file
-sampleFile <- system.file("extdata/dm", "nodelist.fn",  package = "AlphaBeta")
+sampleFile <- system.file("extdata/vg", "nodelist.fn",  package = "AlphaBeta")
 
 ## ----echo=FALSE-------------------------------------------------------------------------------------------------------
 file <- fread(sampleFile)
@@ -34,7 +34,7 @@ head(file,10)
 
 ## ---------------------------------------------------------------------------------------------------------------------
 #Load "edgelist.fn" file
-edgesFile <- system.file("extdata/dm", "edgelist.fn",  package = "AlphaBeta")
+edgesFile <- system.file("extdata/vg", "edgelist.fn",  package = "AlphaBeta")
 
 ## ----echo=FALSE-------------------------------------------------------------------------------------------------------
 edges <- fread(edgesFile)
@@ -144,7 +144,7 @@ knitr::include_graphics(f5)
 #                 out.pdf="Tree")
 #  
 
-## ----fig.align="center", echo=FALSE, out.width = "90%", fig.cap="Pedigree of a tree with 2 stems (left) and a single stem (right)"----
+## ----fig.align="left", echo=FALSE, out.width = "70%", fig.cap="Pedigree of a tree with 2 stems (left) and a single stem (right)"----
 f6 <- system.file("extdata/vg", "Trees.png",  package = "AlphaBeta")
 knitr::include_graphics(f6)
 
