@@ -48,11 +48,12 @@ dMatrix <- function(nodelist, cytosine, posteriorMaxFilter) {
 
 runMatrix <- function(pairs, cytosine, posteriorMaxFilter,genTable){
      flag=TRUE
+     name_ds<-NULL
      pair_len <- length(pairs)/2
        for (i in seq_len(pair_len)){
         df <-pairs[,i]
-        name_ds<- getNames( df[1],genTable)
-        name_ds[2]<- getNames(df[2],genTable)
+        name_ds[1] <- getNames(df[1], genTable)
+        name_ds[2] <- getNames(df[2], genTable)
 
         cat(paste0("Reading sample: ",name_ds[[1]], " and ",
          name_ds[[2]], " ( ", i , " out of ",length(pairs)/2," pairs )"),"\n")
