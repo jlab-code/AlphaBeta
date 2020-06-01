@@ -44,8 +44,10 @@ DM.dataRead <- function(dFile, cytosine, posteriorMaxFilter) {
       tmp %>% filter(tmp$posteriorMax >= posteriorMaxFilter &
           tmp$seqnames != "M" &  tmp$seqnames != "C")
 
+
     drops <- c("context", "posteriorMax")
-    tmp <- tmp[, !(names(tmp) %in% drops)]
+    tmp <- tmp %>% select(!(drops))
+    #tmp <- tmp[ !(names(tmp) %in% drops)]
     # filter out based on context & posteriorMax
 
     return(tmp)
@@ -80,7 +82,8 @@ RC.dataRead <- function(dFile, cytosine, posteriorMaxFilter) {
 
     # filter out based on context & posteriorMax
     drops <- c("context", "posteriorMax")
-    tmp <- tmp[,!(names(tmp) %in% drops)]
+    #tmp <- tmp[,!(names(tmp) %in% drops)]
+    tmp <- tmp %>% select(!(drops))
     return(tmp)
 }
 
