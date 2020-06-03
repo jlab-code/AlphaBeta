@@ -1,7 +1,7 @@
 Package: AlphaBeta
 Type: Package
 Title: Computational inference of epimutation rates and spectra from high-throughput DNA methylation data in plants
-Version: 1.2.1
+Version: 1.2.2
 Authors@R: c(
     person("Yadollah", "Shahryary Dizaji", email = "shahryary@gmail.com", role = c("cre","aut")),
     person("Frank", "Johannes", email = "frank@jlab.org", role = "aut"),

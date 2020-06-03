@@ -29,7 +29,6 @@ rc.meth.lvl <- function(nodelist, cytosine, posteriorMaxFilter){
       #---------------------------Filter based on WGBS
       genTable <- genTable %>% filter(genTable$meth=="Y")
       #---------------------------
-
       list.rc<-bplapply(genTable$filename,cytosine=cytosine,posteriorMaxFilter= posteriorMaxFilter,
         genTable= genTable, rcRun, BPPARAM = SnowParam(exportglobals = FALSE))
 
