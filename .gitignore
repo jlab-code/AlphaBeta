@@ -4,6 +4,7 @@
 .Ruserdata
 .Rbuildignore
 .Rproj
+*.Rproj
 inst/doc
 .renviron
 .rprofile

@@ -104,12 +104,4 @@ runMatrix <- function(pairs, cytosine, posteriorMaxFilter,genTable){
     return(tmp_big)
 }
 
-#dMsaveResult<-function(final_ds,cytosine,posteriorMaxFilter){
-#    cat("Writing to the files:\n")
-#    final_ds<-final_ds[mixedorder(final_ds$X1),]
-#    colnames(final_ds)<-(c("pair.1", "pair.2", "D.value"))
-#    saved_file <- paste0(getwd(), "/", "AB-dMatrix-", cytosine, "-", posteriorMaxFilter, ".csv")
-#    fwrite(final_ds, file = saved_file , quote = FALSE, sep = '\t', row.names = FALSE, col.names = TRUE)
-#    cat(paste0("Divergence values saved in: ",saved_file, "\n"))
-#}
 
