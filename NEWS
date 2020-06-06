@@ -23,3 +23,7 @@ Changes in version 1.2.1 (2020-04-20)
     + Added some plots.
 * Added SOMA functions.
 * Plotting estimates
+
+Changes in version 1.2.3 (2020-06-06)
+* Fixed bugs.
+* Compatible with new version of dplyr,data.tables
