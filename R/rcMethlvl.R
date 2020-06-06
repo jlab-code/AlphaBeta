@@ -52,17 +52,18 @@ RCsaveResult<-function(list.rc,cytosine,posteriorMaxFilter){
       tmp_dmr <- data.frame(matrix(ncol = 3, nrow =1 ))
       x <- c("Sample_name", "context", "rc.meth.lvls")
       colnames(tmp_dmr) <- x
-      mainRC<-NULL
+      mainRC <- tmp_dmr
       for (nlist in seq_len(length(list.rc))){
-        tmp_dmr$Sample_name<-list.rc[[nlist]][[1]]
+        tmp_dmr$Sample_name<-list.rc[[nlist]][[1]]$node
         tmp_dmr$context<-cytosine
         tmp_dmr$rc.meth.lvls <-list.rc[[nlist]][[2]]
         mainRC<-rbind(mainRC,tmp_dmr)
+        tmp_dmr<-NULL
       }
-      mainRC<-mainRC[mixedorder(mainRC$Sample_name),]
-      #saveFile <- paste0(getwd(), "/", "AB-methProp-", cytosine, "-", posteriorMaxFilter, ".csv")
-      #fwrite(mainRC,file = saveFile ,quote = FALSE,sep = '\t',row.names = FALSE,col.names = TRUE)
-      #cat(paste0("Methylation proportions results saved in: ",saveFile,"\n"))
+      mainRC <- mainRC[!(rowSums(x = is.na(x = mainRC)) == ncol(x = mainRC)),]
+      rownames(mainRC) <- NULL
+      mainRC %>% mutate_if(is.factor, as.character) -> mainRC
+      mainRC <- mainRC[mixedorder(mainRC$Sample_name), ]
       return(mainRC)
 
 }

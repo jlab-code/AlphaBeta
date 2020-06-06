@@ -36,15 +36,17 @@ BOOTmodel<-function(pedigree.data, Nboot, out.dir, out.name)
   {
 
       ## Reading the dataset for bootstrapping and extracting the parameter settings
-    	settings<-pedigree.data$settings
-    	est<-pedigree.data$estimates
-    	eqp<-as.numeric(as.character(settings[which(settings[,1] == "eqp"),2]))
-    	eqp.weight<-as.numeric(as.character(settings[which(settings[,1] == "eqp.weight"),2]))
-    	optim.method<-as.character(settings[which(settings[,1] == "optim.method"),2])
-    	p0mm<-as.numeric(as.character(settings[which(settings[,1] == "p0mm"),2]))
-    	p0uu<-as.numeric(as.character(settings[which(settings[,1] == "p0uu"),2]))
-    	p0um<-1-(p0mm + p0uu)
-    	pedigree<-pedigree.data$pedigree
+      settings<-pedigree.data$settings
+      est<-pedigree.data$estimates
+      eqp<-as.numeric(as.character(settings[which(settings[,1] == "eqp"),2]))
+      eqp.weight<-as.numeric(as.character(settings[which(settings[,1] == "eqp.weight"),2]))
+      optim.method<-as.character(settings[which(settings[,1] == "optim.method"),2])
+      #p0mm<-round(as.numeric(as.character(settings[which(settings[,1] == "p0mm"),2])),16)
+      p0uu<-round(as.numeric(as.character(settings[which(settings[,1] == "p0uu"),2])),16)
+      #p0um<-round(as.numeric(as.character(settings[which(settings[,1] == "p0um"),2])),15)
+      pedigree<-pedigree.data$pedigree
+      p0mm = 1-p0uu
+      p0um = 0
 
 
     	if(sum(c(p0mm, p0um, p0uu), na.rm =TRUE) != 1) {stop("The initial state probabilities don't sum to 1")}
@@ -258,10 +260,10 @@ BOOTmodel<-function(pedigree.data, Nboot, out.dir, out.name)
     eqp<-as.numeric(as.character(settings[which(settings[,1] == "eqp"),2]))
     eqp.weight<-as.numeric(as.character(settings[which(settings[,1] == "eqp.weight"),2]))
     optim.method<-as.character(settings[which(settings[,1] == "optim.method"),2])
-    p0mm<-as.numeric(as.character(settings[which(settings[,1] == "p0mm"),2]))
-    p0uu<-as.numeric(as.character(settings[which(settings[,1] == "p0uu"),2]))
-    p0um<-1-(p0mm + p0uu)
+    p0uu<-round(as.numeric(as.character(settings[which(settings[,1] == "p0uu"),2])),16)
     pedigree<-pedigree.data$pedigree
+    p0mm = 1-p0uu
+    p0um = 0
 
 
     if(sum(c(p0mm, p0um, p0uu), na.rm =TRUE) != 1) {stop("The initial state probabilities don't sum to 1")}
@@ -477,11 +479,10 @@ BOOTmodel<-function(pedigree.data, Nboot, out.dir, out.name)
     eqp<-as.numeric(as.character(settings[which(settings[,1] == "eqp"),2]))
     eqp.weight<-as.numeric(as.character(settings[which(settings[,1] == "eqp.weight"),2]))
     optim.method<-as.character(settings[which(settings[,1] == "optim.method"),2])
-    p0mm<-as.numeric(as.character(settings[which(settings[,1] == "p0mm"),2]))
-    p0uu<-as.numeric(as.character(settings[which(settings[,1] == "p0uu"),2]))
-    p0um<-1-(p0mm + p0uu)
-    sel<-as.numeric(as.character(settings$Setting[6]))
+    p0uu<-round(as.numeric(as.character(settings[which(settings[,1] == "p0uu"),2])),16)
     pedigree<-pedigree.data$pedigree
+    p0mm = 1-p0uu
+    p0um = 0
 
 
     if(sum(c(p0mm, p0um, p0uu), na.rm =TRUE) != 1) {stop("The initial state probabilities don't sum to 1")}
@@ -700,11 +701,10 @@ BOOTmodel<-function(pedigree.data, Nboot, out.dir, out.name)
     eqp<-as.numeric(as.character(settings[which(settings[,1] == "eqp"),2]))
     eqp.weight<-as.numeric(as.character(settings[which(settings[,1] == "eqp.weight"),2]))
     optim.method<-as.character(settings[which(settings[,1] == "optim.method"),2])
-    p0mm<-as.numeric(as.character(settings[which(settings[,1] == "p0mm"),2]))
-    p0uu<-as.numeric(as.character(settings[which(settings[,1] == "p0uu"),2]))
-    p0um<-1-(p0mm + p0uu)
-    sel<-as.numeric(as.character(settings$Setting[6]))
+    p0uu<-round(as.numeric(as.character(settings[which(settings[,1] == "p0uu"),2])),16)
     pedigree<-pedigree.data$pedigree
+    p0mm = 1-p0uu
+    p0um = 0
 
 
     if(sum(c(p0mm, p0um, p0uu), na.rm =TRUE) != 1) {stop("The initial state probabilities don't sum to 1")}
@@ -919,15 +919,15 @@ BOOTmodel<-function(pedigree.data, Nboot, out.dir, out.name)
   if (model == "ABneutral.R")
   {
   ## Reading the dataset for bootstrapping and extracting the parameter settings
-  settings<-pedigree.data$settings
-  est<-pedigree.data$estimates
-  eqp<-as.numeric(as.character(settings[which(settings[,1] == "eqp"),2]))
-  eqp.weight<-as.numeric(as.character(settings[which(settings[,1] == "eqp.weight"),2]))
-  optim.method<-as.character(settings[which(settings[,1] == "optim.method"),2])
-  p0mm<-as.numeric(as.character(settings[which(settings[,1] == "p0mm"),2]))
-  p0uu<-as.numeric(as.character(settings[which(settings[,1] == "p0uu"),2]))
-  p0um<-1-(p0mm + p0uu)
-  pedigree<-pedigree.data$pedigree
+    settings<-pedigree.data$settings
+    est<-pedigree.data$estimates
+    eqp<-as.numeric(as.character(settings[which(settings[,1] == "eqp"),2]))
+    eqp.weight<-as.numeric(as.character(settings[which(settings[,1] == "eqp.weight"),2]))
+    optim.method<-as.character(settings[which(settings[,1] == "optim.method"),2])
+    p0uu<-round(as.numeric(as.character(settings[which(settings[,1] == "p0uu"),2])),16)
+    pedigree<-pedigree.data$pedigree
+    p0mm = 1-p0uu
+    p0um = 0
 
 
   if(sum(c(p0mm, p0um, p0uu), na.rm =TRUE) != 1) {stop("The initial state probabilities don't sum to 1")}
@@ -1102,15 +1102,15 @@ allow.neg.intercept="yes"
 
 
   ##### Reading the dataset for bootstrapping and extracting the parameter settings
-  settings<-pedigree.data$settings
-  est<-pedigree.data$estimates
-  eqp<-as.numeric(as.character(settings[which(settings[,1] == "eqp"),2]))
-  eqp.weight<-as.numeric(as.character(settings[which(settings[,1] == "eqp.weight"),2]))
-  optim.method<-as.character(settings[which(settings[,1] == "optim.method"),2])
-  p0mm<-as.numeric(as.character(settings[which(settings[,1] == "p0mm"),2]))
-  p0uu<-as.numeric(as.character(settings[which(settings[,1] == "p0uu"),2]))
-  p0um<-1-(p0mm + p0uu)
-  pedigree<-pedigree.data$pedigree
+    settings<-pedigree.data$settings
+    est<-pedigree.data$estimates
+    eqp<-as.numeric(as.character(settings[which(settings[,1] == "eqp"),2]))
+    eqp.weight<-as.numeric(as.character(settings[which(settings[,1] == "eqp.weight"),2]))
+    optim.method<-as.character(settings[which(settings[,1] == "optim.method"),2])
+    p0uu<-round(as.numeric(as.character(settings[which(settings[,1] == "p0uu"),2])),16)
+    pedigree<-pedigree.data$pedigree
+    p0mm = 1-p0uu
+    p0um = 0
   #props<-pedigree.data$prop.data.used
 
 
