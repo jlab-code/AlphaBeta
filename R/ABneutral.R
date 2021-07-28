@@ -234,7 +234,7 @@ ABneutral<-function(pedigree.data, p0uu, eqp, eqp.weight, Nstarts, out.dir, out.
 	 final<-cbind(final, lsqpart)
 	 colnames(final)[ncol(final)]<-c("value.part")
 	 final<-final[order(final[,"value"]),]
-	 index.1<-which(final["alpha"] > 0 & final["beta"] > 0 & final["intercept"] > 0 & final[,"weight"] > 0, final["convcode"] == 0)
+	 index.1<- which(final["alpha"] > 0 & final["beta"] > 0 & final["intercept"] > 0 & final[,"weight"] > 0 & final["convcode"] == 0)
 	 #index.1<-which(final["alpha"] > 0 & final["beta"] > 0 & final["intercept"] > 0)
 	 index.2<-setdiff(seq_len(NROW(final)) , index.1)
 	 final.1<-final[index.1,]
