@@ -30,8 +30,8 @@
 #' @export
 #' @examples
 #'# Get some toy data
-#' file <- system.file("extdata/dm/","nodelist.fn", package="AlphaBeta")
-#' file2 <- system.file("extdata/dm/","edgelist.fn", package="AlphaBeta")
+#' file <- system.file("extdata", "dm","nodelist.fn", package="AlphaBeta")
+#' file2 <- system.file("extdata","dm","edgelist.fn", package="AlphaBeta")
 #' plotPedigree(nodelist = file, edgelist=file2, sampling.design="sibling",vertex.label=TRUE,
 #'  out.pdf="Plot", output.dir=getwd() )
 
@@ -64,8 +64,9 @@ plotPedigree <- function(nodelist, edgelist, sampling.design, out.pdf=NULL, outp
       m <- data.frame(m)
 
       #split groups as individual dataframes
-      gps <- m %>% dplyr::group_by(grp)
-      mygps <- dplyr::group_split(gps)
+      # gps <- m %>% dplyr::group_by(grp)
+      # mygps <- dplyr::group_split(gps)
+      mygps <- split(gps, gps$grp)
 
       #set gap-width for complex pedigrees. gap of 2 is good enough.
       gap = 2
@@ -191,14 +192,14 @@ plotPedigree <- function(nodelist, edgelist, sampling.design, out.pdf=NULL, outp
     V(g)$color <- ifelse(samples[V(g), 3] == "Y", "red", "gray")
 
     if (!is.null(out.pdf)) {
-      pdf(paste(output.dir, out.pdf, ".pdf", sep=""), colormodel = 'cmyk', width = plot.width, height = plot.height)
+      pdf(file.path(output.dir, paste0(out.pdf, ".pdf")), colormodel = 'cmyk', width = plot.width, height = plot.height)
     }
 
     pl <- plot.igraph(g, layout = df,
                       asp=aspect.ratio,
                       #edge.width = 1,
                       vertex.size = vertex.size,
-                      vertex.frame.width = 0,
+                      vertex.frame.width = 1,
                       vertex.label = if (vertex.label==FALSE) NA,
                       vertex.label.cex = 0.6,
                       vertex.label.color = "black",
@@ -213,6 +214,5 @@ plotPedigree <- function(nodelist, edgelist, sampling.design, out.pdf=NULL, outp
       dev.off()
     }
   }
-
 
 
