@@ -130,6 +130,7 @@ BOOTmodel<-function(pedigree.data, Nboot, out.dir, out.name)
     	## Defining the Least Square function to be minimized
     	LSE_intercept<-function(param_int)
     	{
+    	  d = divergence(pedigree, p0mm, p0um, p0uu, param_int[1:4])
     	  sum((pedigree[,4] - param_int[5] - divergence(pedigree, p0mm, p0um, p0uu, param_int[1:4])[[2]])^2) +
     	    eqp.weight*nrow(pedigree)*((divergence(pedigree, p0mm, p0um, p0uu, param_int[1:4])[[1]]- eqp)^2)
     	}
@@ -158,7 +159,7 @@ BOOTmodel<-function(pedigree.data, Nboot, out.dir, out.name)
 
         			counter<-counter+1
 
-        			message("Bootstrap interation: ", counter/Nboot, "\n")
+        			message("Bootstrap interationsssss: ", counter/Nboot, "\n")
 
         			opt.out  <- suppressWarnings(optimx(par = param_int0, fn = LSE_intercept, method=optim.method))
         			alphafinal<-as.numeric(opt.out[1])
@@ -1000,8 +1001,9 @@ BOOTmodel<-function(pedigree.data, Nboot, out.dir, out.name)
 
   LSE_intercept<-function(param_int)
   {
-    sum((pedigree[,4] - param_int[4] - divergence(pedigree, p0mm, p0um, p0uu, param_int[1:3])[[2]])^2) +
-      eqp.weight*nrow(pedigree)*((divergence(pedigree, p0mm, p0um, p0uu, param_int[1:3])[[1]]- eqp)^2)
+     d = divergence(pedigree, p0mm, p0um, p0uu, param_int[1:3])
+     sum((pedigree[,4] - param_int[4] - d[[2]])^2) +
+      eqp.weight*nrow(pedigree)*((d[[1]]- eqp)^2)
   }
 
 
@@ -1028,7 +1030,7 @@ BOOTmodel<-function(pedigree.data, Nboot, out.dir, out.name)
 
     counter<-counter+1
 
-    message("Bootstrap interation: ", counter/Nboot, "\n")
+    message("Bootstrap iterations: ", counter/Nboot, "\n")
 
 
     opt.out  <- suppressWarnings(optimx(par = param_int0, fn = LSE_intercept, method=optim.method))
