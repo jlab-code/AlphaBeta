@@ -105,8 +105,9 @@ ABneutral<-function(pedigree.data, p0uu, eqp, eqp.weight, Nstarts, out.dir, out.
 
 		LSE_intercept<-function(param_int)
 		{
-		  sum((pedigree[,4] - param_int[4] - divergence(pedigree, p0mm, p0um, p0uu, param_int[1:3])[[2]])^2) +
-		    eqp.weight*nrow(pedigree)*((divergence(pedigree, p0mm, p0um, p0uu, param_int[1:3])[[1]]- eqp)^2)
+		  d = divergence(pedigree, p0mm, p0um, p0uu, param_int[1:3])
+		  sum((pedigree[,4] - param_int[4] - d[[2]])^2) +
+		    eqp.weight*nrow(pedigree)*((d[[1]]- eqp)^2)
 		}
 
 

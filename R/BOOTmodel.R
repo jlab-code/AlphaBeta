@@ -130,8 +130,9 @@ BOOTmodel<-function(pedigree.data, Nboot, out.dir, out.name)
     	## Defining the Least Square function to be minimized
     	LSE_intercept<-function(param_int)
     	{
-    	  sum((pedigree[,4] - param_int[5] - divergence(pedigree, p0mm, p0um, p0uu, param_int[1:4])[[2]])^2) +
-    	    eqp.weight*nrow(pedigree)*((divergence(pedigree, p0mm, p0um, p0uu, param_int[1:4])[[1]]- eqp)^2)
+    	  d = divergence(pedigree, p0mm, p0um, p0uu, param_int[1:4])
+    	  sum((pedigree[,4] - param_int[5] - d[[2]])^2) +
+    	    eqp.weight*nrow(pedigree)*((d[[1]]- eqp)^2)
     	}
 
 
