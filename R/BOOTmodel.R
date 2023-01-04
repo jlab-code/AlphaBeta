@@ -1030,7 +1030,7 @@ BOOTmodel<-function(pedigree.data, Nboot, out.dir, out.name)
 
     counter<-counter+1
 
-    message("Bootstrap interationssss: ", counter/Nboot, "\n")
+    message("Bootstrap iterations: ", counter/Nboot, "\n")
 
 
     opt.out  <- suppressWarnings(optimx(par = param_int0, fn = LSE_intercept, method=optim.method))
